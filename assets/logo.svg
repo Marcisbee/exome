@@ -9,11 +9,15 @@
           width: 100%;
           font-size: 100px;
           text-align: center;
-          color: lightblue;
+          color: #34d3ef;
+          font-family: Tahoma;
+        }
+        h1 span {
+          text-shadow: 4px 4px #ff57de;
         }
       </style>
 
-      <h1>Exome</h1>
+      <h1>🧬 <span>Exome</span></h1>
 
     </div>
   </foreignObject>
