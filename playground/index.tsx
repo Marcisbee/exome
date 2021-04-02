@@ -2,7 +2,7 @@ import React, { StrictMode } from 'react'
 import ReactDom from 'react-dom'
 
 import { useStore } from '..'
-import { Dog, dogStore, Person } from './dogStore'
+import { Dog, dogAndy, dogStore, Person } from './dogStore'
 import { counterStore, jokeStore } from './store'
 
 function Joke() {
@@ -41,6 +41,14 @@ function Counter() {
   )
 }
 
+function Dogs({ store }: { store: Dog }) {
+  const dog = useStore(store)
+
+  return (
+    <strong>{dog.name}</strong>
+  )
+}
+
 function People({ store }: { store: Person }) {
   const person = useStore(store)
 
@@ -49,29 +57,38 @@ function People({ store }: { store: Person }) {
       <strong>{person.name}</strong>
       {person.dogs.length
         ? (
-            <div>- owner of: {person.dogs.map((dog) => dog.name).join(', ')}</div>
+            <div>- owner of: {person.dogs.map((dog, index) => (
+              <Dogs key={`dog-${dog.name}-${index}`} store={dog} />
+            ))}</div>
           )
         : (
             <div>- owns no dogs</div>
           )}
+
       <button onClick={() => person.addDog(new Dog('Joly', 'Husky'))}>
         add new dog
       </button>
-      <hr />
+      <br />
+      <br />
     </div>
   )
 }
 
-function Dogs() {
-  const state = useStore(dogStore)
+function DogOwners() {
+  const { persons, addPerson } = useStore(dogStore)
 
   return (
     <div>
-      {state.persons.map((person, index) => (
-        <People key={`${person.name}-${index}`} store={person} />
+      {persons.map((person, index) => (
+        <People key={`person-${person.name}-${index}`} store={person} />
       ))}
-      <button onClick={() => state.addPerson(new Person('Samson Jo'))}>
+
+      <button onClick={() => addPerson(new Person('Samson Jo'))}>
         add new person
+      </button>
+
+      <button onClick={() => dogAndy.rename('Jeff')}>
+        rename dog Andy
       </button>
     </div>
   )
@@ -92,7 +109,7 @@ function App() {
       <hr />
       <br />
 
-      <Dogs />
+      <DogOwners />
     </div>
   )
 }

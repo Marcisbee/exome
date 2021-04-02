@@ -42,11 +42,16 @@ export class Store extends Estore {
 
 export const dogStore = new Store()
 
+export const dogAndy = new Dog('Andy', 'beagle pup')
+
 dogStore.prefill({
   persons: [
     new Person('John Wick', [
-      new Dog('Andy', 'beagle pup')
+      dogAndy
     ]),
-    new Person('Jane Doe')
+    new Person('Jane Doe', [
+      dogAndy
+    ]),
+    new Person('Daniel Craig')
   ]
 })
