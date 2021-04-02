@@ -1,4 +1,4 @@
-import { Estore } from '..'
+import { Exome } from '..'
 
 interface Joke {
   id: number
@@ -7,7 +7,7 @@ interface Joke {
   punchline: string
 }
 
-export class JokeStore extends Estore {
+export class JokeStore extends Exome {
   public joke?: Joke
   public isLoading = false
 
@@ -27,7 +27,7 @@ export class JokeStore extends Estore {
 
 export const jokeStore = new JokeStore()
 
-export class CounterStore extends Estore {
+export class CounterStore extends Exome {
   public count = 0
 
   public increment() {

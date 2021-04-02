@@ -1,2 +1,2 @@
-export { Estore } from './estore'
+export { Exome } from './exome'
 export { useStore } from './react'

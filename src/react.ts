@@ -1,16 +1,16 @@
 import React from 'react'
 
-import { Estore } from './estore'
-import { estoreId } from './utils/estore-id'
+import { Exome } from './exome'
+import { exomeId } from './utils/exome-id'
 import { updateRenderers } from './utils/update-maps'
 
 const useIsomorphicLayoutEffect = typeof window !== 'undefined'
   ? React.useLayoutEffect
   : React.useEffect
 
-export function useStore<T extends Estore>(store: T): Readonly<T> {
+export function useStore<T extends Exome>(store: T): Readonly<T> {
   const renderer = React.useState<any>({})
-  const id: string = (store as any)[estoreId]
+  const id: string = (store as any)[exomeId]
 
   useIsomorphicLayoutEffect(
     () => {
@@ -39,7 +39,7 @@ export function useStore<T extends Estore>(store: T): Readonly<T> {
 
   if (!id) {
     throw new Error(
-      '"useStore" encountered store that is not an instance of "Estore"'
+      '"useStore" encountered store that is not an instance of "Exome"'
     )
   }
 

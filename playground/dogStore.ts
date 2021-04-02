@@ -1,6 +1,6 @@
-import { Estore } from '..'
+import { Exome } from '..'
 
-export class Dog extends Estore {
+export class Dog extends Exome {
   constructor(public name: string, public breed: string) {
     super()
   }
@@ -14,7 +14,7 @@ export class Dog extends Estore {
   }
 }
 
-export class Person extends Estore {
+export class Person extends Exome {
   constructor(public name: string, public dogs: Dog[] = []) {
     super()
   }
@@ -28,7 +28,7 @@ export class Person extends Estore {
   }
 }
 
-export class Store extends Estore {
+export class Store extends Exome {
   public persons: Person[] = []
 
   public addPerson(person: Person) {

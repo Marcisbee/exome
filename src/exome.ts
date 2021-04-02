@@ -1,10 +1,10 @@
-import { estoreId } from './utils/estore-id'
+import { exomeId } from './utils/exome-id'
 import { proxify } from './utils/proxify'
 import { ranID } from './utils/ran-id'
 import { updateRenderers } from './utils/update-maps'
 
-export class Estore {
-  private [estoreId]: string
+export class Exome {
+  private [exomeId]: string
 
   constructor() {
     const name = this.constructor.name
@@ -12,7 +12,7 @@ export class Estore {
 
     updateRenderers.set(id, [])
 
-    this[estoreId] = id
+    this[exomeId] = id
 
     return proxify(this, name, id)
   }
