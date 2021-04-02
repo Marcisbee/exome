@@ -3,8 +3,8 @@ Proxy based state manager for deeply nested states
 
 ![CI](https://img.shields.io/github/workflow/status/Marcisbee/exome/CI?style=flat-square)
 [![npm version](https://img.shields.io/npm/v/exome.svg?style=flat-square)](https://www.npmjs.com/package/exome)
-[![npm downloads](https://img.shields.io/npm/dm/exome.svg?style=flat-square)](https://www.npmjs.com/package/exome)
-[![gzip bundle size](https://img.shields.io/bundlephobia/minzip/exome?style=flat-square)](https://bundlephobia.com/result?p=exome)
+<!--[![npm downloads](https://img.shields.io/npm/dm/exome.svg?style=flat-square)](https://www.npmjs.com/package/exome)
+[![gzip bundle size](https://img.shields.io/bundlephobia/minzip/exome?style=flat-square)](https://bundlephobia.com/result?p=exome)-->
 
 # Features
 - ⚡️ Fast change update
