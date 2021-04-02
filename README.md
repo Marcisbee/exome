@@ -1,8 +1,8 @@
-<div style="text-align: center;">
+<div align="center">
   <img src="assets/logo.svg" width="800" height="180" />
 </div>
 
-<div style="text-align: center;">
+<div align="center">
   <a href="https://github.com/Marcisbee/exome/actions">
     <img alt="CI" src="https://img.shields.io/github/workflow/status/Marcisbee/exome/CI?style=flat-square" />
   </a>
