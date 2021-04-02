@@ -8,6 +8,8 @@ export function proxify(parent: any, name: string, id: string): any {
       get: (target, key) => {
         if (parent === target && typeof target[key] === 'function') {
           return (...args: any) => {
+            target.constructor.before?.[key]?.call(proxy)
+
             const output = target[key].call(proxy, ...args)
 
             if (output instanceof Promise) {
@@ -19,6 +21,7 @@ export function proxify(parent: any, name: string, id: string): any {
 
                   // console.log('Async action', key, 'was called in', name, '(', id, ')')
 
+                  target.constructor.after?.[key]?.call(proxy)
                   updateView()
                 })
                 .catch((error) => {
@@ -31,6 +34,7 @@ export function proxify(parent: any, name: string, id: string): any {
 
               // console.log('Action', key, 'was called in', name, '(', id, ')')
 
+              target.constructor.after?.[key]?.call(proxy)
               updateView()
             }
 

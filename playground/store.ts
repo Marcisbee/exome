@@ -12,16 +12,24 @@ export class JokeStore extends Exome {
   public isLoading = false
 
   public async getJoke() {
-    this.setLoading(true)
-
     this.joke = await fetch('https://official-joke-api.appspot.com/random_joke')
       .then<Joke>((response) => response.json())
-
-    this.setLoading(false)
   }
 
   private setLoading(isLoading: boolean) {
     this.isLoading = isLoading
+  }
+
+  static before = {
+    getJoke() {
+      this.setLoading(true)
+    }
+  }
+
+  static after = {
+    getJoke() {
+      this.setLoading(false)
+    }
   }
 }
 
