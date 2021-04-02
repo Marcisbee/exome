@@ -1,20 +1,35 @@
-# Exome
-Proxy based state manager for deeply nested states
+<div style="text-align: center;">
+  <strong style="font-size: 60px;">Exome</strong>
+</div>
 
-![CI](https://img.shields.io/github/workflow/status/Marcisbee/exome/CI?style=flat-square)
-[![npm version](https://img.shields.io/npm/v/exome.svg?style=flat-square)](https://www.npmjs.com/package/exome)
-<!--[![npm downloads](https://img.shields.io/npm/dm/exome.svg?style=flat-square)](https://www.npmjs.com/package/exome)
-[![gzip bundle size](https://img.shields.io/bundlephobia/minzip/exome?style=flat-square)](https://bundlephobia.com/result?p=exome)-->
+<div style="text-align: center;">
+  <a href="https://github.com/Marcisbee/exome/actions">
+    <img alt="CI" src="https://img.shields.io/github/workflow/status/Marcisbee/exome/CI?style=flat-square" />
+  </a>
+  <a href="https://www.npmjs.com/package/exome">
+    <img alt="npm" src="https://img.shields.io/npm/v/exome.svg?style=flat-square" />
+  </a>
+  <a href="https://bundlephobia.com/result?p=exome">
+    <img alt="package size" src="https://img.shields.io/bundlephobia/minzip/exome?style=flat-square" />
+  </a>
+</div>
 
-# Features
-- ⚡️ Fast change update
-- 👮 Type safe with TypeScript
-- 🎡 Supports really deep states
-- 🧮 Mutable via (async) actions
-- 🎛 Supports effects
-- 🎭 Works with:
-  - React
-- 🗂 ZERO dependencies
+<div align="center">
+  Proxy based state manager for deeply nested states
+</div>
+
+## Features
+
+- 📦 **Small**: Just **1 KB** minified
+- 🚀 **Fast**: Uses **no diffing** of state changes (because of architecture, it's not needed)
+- 😍 **Simple**: Uses classes as state
+- 🎡 **Nested**: Easily manage deeply nested state structures
+- 💪 **Immutable**: Data can only be changed via actions
+- 🎛 **Effects**: Built-in effects for actions
+- 🛡 **Bulletproof**: Written in strict TypeScript
+- 🗂 **Typed**: All your state will be typed
+- 💨 **Zero dependencies**
+
 
 # Installation
 To install the stable version:
