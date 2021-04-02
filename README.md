@@ -1,5 +1,5 @@
 # Exome
-🎡 Proxy based store manager for deeply nested states
+Proxy based store manager for deeply nested states
 
 ![CI](https://img.shields.io/github/workflow/status/Marcisbee/exome/CI?style=flat-square)
 [![npm version](https://img.shields.io/npm/v/exome.svg?style=flat-square)](https://www.npmjs.com/package/exome)
@@ -9,6 +9,9 @@
 # Features
 - ⚡️ Fast change update
 - 👮 Type safe with TypeScript
+- 🎡 Supports really deep states
+- 🧮 Mutable via (async) actions
+- 🎛 Supports effects
 - 🎭 Works with:
   - React
 - 🗂 ZERO dependencies
@@ -32,7 +35,7 @@ I stumbled upon a need to store deeply nested store and manage chunks of them in
 - [x] Single source of thruth (can be multiple tho, but it's up to you)
 - [x] Type safe with TypeScript
 - [x] To have actions be only way of editing state
-- [ ] To have effects trigger extra actions
+- [x] To have effects trigger extra actions
 - [ ] Redux devtool support
 
 # MIT License
