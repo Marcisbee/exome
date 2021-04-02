@@ -3,7 +3,6 @@
 </div>
 
 <br />
-<br />
 
 <div align="center">
   <a href="https://github.com/Marcisbee/exome/actions">
@@ -22,8 +21,6 @@
 <div align="center">
   Proxy based state manager for deeply nested states
 </div>
-
-<br />
 
 ## Features
 
