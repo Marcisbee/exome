@@ -1,4 +1,3 @@
-import { estoreId } from './estore-id'
 import { updateQueue } from './update-maps'
 import { updateView } from './update-view'
 
@@ -7,10 +6,6 @@ export function proxify(parent: any, name: string, id: string): any {
     parent,
     {
       get: (target, key) => {
-        if (key === estoreId) {
-          return id
-        }
-
         if (parent === target && typeof target[key] === 'function') {
           return (...args: any) => {
             const output = target[key].call(proxy, ...args)
