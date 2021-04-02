@@ -1,5 +1,5 @@
 <div style="text-align: center;">
-  <strong style="font-size: 60px;">Exome</strong>
+  <img src="assets/logo.svg" width="800" height="180" />
 </div>
 
 <div style="text-align: center;">
@@ -17,6 +17,8 @@
 <div align="center">
   Proxy based state manager for deeply nested states
 </div>
+
+<br />
 
 ## Features
 

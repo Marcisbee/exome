@@ -1,0 +1,20 @@
+<svg fill="none" viewBox="0 0 800 180" width="800" height="180"
+  xmlns="http://www.w3.org/2000/svg">
+  <foreignObject width="100%" height="100%">
+    <div xmlns="http://www.w3.org/1999/xhtml">
+
+      <style>
+        h1 {
+          display: block;
+          width: 100%;
+          font-size: 100px;
+          text-align: center;
+          color: lightblue;
+        }
+      </style>
+
+      <h1>Exome</h1>
+
+    </div>
+  </foreignObject>
+</svg>
