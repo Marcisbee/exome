@@ -3,7 +3,7 @@ import { ranID } from './utils/ran-id'
 import { updateRenderers } from './utils/update-maps'
 
 export class Estore {
-  constructor () {
+  constructor() {
     const name = this.constructor.name
     const id = `${name}-${ranID()}`
 

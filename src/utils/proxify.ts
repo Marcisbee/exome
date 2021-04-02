@@ -2,8 +2,8 @@ import { estoreId } from './estore-id'
 import { updateQueue } from './update-maps'
 import { updateView } from './update-view'
 
-export function proxify (parent: any, name: string, id: string): any {
-  return new Proxy(
+export function proxify(parent: any, name: string, id: string): any {
+  const proxy = new Proxy(
     parent,
     {
       get: (target, key) => {
@@ -11,17 +11,33 @@ export function proxify (parent: any, name: string, id: string): any {
           return id
         }
 
-        if (typeof target[key] === 'function') {
+        if (parent === target && typeof target[key] === 'function') {
           return (...args: any) => {
-            const output = target[key](...args)
+            const output = target[key].call(proxy, ...args)
 
-            if (!updateQueue.has(name)) {
-              updateQueue.set(id, true)
+            if (output instanceof Promise) {
+              output
+                .then(() => {
+                  if (!updateQueue.has(name)) {
+                    updateQueue.set(id, true)
+                  }
+
+                  // console.log('Async action', key, 'was called in', name, '(', id, ')')
+
+                  updateView()
+                })
+                .catch((error) => {
+                  throw error
+                })
+            } else {
+              if (!updateQueue.has(name)) {
+                updateQueue.set(id, true)
+              }
+
+              // console.log('Action', key, 'was called in', name, '(', id, ')')
+
+              updateView()
             }
-
-            console.log('Action', key, 'was called in', name, '(', id, ')')
-
-            updateView()
 
             return output
           }
@@ -35,14 +51,12 @@ export function proxify (parent: any, name: string, id: string): any {
       },
 
       set: (target, key, value) => {
-        if (key in target) {
-          return false
-        }
-
         target[key] = value
 
-        return value
+        return true
       }
     }
   )
+
+  return proxy
 }

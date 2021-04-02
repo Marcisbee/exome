@@ -8,16 +8,31 @@ const useIsomorphicLayoutEffect = typeof window !== 'undefined'
   ? React.useLayoutEffect
   : React.useEffect
 
-export function useStore<T extends Estore> (store: T): Readonly<T> {
+export function useStore<T extends Estore>(store: T): Readonly<T> {
   const renderer = React.useState<any>({})
   const id: string = (store as any)[estoreId]
 
   useIsomorphicLayoutEffect(
     () => {
-      updateRenderers.get(id)!.push(() => {
-        console.log('Re-renders view for', id)
+      const handler = () => {
         renderer[1]({})
-      })
+      }
+
+      const queue = updateRenderers.get(id)!
+
+      queue.push(handler)
+
+      return () => {
+        if (queue === updateRenderers.get(id)!) {
+          const index = queue.indexOf(handler)
+
+          if (index === -1) {
+            return
+          }
+
+          queue.splice(index, 1)
+        }
+      }
     },
     [renderer]
   )
