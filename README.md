@@ -1,5 +1,5 @@
 # Exome
-Proxy based store manager for deeply nested states
+Proxy based state manager for deeply nested states
 
 ![CI](https://img.shields.io/github/workflow/status/Marcisbee/exome/CI?style=flat-square)
 [![npm version](https://img.shields.io/npm/v/exome.svg?style=flat-square)](https://www.npmjs.com/package/exome)
