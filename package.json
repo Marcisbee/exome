@@ -4,10 +4,12 @@
   "description": "Proxy based store manager for deeply nested states",
   "main": "dist/estore.js",
   "module": "dist/estore.esm.js",
+  "types": "dist/src/index.d.ts",
   "scripts": {
     "build": "npm run build:cjs && npm run build:esm && npm run declarations",
     "build:cjs": "esbuild src/index.ts --outfile=dist/estore.js --bundle --format=cjs --external:react",
     "build:esm": "esbuild src/index.ts --outfile=dist/estore.esm.js --bundle --format=esm --external:react",
+    "playground": "esbuild playground/index.tsx --outfile=playground/dist/index.js --bundle --format=esm --sourcemap --define:process.env.NODE_ENV=\\\"development\\\" && npx serve playground/dist",
     "lint": "eslint --ext .js,.ts ./src",
     "test": "uvu -r esbuild-register",
     "declarations": "tsc --declarationDir dist --emitDeclarationOnly --declaration"
@@ -32,6 +34,7 @@
   "homepage": "https://github.com/Marcisbee/estore#readme",
   "devDependencies": {
     "@types/react": "^17.0.3",
+    "@types/react-dom": "^17.0.3",
     "@typescript-eslint/eslint-plugin": "^4.20.0",
     "esbuild": "^0.11.2",
     "esbuild-register": "^2.3.0",
@@ -40,6 +43,7 @@
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.3.1",
+    "react-dom": "^17.0.2",
     "typescript": "^4.2.3",
     "uvu": "^0.5.1"
   },
