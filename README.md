@@ -86,6 +86,40 @@ function Counter() {
 
 And that is it! No providers, no context, no boilerplate, just your state and actions.
 
+# Redux devtools
+
+You can use redux devtools extension to explore Exome store chunk by chunk.
+
+Just add `exomeDevtools` middleware via `addMiddleware` function exported by library before you start defining store.
+
+```ts
+import { addMiddleware, exomeDevtools } from 'exome'
+
+addMiddleware(
+  exomeDevtools({
+    name: 'Exome Playground'
+  })
+)
+```
+
+Actions will look something like this:
+
+```ts
+[Counter] NEW
+[Counter] increment
+[Counter] increment
+```
+
+And store will be split into chunks for easy exploring:
+
+```ts
+Person
+  0 { name: "John Wick", dogs: [...] }
+  1 { name: "Jane Doe", dogs: [] }
+Dog
+  0 { name: "Jeff", breed: "beagle pup" }
+```
+
 # API
 
 `exome` library has only two exports `Exome` and `useStore`.
@@ -161,7 +195,7 @@ I stumbled upon a need to store deeply nested store and manage chunks of them in
 - [x] Type safe with TypeScript
 - [x] To have actions be only way of editing state
 - [x] To have effects trigger extra actions
-- [ ] Redux devtool support
+- [x] Redux devtool support
 
 # MIT License
 Copyright (C) 2021 Marcis Bergmanis

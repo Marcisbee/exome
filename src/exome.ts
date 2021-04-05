@@ -1,3 +1,4 @@
+import { runMiddleware } from './middleware'
 import { exomeId } from './utils/exome-id'
 import { proxify } from './utils/proxify'
 import { ranID } from './utils/ran-id'
@@ -13,6 +14,10 @@ export class Exome {
     updateRenderers.set(id, [])
 
     this[exomeId] = id
+
+    requestAnimationFrame(() => {
+      runMiddleware(this, 'NEW', [])
+    })
 
     return proxify(this, name, id)
   }

@@ -1,14 +1,14 @@
 {
   "name": "exome",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Proxy based store manager for deeply nested states",
   "main": "dist/exome.js",
   "module": "dist/exome.esm.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "npm run build:cjs && npm run build:esm && npm run declarations",
-    "build:cjs": "esbuild src/index.ts --outfile=dist/exome.js --bundle --format=cjs --external:react",
-    "build:esm": "esbuild src/index.ts --outfile=dist/exome.esm.js --bundle --format=esm --external:react",
+    "build:cjs": "esbuild src/index.ts --outfile=dist/exome.js --bundle --format=cjs --external:react --define:process.env.NODE_ENV=\\\"production\\\"",
+    "build:esm": "esbuild src/index.ts --outfile=dist/exome.esm.js --bundle --format=esm --external:react --define:process.env.NODE_ENV=\\\"production\\\"",
     "playground": "esbuild playground/index.tsx --outfile=playground/dist/index.js --bundle --format=esm --sourcemap --define:process.env.NODE_ENV=\\\"development\\\" && npx serve playground/dist",
     "lint": "eslint --ext .js,.ts ./src",
     "test": "uvu -r esbuild-register",
@@ -33,6 +33,7 @@
   },
   "homepage": "https://github.com/Marcisbee/exome#readme",
   "devDependencies": {
+    "@types/node": "^14.14.37",
     "@types/react": "^17.0.3",
     "@types/react-dom": "^17.0.3",
     "@typescript-eslint/eslint-plugin": "^4.20.0",

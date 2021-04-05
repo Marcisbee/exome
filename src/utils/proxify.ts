@@ -1,3 +1,5 @@
+import { runMiddleware } from '../middleware'
+import { exomeId } from './exome-id'
 import { updateQueue } from './update-maps'
 import { updateView } from './update-view'
 
@@ -6,7 +8,7 @@ export function proxify(parent: any, name: string, id: string): any {
     parent,
     {
       get: (target, key) => {
-        if (parent === target && typeof target[key] === 'function') {
+        if (parent === target && parent[exomeId] && typeof target[key] === 'function') {
           return (...args: any) => {
             target.constructor.before?.[key]?.call(proxy)
 
@@ -19,7 +21,7 @@ export function proxify(parent: any, name: string, id: string): any {
                     updateQueue.set(id, true)
                   }
 
-                  // console.log('Async action', key, 'was called in', name, '(', id, ')')
+                  runMiddleware(target, String(key), args)
 
                   target.constructor.after?.[key]?.call(proxy)
                   updateView()
@@ -32,7 +34,7 @@ export function proxify(parent: any, name: string, id: string): any {
                 updateQueue.set(id, true)
               }
 
-              // console.log('Action', key, 'was called in', name, '(', id, ')')
+              runMiddleware(target, String(key), args)
 
               target.constructor.after?.[key]?.call(proxy)
               updateView()

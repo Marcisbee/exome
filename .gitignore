@@ -105,3 +105,4 @@ typings/
 
 /playground/dist/*.js
 /playground/dist/*.js.map
+.DS_Store

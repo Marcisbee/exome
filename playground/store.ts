@@ -1,4 +1,8 @@
-import { Exome } from '..'
+import { Exome, addMiddleware, exomeDevtools } from '..'
+
+addMiddleware(exomeDevtools({
+  name: 'Exome Playground'
+}))
 
 interface Joke {
   id: number
