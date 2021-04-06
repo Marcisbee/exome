@@ -1,5 +1,7 @@
+<br />
+
 <div align="center">
-  <img src="assets/logo.svg" width="800" height="180" />
+  <a href="/"><img src="assets/logo.svg" width="420" /></a>
 </div>
 
 <br />
@@ -24,7 +26,7 @@
 
 ## Features
 
-- 📦 **Small**: Just **1 KB** minified
+- 📦 **Small**: Just **1 KB** minizipped
 - 🚀 **Fast**: Uses **no diffing** of state changes (because of architecture, it's not needed)
 - 😍 **Simple**: Uses classes as state
 - 🧬 **Nested**: Easily manage deeply nested state structures
@@ -32,6 +34,7 @@
 - 🎛 **Effects**: Built-in effects for actions
 - 🛡 **Bulletproof**: Written in strict TypeScript
 - 🗂 **Typed**: All your state will be typed
+- 🔭 **Devtools**: Redux devtools integration
 - 💨 **Zero dependencies**
 
 
@@ -122,12 +125,19 @@ Dog
 
 # API
 
-`exome` library has only two exports `Exome` and `useStore`.
+`exome` library have a few exports. Lets explore them!
 
-## `Exome`
+### - `Exome`
 It's just a class that deals with underlying logic that handles state changes.
 
-## `useStore`
+### - `useStore`
+
+Lets start with a typescript interface.
+
+```ts
+function useStore<T extends Exome>(store: T): Readonly<T>
+```
+
 Takes in only one parameter - an instance of `Exome` class. And outputs that same instance. It links this particular instance to this component to handle component updates.
 
 Exome can also include multiple Exomes inside itself. And whenever new Exome is used in child component, it has to be wrapped in `useStore` hook.
