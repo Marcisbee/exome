@@ -1,14 +1,14 @@
 {
   "name": "exome",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Proxy based store manager for deeply nested states",
   "main": "dist/exome.js",
   "module": "dist/exome.esm.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "npm run build:cjs && npm run build:esm && npm run declarations",
-    "build:cjs": "esbuild src/index.ts --outfile=dist/exome.js --bundle --format=cjs --external:react --define:process.env.NODE_ENV=\\\"production\\\"",
-    "build:esm": "esbuild src/index.ts --outfile=dist/exome.esm.js --bundle --format=esm --external:react --define:process.env.NODE_ENV=\\\"production\\\"",
+    "build:cjs": "esbuild src/index.ts --outfile=dist/exome.js --target=es2016 --bundle --format=cjs --external:react --define:process.env.NODE_ENV=\\\"production\\\"",
+    "build:esm": "esbuild src/index.ts --outfile=dist/exome.esm.js --target=es2016 --bundle --format=esm --external:react --define:process.env.NODE_ENV=\\\"production\\\"",
     "playground": "esbuild playground/index.tsx --outfile=playground/dist/index.js --bundle --format=esm --sourcemap --define:process.env.NODE_ENV=\\\"development\\\" && npx serve playground/dist",
     "lint": "eslint --ext .js,.ts ./src",
     "test": "uvu -r esbuild-register",
