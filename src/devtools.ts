@@ -1,6 +1,9 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { Exome } from './exome'
 import { Middleware } from './middleware'
 import { exomeId } from './utils/exome-id'
+import { updateQueue } from './utils/update-maps'
+import { updateView } from './utils/update-view'
 
 interface ReduxMessage {
   type: string
@@ -18,6 +21,16 @@ interface Redux {
   init: (state: Record<string, any>) => void
 }
 
+interface ReduxConfig {
+  name?: string
+  maxAge?: number
+  actionsBlacklist?: string | string[]
+  serialize?: {
+    replacer?: (key: string, value: any) => any
+    reviver?: (key: string, value: any) => any
+  }
+}
+
 const fullStore = new Map<string, Map<string, Exome>>()
 
 function getFullStore() {
@@ -27,15 +40,27 @@ function getFullStore() {
     output[key] = Array.from(map.values())
   }
 
-  return output
+  // Improve serializer with `__serializedType__` once https://github.com/zalmoxisus/redux-devtools-extension/issues/737 is resolved
+  return JSON.parse(JSON.stringify(output, (_, value) => {
+    if (value instanceof Exome && value[exomeId]) {
+      return {
+        $$exome_id: value[exomeId],
+        ...value
+      }
+    }
+
+    return value
+  }))
 }
 
 export function exomeDevtools({
   name,
-  maxAge
+  maxAge,
+  actionsBlacklist
 }: {
   name?: string
   maxAge?: number
+  actionsBlacklist?: string
 }): Middleware {
   let extension
   try {
@@ -54,18 +79,36 @@ export function exomeDevtools({
     return () => {}
   }
 
-  const ReduxTool: Redux = extension.connect({
+  const config: ReduxConfig = {
     name,
-    maxAge
-  })
+    maxAge,
+    actionsBlacklist
+  }
 
-  // ReduxTool.subscribe((message) => {
-  //   if (message.type === 'DISPATCH' && message.state) {
-  //     console.log({
-  //       message
-  //     })
-  //   }
-  // })
+  const ReduxTool: Redux = extension.connect(config)
+
+  ReduxTool.subscribe((message) => {
+    if (message.type === 'DISPATCH' && message.state) {
+      // We'll just use json parse reviver function to update instances
+      JSON.parse(message.state, (_, value) => {
+        if (typeof value === 'object' && value !== null && '$$exome_id' in value) {
+          const { $$exome_id, ...restValue } = value
+          const [name] = $$exome_id.split('-')
+          const instance = fullStore.get(name)?.get($$exome_id)
+
+          updateQueue.set($$exome_id, true)
+
+          Object.assign(instance, restValue)
+
+          return instance
+        }
+
+        return value
+      })
+
+      updateView()
+    }
+  })
 
   ReduxTool.init(getFullStore())
 

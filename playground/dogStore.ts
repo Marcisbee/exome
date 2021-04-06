@@ -1,4 +1,4 @@
-import { Exome } from '..'
+import { Exome, loadState, saveState } from '..'
 
 export class Dog extends Exome {
   constructor(public name: string, public breed: string) {
@@ -34,24 +34,29 @@ export class Store extends Exome {
   public addPerson(person: Person) {
     this.persons.push(person)
   }
-
-  public prefill({ persons }: { persons: Person[] }) {
-    this.persons = persons
-  }
 }
 
+export const dogStorePre = new Store()
 export const dogStore = new Store()
 
 export const dogAndy = new Dog('Andy', 'beagle pup')
 
-dogStore.prefill({
-  persons: [
-    new Person('John Wick', [
-      dogAndy
-    ]),
-    new Person('Jane Doe', [
-      dogAndy
-    ]),
-    new Person('Daniel Craig')
-  ]
-})
+dogStorePre.addPerson(
+  new Person('John Wick', [
+    dogAndy
+  ])
+)
+
+dogStorePre.addPerson(
+  new Person('Jane Doe', [
+    dogAndy
+  ])
+)
+
+dogStorePre.addPerson(
+  new Person('Daniel Craig')
+)
+
+const savedStore = saveState(dogStorePre)
+
+loadState(dogStore, savedStore)
