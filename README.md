@@ -1,7 +1,7 @@
 <br />
 
 <div align="center">
-  <a href="/"><img src="assets/logo.svg" width="420" /></a>
+  <a href="../../"><img src="assets/logo.svg" width="420" /></a>
 </div>
 
 <br />
@@ -12,6 +12,9 @@
   </a>
   <a href="https://www.npmjs.com/package/exome">
     <img alt="npm" src="https://img.shields.io/npm/v/exome.svg?style=flat-square" />
+  </a>
+  <a href="https://snyk.io/test/github/Marcisbee/exome">
+    <img alt="snyk" src="https://img.shields.io/snyk/vulnerabilities/github/Marcisbee/marklint?style=flat-square" />
   </a>
   <a href="https://bundlephobia.com/result?p=exome">
     <img alt="package size" src="https://img.shields.io/bundlephobia/minzip/exome?style=flat-square" />
