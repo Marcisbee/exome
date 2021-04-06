@@ -1,4 +1,5 @@
 export { Exome } from './exome'
 export { useStore } from './react'
+export { getExomeId } from './utils/get-id'
 export { addMiddleware } from './middleware'
 export { exomeDevtools } from './devtools'
