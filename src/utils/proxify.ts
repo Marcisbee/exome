@@ -1,3 +1,4 @@
+import { Exome } from '../exome'
 import { runMiddleware } from '../middleware'
 import { exomeId } from './exome-id'
 import { updateQueue } from './update-maps'
@@ -44,7 +45,7 @@ export function proxify(parent: any, name: string, id: string): any {
           }
         }
 
-        if (target[key] !== null && typeof target[key] === 'object') {
+        if (target[key] !== null && typeof target[key] === 'object' && !(target[key] instanceof Exome)) {
           return proxify(target[key], name, id)
         }
 
