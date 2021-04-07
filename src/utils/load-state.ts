@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { Exome, registeredExomes } from '../exome'
+import { Exome } from '../exome'
 import { exomeId } from './exome-id'
 import { getExomeId } from './get-id'
 import { updateQueue } from './update-maps'
@@ -7,7 +7,8 @@ import { updateView } from './update-view'
 
 export function loadState(
   store: Exome,
-  state: string
+  state: string,
+  config: Record<string, any> = {}
 ) {
   const instances = new Map()
 
@@ -22,7 +23,7 @@ export function loadState(
       }
 
       const [name]: [string] = localId.split('-')
-      const StoreExome = registeredExomes.get(name)
+      const StoreExome = config[name]
 
       if (!StoreExome) {
         throw new Error(`State cannot be loaded! "${name}" is missing.`)
