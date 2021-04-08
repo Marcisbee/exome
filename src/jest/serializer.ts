@@ -1,14 +1,12 @@
 import { Exome } from 'exome'
 
-export default {
-  test: (val: any) => {
-    return val instanceof Exome
-  },
+export function test(val: any): boolean {
+  return val instanceof Exome
+}
 
-  print: (val: typeof Exome) => {
-    const proto: Exome = Object.getPrototypeOf(val)
-    const name: string = proto.constructor.name || ''
+export function print(val: typeof Exome): string {
+  const proto: Exome = Object.getPrototypeOf(val)
+  const name: string = proto.constructor.name || ''
 
-    return `${name} ${JSON.stringify(val, null, '  ')}`
-  }
+  return `${name} ${JSON.stringify(val, null, '  ')}`
 }
