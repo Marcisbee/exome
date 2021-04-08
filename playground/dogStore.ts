@@ -59,4 +59,7 @@ dogStorePre.addPerson(
 
 const savedStore = saveState(dogStorePre)
 
-loadState(dogStore, savedStore)
+loadState(dogStore, savedStore, {
+  Person,
+  Dog,
+})
