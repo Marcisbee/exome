@@ -154,7 +154,7 @@ test('`print` outputs nested extended Exome instance', () => {
 })
 
 test('`print` outputs untitled class', () => {
-  const output = print(new (class extends Exome {})())
+  const output = print(new (class {})())
 
   assert.snapshot(output, '{}')
 })
