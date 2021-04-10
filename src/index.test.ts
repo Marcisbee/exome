@@ -11,7 +11,8 @@ const {
   addMiddleware,
   exomeDevtools
 } = proxyquire('./index.ts', {
-  react: {
+  './react.ts': {
+    useStore: true,
     '@noCallThru': true
   }
 })
@@ -22,7 +23,7 @@ test('exports `Exome`', () => {
 
 test('exports `useStore`', () => {
   assert.ok(useStore)
-  assert.instance(useStore, Function)
+  assert.is(useStore, true)
 })
 
 test('exports `saveState`', () => {
