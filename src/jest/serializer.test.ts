@@ -1,6 +1,6 @@
+import proxyquire from 'proxyquire'
 import { test } from 'uvu'
 import assert from 'uvu/assert'
-import proxyquire from 'proxyquire'
 
 import { Exome } from '../exome'
 
