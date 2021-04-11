@@ -16,7 +16,7 @@
     "test": "uvu -r esbuild-register",
     "coverage": "c8 --check-coverage npm test",
     "declarations": "tsc --declarationDir dist --emitDeclarationOnly --declaration",
-    "postbuild": "cp package.json dist"
+    "postbuild": "cp {package.json,README.md,LICENSE} dist"
   },
   "repository": {
     "type": "git",
