@@ -1,8 +1,7 @@
-import proxyquire from 'proxyquire'
 import { test } from 'uvu'
 import assert from 'uvu/assert'
 
-const {
+import {
   Exome,
   updateMap,
   updateView,
@@ -10,12 +9,7 @@ const {
   loadState,
   getExomeId,
   addMiddleware
-} = proxyquire('./index.ts', {
-  './react.ts': {
-    useStore: true,
-    '@noCallThru': true
-  }
-})
+} from './index'
 
 test('exports `Exome`', () => {
   assert.ok(Exome)
