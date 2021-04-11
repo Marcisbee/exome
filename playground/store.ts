@@ -13,7 +13,7 @@ interface Joke {
 }
 
 export class JokeStore extends Exome {
-  public joke?: Joke
+  public joke: Joke = null
   public isLoading = false
 
   public async getJoke() {
@@ -21,22 +21,20 @@ export class JokeStore extends Exome {
       .then<Joke>((response) => response.json())
   }
 
-  private setLoading(isLoading: boolean) {
+  public setLoading(isLoading: boolean) {
     this.isLoading = isLoading
   }
-
-  static before = {
-    getJoke() {
-      this.setLoading(true)
-    }
-  }
-
-  static after = {
-    getJoke() {
-      this.setLoading(false)
-    }
-  }
 }
+
+addMiddleware((instance, action) => {
+  if (instance instanceof JokeStore && action === 'getJoke') {
+    instance.setLoading(true)
+
+    return () => {
+      instance.setLoading(false)
+    }
+  }
+})
 
 export const jokeStore = new JokeStore()
 

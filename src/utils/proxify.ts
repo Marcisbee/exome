@@ -9,24 +9,24 @@ export function proxify(parent: any, name: string, id: string): any {
       get: (target, key) => {
         if (parent === target && parent[exomeId] && typeof target[key] === 'function') {
           return (...args: any) => {
-            target.constructor.before?.[key]?.call(proxy)
+            const middleware = runMiddleware(proxy, String(key), args)
 
             const output = target[key].call(proxy, ...args)
 
             if (output instanceof Promise) {
               output
                 .then(() => {
-                  runMiddleware(target, String(key), args)
-
-                  target.constructor.after?.[key]?.call(proxy)
+                  if (typeof middleware === 'function') {
+                    middleware()
+                  }
                 })
                 .catch((error) => {
                   throw error
                 })
             } else {
-              runMiddleware(target, String(key), args)
-
-              target.constructor.after?.[key]?.call(proxy)
+              if (typeof middleware === 'function') {
+                middleware()
+              }
             }
 
             return output

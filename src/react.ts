@@ -6,12 +6,14 @@ const useIsomorphicLayoutEffect = typeof window !== 'undefined'
   : React.useEffect
 
 const reactMiddleware: Middleware = (instance) => {
-  const id = getExomeId(instance)
-  const chunk = updateMap.get(id) ?? []
+  return () => {
+    const id = getExomeId(instance)
+    const chunk = updateMap.get(id) ?? []
 
-  updateMap.set(id, [])
+    updateMap.set(id, [])
 
-  chunk.forEach((renderer) => renderer())
+    chunk.forEach((renderer) => renderer())
+  }
 }
 
 addMiddleware(reactMiddleware)

@@ -108,7 +108,7 @@ export function exomeDevtools({
   ReduxTool.init(getFullStore())
 
   return (instance, action, payload) => {
-    const name = instance.constructor.name
+    const name: string = Object.getPrototypeOf(instance).constructor.name
 
     if (!name) {
       return
@@ -122,7 +122,7 @@ export function exomeDevtools({
       fullStore.get(name)?.set(getExomeId(instance), instance)
     }
 
-    const type = `[${instance.constructor.name}] ${action}`
+    const type = `[${name}] ${action}`
     let parsedPayload: any[] = []
 
     try {

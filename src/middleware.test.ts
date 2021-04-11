@@ -48,4 +48,26 @@ test('runs added middleware via `runMiddleware`', () => {
   assert.equal(middleware2.args[0][2], [])
 })
 
+test('runs middleware unsubscribe method', () => {
+  const instance = new Exome()
+  const unsubscribe = fake()
+  const middleware: any = fake.returns(unsubscribe)
+
+  addMiddleware(middleware)
+
+  const after = runMiddleware(instance, 'actionName', [])
+
+  assert.equal(middleware.callCount, 1)
+  assert.equal(middleware.args[0][0], instance)
+  assert.equal(middleware.args[0][1], 'actionName')
+  assert.equal(middleware.args[0][2], [])
+
+  assert.equal(unsubscribe.callCount, 0)
+
+  after()
+
+  assert.equal(unsubscribe.callCount, 1)
+  assert.equal(unsubscribe.args[0], [])
+})
+
 test.run()
