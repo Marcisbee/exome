@@ -4,12 +4,12 @@ import assert from 'uvu/assert'
 
 const {
   Exome,
-  useStore,
+  updateMap,
+  updateView,
   saveState,
   loadState,
   getExomeId,
-  addMiddleware,
-  exomeDevtools
+  addMiddleware
 } = proxyquire('./index.ts', {
   './react.ts': {
     useStore: true,
@@ -21,9 +21,14 @@ test('exports `Exome`', () => {
   assert.ok(Exome)
 })
 
-test('exports `useStore`', () => {
-  assert.ok(useStore)
-  assert.is(useStore, true)
+test('exports `updateMap`', () => {
+  assert.ok(updateMap)
+  assert.instance(updateMap, Map)
+})
+
+test('exports `updateView`', () => {
+  assert.ok(updateView)
+  assert.instance(updateView, Function)
 })
 
 test('exports `saveState`', () => {
@@ -44,11 +49,6 @@ test('exports `getExomeId`', () => {
 test('exports `addMiddleware`', () => {
   assert.ok(addMiddleware)
   assert.instance(addMiddleware, Function)
-})
-
-test('exports `exomeDevtools`', () => {
-  assert.ok(exomeDevtools)
-  assert.instance(exomeDevtools, Function)
 })
 
 test.run()

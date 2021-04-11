@@ -1,8 +1,5 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 import { Exome } from '../exome'
 import { exomeId } from './exome-id'
-import { getExomeId } from './get-id'
-import { updateQueue } from './update-maps'
 import { updateView } from './update-view'
 
 export function loadState(
@@ -52,7 +49,6 @@ export function loadState(
   Object.assign(store, data)
 
   // Run view update after state has been loaded
-  updateQueue.set(getExomeId(store), true)
   updateView()
 
   return data

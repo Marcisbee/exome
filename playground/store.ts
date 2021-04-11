@@ -1,4 +1,5 @@
-import { Exome, addMiddleware, exomeDevtools } from '..'
+import { Exome, addMiddleware } from '../src'
+import { exomeDevtools } from '../src/devtools'
 
 addMiddleware(exomeDevtools({
   name: 'Exome Playground'

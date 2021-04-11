@@ -1,7 +1,8 @@
 import React, { StrictMode } from 'react'
 import ReactDom from 'react-dom'
 
-import { useStore } from '..'
+import { useStore } from '../src/react'
+
 import { Dog, dogAndy, dogStore, Person } from './dogStore'
 import { counterStore, jokeStore } from './store'
 

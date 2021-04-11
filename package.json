@@ -1,14 +1,14 @@
 {
   "name": "exome",
-  "version": "0.5.1",
+  "version": "0.6.0",
   "description": "Proxy based store manager for deeply nested states",
-  "main": "dist/exome.js",
-  "module": "dist/exome.esm.js",
-  "types": "dist/index.d.ts",
+  "main": "exome.js",
+  "module": "exome.esm.js",
+  "types": "index.d.ts",
   "scripts": {
     "build": "npm run build:cjs && npm run build:esm && npm run build:jest && npm run declarations",
-    "build:cjs": "esbuild src/index.ts --outfile=dist/exome.js --target=es2016 --bundle --format=cjs --minify-identifiers --minify-syntax --external:react --define:process.env.NODE_ENV=\\\"production\\\"",
-    "build:esm": "esbuild src/index.ts --outfile=dist/exome.esm.js --target=es2016 --bundle --format=esm --minify-identifiers --minify-syntax --external:react --define:process.env.NODE_ENV=\\\"production\\\"",
+    "build:cjs": "esbuild src/index.ts --outfile=dist/exome.js --target=es2016 --format=cjs --minify-identifiers --minify-syntax --bundle --define:process.env.NODE_ENV=\\\"production\\\" && esbuild src/react.ts --outfile=dist/react.js --target=es2016 --format=cjs --minify-identifiers --minify-syntax --bundle --external:react --external:exome --define:process.env.NODE_ENV=\\\"production\\\" && esbuild src/devtools.ts --outfile=dist/devtools.js --target=es2016 --format=cjs --minify-identifiers --minify-syntax --bundle --external:react --external:exome --define:process.env.NODE_ENV=\\\"production\\\"",
+    "build:esm": "esbuild src/index.ts --outfile=dist/exome.esm.js --target=es2016 --format=esm --minify-identifiers --minify-syntax --bundle --define:process.env.NODE_ENV=\\\"production\\\" && esbuild src/react.ts --outfile=dist/react.esm.js --target=es2016 --format=esm --minify-identifiers --minify-syntax --bundle --external:react --external:exome --define:process.env.NODE_ENV=\\\"production\\\" && esbuild src/devtools.ts --outfile=dist/devtools.esm.js --target=es2016 --format=esm --minify-identifiers --minify-syntax --bundle --external:react --external:exome --define:process.env.NODE_ENV=\\\"production\\\"",
     "build:jest": "esbuild src/jest/serializer.ts --outfile=dist/jest/serializer.js --platform=node --target=node12 --minify --format=cjs --define:process.env.NODE_ENV=\\\"production\\\"",
     "dev": "npm run build:esm -- --sourcemap --define:process.env.NODE_ENV=\\\"development\\\" --watch",
     "playground": "esbuild playground/index.tsx --outfile=playground/dist/index.js --bundle --format=esm --sourcemap --define:process.env.NODE_ENV=\\\"development\\\" && npx serve playground/dist",
@@ -56,9 +56,6 @@
     "typescript": "^4.2.3",
     "uvu": "^0.5.1"
   },
-  "files": [
-    "dist"
-  ],
   "peerDependencies": {
     "react": "^17.0.2"
   }

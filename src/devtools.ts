@@ -1,9 +1,5 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { Exome } from './exome'
-import { Middleware } from './middleware'
-import { exomeId } from './utils/exome-id'
-import { updateQueue } from './utils/update-maps'
-import { updateView } from './utils/update-view'
+import { Exome, getExomeId, updateView, Middleware } from 'exome'
 
 interface ReduxMessage {
   type: string
@@ -42,9 +38,9 @@ function getFullStore() {
 
   // Improve serializer with `__serializedType__` once https://github.com/zalmoxisus/redux-devtools-extension/issues/737 is resolved
   return JSON.parse(JSON.stringify(output, (_, value) => {
-    if (value instanceof Exome && value[exomeId]) {
+    if (value instanceof Exome && getExomeId(value)) {
       return {
-        $$exome_id: value[exomeId],
+        $$exome_id: getExomeId(value),
         ...value
       }
     }
@@ -62,11 +58,12 @@ export function exomeDevtools({
   maxAge?: number
   actionsBlacklist?: string
 }): Middleware {
+  const devtoolName: string = '__REDUX_DEVTOOLS_EXTENSION__'
   let extension
   try {
     extension =
-      (window as any).__REDUX_DEVTOOLS_EXTENSION__ ||
-      (window.top as any).__REDUX_DEVTOOLS_EXTENSION__
+      (window as any)[devtoolName] ||
+      (window.top as any)[devtoolName]
   } catch (e) { }
 
   if (!extension) {
@@ -96,8 +93,6 @@ export function exomeDevtools({
           const [name] = $$exome_id.split('-')
           const instance = fullStore.get(name)?.get($$exome_id)
 
-          updateQueue.set($$exome_id, true)
-
           Object.assign(instance, restValue)
 
           return instance
@@ -124,7 +119,7 @@ export function exomeDevtools({
     }
 
     if (action === 'NEW') {
-      fullStore.get(name)?.set(instance[exomeId], instance)
+      fullStore.get(name)?.set(getExomeId(instance), instance)
     }
 
     const type = `[${instance.constructor.name}] ${action}`

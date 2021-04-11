@@ -10,7 +10,8 @@
     "jsx": "react",
     "paths": {
       "exome": ["./src/index.ts"]
-    }
+    },
+    "allowJs": true
   },
   "include": [
     "src/**/*"

@@ -1,4 +1,4 @@
-import { Exome, loadState, saveState } from '..'
+import { Exome, loadState, saveState } from '../src'
 
 export class Dog extends Exome {
   constructor(public name: string, public breed: string) {

@@ -1,16 +1,24 @@
+import { Exome, addMiddleware, Middleware, getExomeId, updateMap } from 'exome'
 import React from 'react'
-
-import { Exome } from './exome'
-import { exomeId } from './utils/exome-id'
-import { updateRenderers } from './utils/update-maps'
 
 const useIsomorphicLayoutEffect = typeof window !== 'undefined'
   ? React.useLayoutEffect
   : React.useEffect
 
+const reactMiddleware: Middleware = (instance) => {
+  const id = getExomeId(instance)
+  const chunk = updateMap.get(id) ?? []
+
+  updateMap.set(id, [])
+
+  chunk.forEach((renderer) => renderer())
+}
+
+addMiddleware(reactMiddleware)
+
 export function useStore<T extends Exome>(store: T): Readonly<T> {
   const renderer = React.useState<any>({})
-  const id: string = (store as any)[exomeId]
+  const id = getExomeId(store)
 
   useIsomorphicLayoutEffect(
     () => {
@@ -18,12 +26,16 @@ export function useStore<T extends Exome>(store: T): Readonly<T> {
         renderer[1]({})
       }
 
-      const queue = updateRenderers.get(id)!
+      if (!updateMap.has(id)) {
+        updateMap.set(id, [])
+      }
+
+      const queue = updateMap.get(id)!
 
       queue.push(handler)
 
       return () => {
-        if (queue === updateRenderers.get(id)!) {
+        if (queue === updateMap.get(id)!) {
           const index = queue.indexOf(handler)
 
           if (index === -1) {

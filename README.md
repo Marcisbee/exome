@@ -11,7 +11,7 @@
     <img alt="CI" src="https://img.shields.io/github/workflow/status/Marcisbee/exome/CI?style=flat-square" />
   </a>
   <a href="https://snyk.io/test/github/Marcisbee/exome">
-    <img alt="snyk" src="https://img.shields.io/snyk/vulnerabilities/github/Marcisbee/marklint?style=flat-square" />
+    <img alt="snyk" src="https://img.shields.io/snyk/vulnerabilities/github/Marcisbee/exome?style=flat-square" />
   </a>
   <a href="https://www.npmjs.com/package/exome">
     <img alt="npm" src="https://img.shields.io/npm/v/exome.svg?style=flat-square" />
@@ -76,10 +76,10 @@ Now we should create an instance of `CounterStore` to use it.
 const counterStore = new CounterStore()
 ```
 
-Nice! Now we can start using `counterStore` state. Lets include it in our `react` component via `useStore` hook that is exported by `exome` library.
+Nice! Now we can start using `counterStore` state. Lets include it in our `react` component via `useStore` hook that is exported by `exome/react`.
 
 ```tsx
-import { useStore } from 'exome'
+import { useStore } from 'exome/react'
 
 function Counter() {
   const { count, increment } = useStore(counterStore)
@@ -99,7 +99,8 @@ You can use redux devtools extension to explore Exome store chunk by chunk.
 Just add `exomeDevtools` middleware via `addMiddleware` function exported by library before you start defining store.
 
 ```ts
-import { addMiddleware, exomeDevtools } from 'exome'
+import { addMiddleware } from 'exome'
+import { exomeDevtools } from 'exome/devtools'
 
 addMiddleware(
   exomeDevtools({

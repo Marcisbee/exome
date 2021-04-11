@@ -1,12 +1,9 @@
-import { updateQueue, updateRenderers } from './update-maps'
+import { updateMap } from './update-map'
 
 export function updateView(): void {
-  updateQueue.forEach((_, key) => {
-    const chunk = updateRenderers.get(key)!
-    updateRenderers.set(key, [])
+  updateMap.forEach((renderers, key) => {
+    updateMap.set(key, [])
 
-    chunk.forEach((renderer) => renderer())
+    renderers.forEach((renderer) => renderer())
   })
-
-  updateQueue.clear()
 }
