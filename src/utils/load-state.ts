@@ -5,13 +5,13 @@ import { updateView } from './update-view'
 export function loadState(
   store: Exome,
   state: string,
-  config: Record<string, any> = {}
+  config: Record<string, any>
 ) {
-  const instances = new Map()
+  const instances = new Map<string, Exome>()
 
   const { $$exome_id: rootId, ...data } = JSON.parse(state, (key, value) => {
     if (key !== '' && value && typeof value === 'object' && value.$$exome_id) {
-      const { $$exome_id: localId, ...state } = value
+      const { $$exome_id: localId, ...state }: { $$exome_id: string, [key: string]: any } = value
 
       const cachedInstance = instances.get(localId)
 
@@ -19,7 +19,7 @@ export function loadState(
         return cachedInstance
       }
 
-      const [name]: [string] = localId.split('-')
+      const [name] = localId.split('-')
       const StoreExome = config[name]
 
       if (!StoreExome) {
