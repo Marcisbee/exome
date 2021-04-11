@@ -15,7 +15,8 @@
     "lint": "eslint --ext .js,.ts ./src",
     "test": "uvu -r esbuild-register",
     "coverage": "c8 --check-coverage npm test",
-    "declarations": "tsc --declarationDir dist --emitDeclarationOnly --declaration"
+    "declarations": "tsc --declarationDir dist --emitDeclarationOnly --declaration",
+    "postbuild": "cp package.json dist"
   },
   "repository": {
     "type": "git",
