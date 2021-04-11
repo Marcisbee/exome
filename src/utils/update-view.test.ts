@@ -65,13 +65,13 @@ test('clears `updateMap` after each run', () => {
   updateMap.set('foo', [fake()])
   updateMap.set('bar', [fake()])
 
-  assert.not.equal(updateMap.get('foo').length, 0)
-  assert.not.equal(updateMap.get('bar').length, 0)
+  assert.not.equal(updateMap.get('foo')!.length, 0)
+  assert.not.equal(updateMap.get('bar')!.length, 0)
 
   updateView()
 
-  assert.equal(updateMap.get('foo').length, 0)
-  assert.equal(updateMap.get('bar').length, 0)
+  assert.equal(updateMap.get('foo')!.length, 0)
+  assert.equal(updateMap.get('bar')!.length, 0)
 })
 
 test.run()

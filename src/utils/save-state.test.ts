@@ -30,8 +30,8 @@ test('returns "" if `undefined` is passed in', () => {
 })
 
 test('returns "{}" if `Exome` instance is passed without exomeId', () => {
-  const instance = new Exome()
-  instance[exomeId] = undefined
+  const instance = new Exome();
+  (instance[exomeId] as any) = undefined
 
   const output = saveState(instance)
 
@@ -66,7 +66,7 @@ test('returns correct snapshot with filled `Exome` instance', () => {
 test('returns correct snapshot with nested `Exome` instance', () => {
   class Interest extends Exome {
     constructor(
-      public type
+      public type: string
     ) {
       super()
     }
@@ -80,7 +80,7 @@ test('returns correct snapshot with nested `Exome` instance', () => {
 
   class Person extends Exome {
     constructor(
-      public name,
+      public name: string,
       public interests: Interest[] = []
     ) {
       super()
