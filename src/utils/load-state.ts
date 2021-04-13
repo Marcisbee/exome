@@ -7,9 +7,13 @@ export function loadState(
   state: string,
   config: Record<string, any>
 ) {
+  if (!state || typeof state !== 'string') {
+    throw new Error(`State was not loaded. Passed state must be string, instead received "${typeof store}".`)
+  }
+
   const instances = new Map<string, Exome>()
 
-  const { $$exome_id: rootId, ...data } = JSON.parse(state, (key, value) => {
+  const output = JSON.parse(state, (key, value) => {
     if (key !== '' && value && typeof value === 'object' && value.$$exome_id) {
       const { $$exome_id: localId, ...state }: { $$exome_id: string, [key: string]: any } = value
 
@@ -23,7 +27,7 @@ export function loadState(
       const StoreExome = config[name]
 
       if (!StoreExome) {
-        throw new Error(`State cannot be loaded! "${name}" is missing.`)
+        throw new Error(`State cannot be loaded! "${name}" is missing from config.`)
       }
 
       try {
@@ -45,6 +49,12 @@ export function loadState(
 
     return value
   })
+
+  if (!output || !output.$$exome_id) {
+    throw new Error('State was not loaded. Passed state string is not saved Exome instance.')
+  }
+
+  const { $$exome_id: rootId, ...data } = output
 
   Object.assign(store, data)
 
