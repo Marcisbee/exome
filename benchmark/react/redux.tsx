@@ -9,7 +9,7 @@ const increment = () => {
   }
 }
 
-const counter = (state = 1, action: any) => {
+const counter = (state = 0, action: any) => {
   switch (action.type) {
     case "INCREMENT":
       return state + 1
