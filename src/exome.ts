@@ -11,7 +11,7 @@ export class Exome {
     const name = this.constructor.name
     const id = `${name}-${ranID()}`
 
-    updateMap.set(id, [])
+    updateMap[id] = []
 
     this[exomeId] = id
 

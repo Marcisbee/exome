@@ -8,36 +8,36 @@ const useIsomorphicLayoutEffect = typeof window !== 'undefined'
 const reactMiddleware: Middleware = (instance) => {
   return () => {
     const id = getExomeId(instance)
-    const chunk = updateMap.get(id) ?? []
+    const renderers = updateMap[id] ?? []
 
-    updateMap.set(id, [])
+    updateMap[id] = []
 
-    chunk.forEach((renderer) => renderer())
+    renderers.forEach((renderer) => renderer())
   }
 }
 
 addMiddleware(reactMiddleware)
 
-export function useStore<T extends Exome>(store: T): Readonly<T> {
-  const renderer = React.useState<any>({})
+export function useStore<T extends Exome>(store: T, config: { batch: boolean } = { batch: false }): Readonly<T> {
+  const [changed, render] = React.useReducer((n: boolean) => !n, true)
   const id = getExomeId(store)
 
   useIsomorphicLayoutEffect(
     () => {
-      const handler = () => {
-        renderer[1]({})
+      const handler = config.batch
+        ? () => Promise.resolve().then(render)
+        : render
+
+      if (!updateMap[id]) {
+        updateMap[id] = []
       }
 
-      if (!updateMap.has(id)) {
-        updateMap.set(id, [])
-      }
-
-      const queue = updateMap.get(id)!
+      const queue = updateMap[id]!
 
       queue.push(handler)
 
       return () => {
-        if (queue === updateMap.get(id)!) {
+        if (queue === updateMap[id]!) {
           const index = queue.indexOf(handler)
 
           if (index === -1) {
@@ -48,7 +48,7 @@ export function useStore<T extends Exome>(store: T): Readonly<T> {
         }
       }
     },
-    [renderer]
+    [changed]
   )
 
   if (!id) {

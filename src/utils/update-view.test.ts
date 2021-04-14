@@ -6,7 +6,8 @@ import { updateMap } from './update-map'
 import { updateView } from './update-view'
 
 test.before.each(() => {
-  updateMap.clear()
+  // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
+  for (const member in updateMap) delete updateMap[member]
 })
 
 test('exports `updateView`', () => {
@@ -22,14 +23,14 @@ test('doesn\'t throw error when `updateMap` is empty', () => {
 })
 
 test('doesn\'t throw error when `updateMap` is with one empty array', () => {
-  updateMap.set('foo', [])
+  updateMap.foo = []
 
   assert.not.throws(updateView)
 })
 
 test('runs single update from `foo`', () => {
   const update = fake()
-  updateMap.set('foo', [update])
+  updateMap.foo = [update]
 
   updateView()
 
@@ -39,7 +40,7 @@ test('runs single update from `foo`', () => {
 test('runs two updates from `foo`', () => {
   const update1 = fake()
   const update2 = fake()
-  updateMap.set('foo', [update1, update2])
+  updateMap.foo = [update1, update2]
 
   updateView()
 
@@ -51,8 +52,8 @@ test('runs multiple updates from different keys', () => {
   const update1 = fake()
   const update2 = fake()
   const update3 = fake()
-  updateMap.set('foo', [update1, update2])
-  updateMap.set('bar', [update3])
+  updateMap.foo = [update1, update2]
+  updateMap.bar = [update3]
 
   updateView()
 
@@ -62,16 +63,16 @@ test('runs multiple updates from different keys', () => {
 })
 
 test('clears `updateMap` after each run', () => {
-  updateMap.set('foo', [fake()])
-  updateMap.set('bar', [fake()])
+  updateMap.foo = [fake()]
+  updateMap.bar = [fake()]
 
-  assert.not.equal(updateMap.get('foo')!.length, 0)
-  assert.not.equal(updateMap.get('bar')!.length, 0)
+  assert.not.equal(updateMap.foo!.length, 0)
+  assert.not.equal(updateMap.bar!.length, 0)
 
   updateView()
 
-  assert.equal(updateMap.get('foo')!.length, 0)
-  assert.equal(updateMap.get('bar')!.length, 0)
+  assert.equal(updateMap.foo!.length, 0)
+  assert.equal(updateMap.bar!.length, 0)
 })
 
 test.run()
