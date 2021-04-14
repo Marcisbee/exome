@@ -30,7 +30,7 @@
 ## Features
 
 - 📦 **Small**: Just **1 KB** minizipped
-- 🚀 **Fast**: Uses **no diffing** of state changes (because of architecture, it's not needed)
+- 🚀 [**Fast**](#benchmarks): Uses **no diffing** of state changes (because of architecture, it's not needed)
 - 😍 **Simple**: Uses classes as state
 - 🧬 **Nested**: Easily manage deeply nested state structures
 - 💪 **Immutable**: Data can only be changed via actions
@@ -40,6 +40,23 @@
 - 🔭 **Devtools**: Redux devtools integration
 - 💨 **Zero dependencies**
 
+# Benchmarks
+I created a simple benchmark to get the gist of how this library performs. I did not create benchmarks to brag or anything (is not my intention to start a fire in a community), it's just an interesting thing to look at.
+
+Also one thing to note is that I disabled batching in valtio as it is avoids sync code and cannot really be benchmarked in a way we can test it.
+
+So I created a simple `counter state` with `increment action` with each library I cared to test and:
+1. Rendered that counter component with initial state;
+
+<img src="assets/render.png" width="420" />
+
+2. Triggered increment action and updated component view.
+
+<img src="assets/increment.png" width="420" />
+
+_Note: **Higher is better**_
+
+I know counter doesn't really show real world app performance, but I didn't want to waste much time re-creating real world app for each state so this will have to do.
 
 # Installation
 To install the stable version:
