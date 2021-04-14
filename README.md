@@ -46,13 +46,10 @@ I created a simple benchmark to get the gist of how this library performs. I did
 Also one thing to note is that I disabled batching in valtio as it is avoids sync code and cannot really be benchmarked in a way we can test it.
 
 So I created a simple `counter state` with `increment action` with each library I cared to test and:
-1. Rendered that counter component with initial state;
 
-<img src="assets/render.png" width="420" />
-
-2. Triggered increment action and updated component view.
-
-<img src="assets/increment.png" width="420" />
+|1. Rendered that counter component with initial state|2. Triggered increment action and updated component view|
+|-|-|
+|<img src="assets/render.png" />|<img src="assets/increment.png" />|
 
 _Note: **Higher is better**_
 
