@@ -4,28 +4,15 @@
 <head>
   <meta charset="UTF-8" />
   <title>Performance tests</title>
-  <link rel="stylesheet" href="https://cdn.rawgit.com/kupriyanenko/astrobench/0.1.2/src/style.css" />
+  <link rel="stylesheet" href="https://unpkg.com/@prantlf/astrobench@1.1.0/dist/astrobench.min.css" />
 </head>
 
 <body>
   <!-- Wrapper for tests -->
   <div id="astrobench"></div>
 
-  <div id="targetHtml">asd</div>
-  <div id="targetText">asd</div>
-
-  <script src="https://cdn.rawgit.com/kupriyanenko/astrobench/0.1.2/dist/astrobench.min.js"></script>
-  <script>
-    suite("A suite", function () {
-      bench("innerHTML", function () {
-        targetHtml.innerHTML = "asd";
-      });
-
-      bench("innerText", function () {
-        targetText.innerText = "asd";
-      });
-    });
-  </script>
+  <script src="https://unpkg.com/@prantlf/astrobench@1.1.0/dist/astrobench.min.js"></script>
+  <script type="module" src="/dist/index.js"></script>
 </body>
 
 </html>

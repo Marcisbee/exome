@@ -2,13 +2,16 @@
   "name": "exome-benchmark",
   "version": "0.0.0",
   "scripts": {
-    "test": "astrobench index.html"
+    "build": "esbuild index.ts --sourcemap --minify --target=es2016 --platform=browser --format=esm --bundle --outdir=dist --define:process.env.NODE_ENV=\\\"production\\\"",
+    "test": "npm run build && npx serve"
   },
   "devDependencies": {
-    "astrobench-cli": "^2.0.0",
-    "exome": "file:..",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "redux": "^4.0.5"
+    "jotai": "^0.16.0",
+    "mobx": "^6.2.0",
+    "mobx-react": "^7.1.0",
+    "react": "file:../node_modules/react",
+    "react-dom": "file:../node_modules/react-dom",
+    "recoil": "^0.2.0",
+    "valtio": "^1.0.3"
   }
 }
