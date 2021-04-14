@@ -35,13 +35,13 @@ const testBunnies = [
     target: null,
   },
   {
-    name: 'React Recoil',
-    render: reactRecoil,
+    name: 'React Valtio',
+    render: reactValtio,
     target: null,
   },
   {
-    name: 'React Valtio',
-    render: reactValtio,
+    name: 'React Recoil',
+    render: reactRecoil,
     target: null,
   },
 ].map((bunny) => ({

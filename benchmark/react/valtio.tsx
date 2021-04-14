@@ -5,10 +5,10 @@ import * as ReactDom from 'react-dom';
 const state = proxy({ count: 0 })
 
 function App() {
-  const snapshot = useSnapshot(state);
+  const snapshot = useSnapshot(state, { sync: true });
 
   return (
-    <h1 onClick={() => snapshot.count++}>{snapshot.count}</h1>
+    <h1 onClick={() => state.count++}>{snapshot.count}</h1>
   )
 }
 
