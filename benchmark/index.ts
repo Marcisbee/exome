@@ -2,6 +2,7 @@ import ReactDOM from 'react-dom';
 
 import reactUseState from './react/use-state';
 import reactExome from './react/exome';
+import reactRedux from './react/redux';
 import reactMobx from './react/mobx';
 import reactValtio from './react/valtio';
 import reactJotai from './react/jotai';
@@ -19,13 +20,13 @@ const testBunnies = [
     target: null,
   },
   {
-    name: 'React Mobx',
-    render: reactMobx,
+    name: 'React Redux',
+    render: reactRedux,
     target: null,
   },
   {
-    name: 'React Valtio',
-    render: reactValtio,
+    name: 'React Mobx',
+    render: reactMobx,
     target: null,
   },
   {
@@ -36,6 +37,11 @@ const testBunnies = [
   {
     name: 'React Recoil',
     render: reactRecoil,
+    target: null,
+  },
+  {
+    name: 'React Valtio',
+    render: reactValtio,
     target: null,
   },
 ].map((bunny) => ({
