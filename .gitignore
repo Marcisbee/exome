@@ -103,6 +103,8 @@ typings/
 # TernJS port file
 .tern-port
 
+/benchmark/dist/*.js
+/benchmark/dist/*.js.map
 /playground/dist/*.js
 /playground/dist/*.js.map
 .DS_Store
