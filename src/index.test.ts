@@ -17,7 +17,7 @@ test('exports `Exome`', () => {
 
 test('exports `updateMap`', () => {
   assert.ok(updateMap)
-  assert.instance(updateMap, Map)
+  assert.equal(updateMap, {})
 })
 
 test('exports `updateView`', () => {
