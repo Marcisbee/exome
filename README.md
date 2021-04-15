@@ -131,21 +131,7 @@ Dog
 A class with underlying logic that handles state changes. Every store must be extended from this class.
 
 ```ts
-class Exome {}
-```
-
-__Example__
-
-```ts
-import { Exome } from "exome"
-
-class Counter extends Exome {
-  public count = 0
-
-  public increment() {
-    this.count += 1
-  }
-}
+abstract class Exome {}
 ```
 
 ### `useStore`
@@ -169,9 +155,9 @@ import { useStore } from "exome/react"
 
 const counter = new Counter()
 
-funtion App() {
+function App() {
   const { count, increment } = useStore(counter)
-  
+
   return <button onClick={increment}>{count}</button>
 }
 ```
@@ -188,7 +174,7 @@ __Arguments__
 
 __Returns__
 
-- _String_: Stringiftied Exome instance
+- _String_: Stringified Exome instance
 
 __Example__
 
@@ -305,13 +291,36 @@ const newStore = new Store()
 loadState(newStore, savedState, { Todo })
 ```
 
+### Q: Can I update state outside of React component?
+Absolutely. You can even share store across multiple React instances (or if we're looking into future - across the whole microfrontends architecture).
+
+For example:
+```tsx
+class Timer extends Exome {
+  public seconds = 0
+
+  public increment() {
+    this.seconds += 1
+  }
+}
+
+const timer = new Timer()
+
+setInterval(timer.increment, 1000)
+
+function App() {
+  const { seconds } = useStore(timer)
+
+  return <h1>{seconds}</h1>
+}
+```
+
 # Motivation
 I stumbled upon a need to store deeply nested store and manage chunks of them individually and regular flux selector/action architecture just didn't make much sense anymore. So I started to prototype what would ideal deeply nested store interaction look like and I saw that we could simply use classes for this.
 
 **Goals I set for this project:**
 
 - [x] Easy usage with deeply nested state chunks (array in array)
-- [x] Single source of thruth (can be multiple tho, but it's up to you)
 - [x] Type safe with TypeScript
 - [x] To have actions be only way of editing state
 - [x] To have effects trigger extra actions
