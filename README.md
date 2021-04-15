@@ -160,7 +160,7 @@ __Arguments__
 
 __Returns__
 
-[_Exome_](#exome): Same store is returned.
+- [_Exome_](#exome): Same store is returned.
 
 __Example__
 
@@ -188,7 +188,7 @@ __Arguments__
 
 __Returns__
 
-_String_: Stringiftied Exome instance
+- _String_: Stringiftied Exome instance
 
 __Example__
 
@@ -218,7 +218,7 @@ __Arguments__
 
 __Returns__
 
-_Object_: Data that is loaded into state, but without Exome instance (if for any reason you have to have this data).
+- _Object_: Data that is loaded into state, but without Exome instance (if for any reason you have to have this data).
 
 __Example__
 
