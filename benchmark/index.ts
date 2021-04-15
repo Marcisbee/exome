@@ -3,10 +3,12 @@ import ReactDOM from 'react-dom';
 import reactUseState from './react/use-state';
 import reactExome from './react/exome';
 import reactRedux from './react/redux';
+import reactReduxToolkit from './react/redux-toolkit';
 import reactMobx from './react/mobx';
 import reactValtio from './react/valtio';
 import reactJotai from './react/jotai';
 import reactRecoil from './react/recoil';
+import reactPullState from './react/pullstate';
 
 const testBunnies = [
   {
@@ -22,6 +24,11 @@ const testBunnies = [
   {
     name: 'React Redux',
     render: reactRedux,
+    target: null,
+  },
+  {
+    name: 'React Redux toolkit',
+    render: reactReduxToolkit,
     target: null,
   },
   {
@@ -42,6 +49,11 @@ const testBunnies = [
   {
     name: 'React Recoil',
     render: reactRecoil,
+    target: null,
+  },
+  {
+    name: 'React Pullstate',
+    render: reactPullState,
     target: null,
   },
 ].map((bunny) => {

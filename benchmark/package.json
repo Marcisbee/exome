@@ -7,9 +7,11 @@
   },
   "devDependencies": {
     "@prantlf/astrobench": "^1.1.0",
+    "@reduxjs/toolkit": "^1.5.1",
     "jotai": "^0.16.0",
     "mobx": "^6.2.0",
     "mobx-react": "^7.1.0",
+    "pullstate": "^1.22.1",
     "react": "file:../node_modules/react",
     "react-dom": "file:../node_modules/react-dom",
     "react-redux": "^7.2.3",
