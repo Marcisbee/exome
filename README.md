@@ -30,30 +30,15 @@
 ## Features
 
 - 📦 **Small**: Just **1 KB** minizipped
-- 🚀 [**Fast**](#benchmarks): Uses **no diffing** of state changes (because of architecture, it's not needed)
+- 🚀 **Fast**: Uses **no diffing** of state changes see [**benchmarks**](benchmarks/README.md)
 - 😍 **Simple**: Uses classes as state
 - 🧬 **Nested**: Easily manage deeply nested state structures
-- 💪 **Immutable**: Data can only be changed via actions
-- 🎛 **Effects**: Built-in effects for actions
+- 💪 **Immutable**: Data can only be changed via actions (only forced via typescript types)
+- 🎛 **Middleware**: Built-in middleware for actions
 - 🛡 **Bulletproof**: Written in strict TypeScript
 - 🗂 **Typed**: All your state will be typed
 - 🔭 **Devtools**: Redux devtools integration
 - 💨 **Zero dependencies**
-
-# Benchmarks
-I created a simple benchmark to get the gist of how this library performs. I did not create benchmarks to brag or anything (is not my intention to start a fire in a community), it's just an interesting thing to look at.
-
-Also one thing to note is that I disabled batching in valtio as it is avoids sync code and cannot really be benchmarked in a way we can test it.
-
-So I created a simple `counter state` with `increment action` with each library I cared to test and:
-
-|1. Rendered that counter component with initial state|2. Triggered increment action and updated component view|
-|-|-|
-|<img src="assets/render.png" />|<img src="assets/increment.png" />|
-
-_Note: **Higher is better**_
-
-I know counter doesn't really show real world app performance, but I didn't want to waste much time re-creating real world app for each state so this will have to do.
 
 # Installation
 To install the stable version:
@@ -143,14 +128,10 @@ Dog
 
 # API
 
-`exome` library have a few exports. Lets explore them!
-
 ### - `Exome`
 It's just a class that deals with underlying logic that handles state changes.
 
 ### - `useStore`
-
-Lets start with a typescript interface.
 
 ```ts
 function useStore<T extends Exome>(store: T): Readonly<T>
@@ -225,11 +206,5 @@ I stumbled upon a need to store deeply nested store and manage chunks of them in
 - [x] To have effects trigger extra actions
 - [x] Redux devtool support
 
-# MIT License
-Copyright (C) 2021 Marcis Bergmanis
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+# License
+[MIT](LICENCE) &copy; [Marcis Bergmanis](https://twitter.com/marcisbee)
