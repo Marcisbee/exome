@@ -187,7 +187,7 @@ function App() {
   return (
     <ul>
       {list.map((todo) => (
-        <TodoView todo={} />
+        <TodoView todo={todo} />
       ))}
     </ul>
   )
