@@ -11,6 +11,13 @@ import {
   addMiddleware
 } from './index'
 
+test.before.each(() => {
+  Object.keys(updateMap).forEach((key) => {
+    // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
+    delete updateMap[key]
+  })
+})
+
 test('exports `Exome`', () => {
   assert.ok(Exome)
 })
