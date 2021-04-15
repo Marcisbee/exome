@@ -213,8 +213,8 @@ __Arguments__
 1. `store` _([Exome](#exome))_: Store to load saved state to.
 2. `state` _(String)_: Saved state string from `saveState` output.
 3. `config` _(Object)_: Saved state string from `saveState` output.
-   - `key` _(String)_: Name of the Exome state class (e.g. `"Counter"`).
-   - `Exome` _([Exome](#exome) constructor)_: Class of named Exome (e.g. `Counter`).
+   - key _(String)_: Name of the Exome state class (e.g. `"Counter"`).
+   - value _([Exome](#exome) constructor)_: Class of named Exome (e.g. `Counter`).
 
 __Returns__
 
