@@ -16,6 +16,8 @@ I know counter doesn't really show real world app performance, but I didn't want
 # Running benchmarks
 Since I use Macbook with M1 processor, it's not straight forward to install puppeteer, hence there's no cli to run tests and get results printed. It's all done via browser.
 
+Before starting, make sure you're in `/benchmark` directory.
+
 To prepare dependencies, run:
 ```
 npm install
