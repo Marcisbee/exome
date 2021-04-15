@@ -1,16 +1,16 @@
 import { Exome } from '../exome'
 import { runMiddleware } from '../middleware'
 
-export function proxify(parent: any, name: string, id: string): any {
+export function proxify<T extends Record<any, any>>(parent: T): T {
   const proxy = new Proxy(
     parent,
     {
-      get: (target, key) => {
+      get: (target: any, key) => {
         const value = target[key]
 
         if (parent === target && parent instanceof Exome && typeof value === 'function') {
           return (...args: any) => {
-            const middleware = runMiddleware(proxy, key as any, args)
+            const middleware = runMiddleware(proxy as unknown as Exome, key as any, args)
 
             const output = value.apply(proxy, args)
 
@@ -37,13 +37,13 @@ export function proxify(parent: any, name: string, id: string): any {
         }
 
         if (value !== null && typeof value === 'object' && !(value instanceof Exome)) {
-          return proxify(value, name, id)
+          return proxify(value)
         }
 
         return target[key]
       },
 
-      set: (target, key, value) => {
+      set: (target: any, key: string, value) => {
         target[key] = value
 
         return true

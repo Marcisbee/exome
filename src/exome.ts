@@ -9,17 +9,16 @@ export class Exome {
 
   constructor() {
     const name = this.constructor.name
-    const id = `${name}-${ranID()}`
 
-    updateMap[id] = []
+    this[exomeId] = `${name}-${ranID()}`
 
-    this[exomeId] = id
+    updateMap[this[exomeId]] = []
 
     // Run this code after constructor to get all the parameters right.
     Promise.resolve().then(() => {
       runMiddleware(this, 'NEW', [])
     })
 
-    return proxify(this, name, id)
+    return proxify(this)
   }
 }
