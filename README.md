@@ -127,19 +127,118 @@ Dog
 ```
 
 # API
+### `Exome`
+A class with underlying logic that handles state changes. Every store must be extended from this class.
 
-### - `Exome`
-It's just a class that deals with underlying logic that handles state changes.
+```ts
+class Exome {}
+```
 
-### - `useStore`
+__Example__
+
+```ts
+import { Exome } from "exome"
+
+class Counter extends Exome {
+  public count = 0
+
+  public increment() {
+    this.count += 1
+  }
+}
+```
+
+### `useStore`
+Is function exported from "exome/react".
 
 ```ts
 function useStore<T extends Exome>(store: T): Readonly<T>
 ```
 
-Takes in only one parameter - an instance of `Exome` class. And outputs that same instance. It links this particular instance to this component to handle component updates.
+__Arguments__
+1. `store` _([Exome](#exome))_: State to watch changes from. Without Exome being passed in this function, react component will not be updated when particular Exome updates.
 
-Exome can also include multiple Exomes inside itself. And whenever new Exome is used in child component, it has to be wrapped in `useStore` hook.
+__Returns__
+
+[_Exome_](#exome): Same store is returned.
+
+__Example__
+
+```tsx
+import { useStore } from "exome/react"
+
+const counter = new Counter()
+
+funtion App() {
+  const { count, increment } = useStore(counter)
+  
+  return <button onClick={increment}>{count}</button>
+}
+```
+
+### `saveState`
+Function that saves snapshot of current state for any Exome and returns string.
+
+```ts
+function saveState(store: Exome): string
+```
+
+__Arguments__
+1. `store` _([Exome](#exome))_: State to save state from (will save full state tree with nested Exomes).
+
+__Returns__
+
+_String_: Stringiftied Exome instance
+
+__Example__
+
+```tsx
+import { saveState } from "exome"
+
+const saved = saveState(counter)
+```
+
+### `loadState`
+Function that loads saved state in any Exome instance.
+
+```ts
+function loadState(
+  store: Exome,
+  state: string,
+  config: Record<string, Exome>
+): Record<string, any>
+```
+
+__Arguments__
+1. `store` _([Exome](#exome))_: Store to load saved state to.
+2. `state` _(String)_: Saved state string from `saveState` output.
+3. `config` _(Object)_: Saved state string from `saveState` output.
+   - `key` _(String)_: Name of the Exome state class (e.g. `"Counter"`).
+   - `Exome` _([Exome](#exome) constructor)_: Class of named Exome (e.g. `Counter`).
+
+__Returns__
+
+_Object_: Data that is loaded into state, but without Exome instance (if for any reason you have to have this data).
+
+__Example__
+
+```ts
+import { loadState } from "exome"
+
+const newCounter = new Counter()
+
+const loaded = loadState(newCounter, saved, { Counter })
+loaded.count // e.g. = 15
+loaded.increment // undefined
+
+newCounter.count // new counter instance has all of the state applied so also = 15
+newCounter.increment // [Function]
+```
+
+# FAQ
+### Q: Can I use Exome inside Exome?
+YES! It was designed for that exact purpose.
+Exome can have deeply nested Exomes inside itself. And whenever new Exome is used in child component, it has to be wrapped in `useStore` hook and that's the only rule.
 
 For example:
 ```tsx
@@ -192,6 +291,18 @@ function App() {
     </ul>
   )
 }
+```
+
+### Q: Can deep state structure be saved to string and then loaded back as an instance?
+YES! This was also one of key requirements for this. We can save full state from any Exome with [`saveState`](#saveState), save it to file or database and the load that string up onto Exome instance with [`loadState`](#loadState).
+
+For example:
+```tsx
+const savedState = saveState(store)
+
+const newStore = new Store()
+
+loadState(newStore, savedState, { Todo })
 ```
 
 # Motivation
