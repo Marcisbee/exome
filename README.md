@@ -30,7 +30,7 @@
 ## Features
 
 - 📦 **Small**: Just **1 KB** minizipped
-- 🚀 **Fast**: Uses **no diffing** of state changes see [**benchmarks**](benchmarks/README.md)
+- 🚀 **Fast**: Uses **no diffing** of state changes see [**benchmarks**](benchmark/README.md)
 - 😍 **Simple**: Uses classes as state
 - 🧬 **Nested**: Easily manage deeply nested state structures
 - 💪 **Immutable**: Data can only be changed via actions (only forced via typescript types)
