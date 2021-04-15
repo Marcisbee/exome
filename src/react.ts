@@ -18,27 +18,23 @@ const reactMiddleware: Middleware = (instance) => {
 
 addMiddleware(reactMiddleware)
 
-export function useStore<T extends Exome>(store: T, config: { batch: boolean } = { batch: false }): Readonly<T> {
+export function useStore<T extends Exome>(store: T): Readonly<T> {
   const [changed, render] = React.useReducer((n: boolean) => !n, true)
   const id = getExomeId(store)
 
   useIsomorphicLayoutEffect(
     () => {
-      const handler = config.batch
-        ? () => Promise.resolve().then(render)
-        : render
-
       if (!updateMap[id]) {
         updateMap[id] = []
       }
 
       const queue = updateMap[id]!
 
-      queue.push(handler)
+      queue.push(render)
 
       return () => {
         if (queue === updateMap[id]!) {
-          const index = queue.indexOf(handler)
+          const index = queue.indexOf(render)
 
           if (index === -1) {
             return
