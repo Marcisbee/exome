@@ -5,8 +5,6 @@ import { Exome } from '../exome'
 import { exomeId } from './exome-id'
 import { getExomeId } from './get-id'
 
-(global as any).requestAnimationFrame = () => {}
-
 test('exports `getExomeId`', () => {
   assert.ok(getExomeId)
 })

@@ -15,7 +15,8 @@ export class Exome {
 
     this[exomeId] = id
 
-    requestAnimationFrame(() => {
+    // Run this code after constructor to get all the parameters right.
+    Promise.resolve().then(() => {
       runMiddleware(this, 'NEW', [])
     })
 

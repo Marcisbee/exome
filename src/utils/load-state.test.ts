@@ -5,8 +5,6 @@ import { exomeId } from './exome-id'
 
 import { loadState } from './load-state'
 
-(global as any).requestAnimationFrame = () => { }
-
 test('exports `loadState`', () => {
   assert.ok(loadState)
 })

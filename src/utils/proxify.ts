@@ -1,40 +1,43 @@
 import { Exome } from '../exome'
 import { runMiddleware } from '../middleware'
-import { exomeId } from './exome-id'
 
 export function proxify(parent: any, name: string, id: string): any {
   const proxy = new Proxy(
     parent,
     {
       get: (target, key) => {
-        if (parent === target && parent[exomeId] && typeof target[key] === 'function') {
-          return (...args: any) => {
-            const middleware = runMiddleware(proxy, String(key), args)
+        const value = target[key]
 
-            const output = target[key].call(proxy, ...args)
+        if (parent === target && parent instanceof Exome && typeof value === 'function') {
+          return (...args: any) => {
+            const middleware = runMiddleware(proxy, key as any, args)
+
+            const output = value.apply(proxy, args)
 
             if (output instanceof Promise) {
-              output
-                .then(() => {
+              return output
+                .then((result) => {
                   if (typeof middleware === 'function') {
                     middleware()
                   }
+
+                  return result
                 })
                 .catch((error) => {
                   throw error
                 })
-            } else {
-              if (typeof middleware === 'function') {
-                middleware()
-              }
+            }
+
+            if (typeof middleware === 'function') {
+              middleware()
             }
 
             return output
           }
         }
 
-        if (target[key] !== null && typeof target[key] === 'object' && !(target[key] instanceof Exome)) {
-          return proxify(target[key], name, id)
+        if (value !== null && typeof value === 'object' && !(value instanceof Exome)) {
+          return proxify(value, name, id)
         }
 
         return target[key]
