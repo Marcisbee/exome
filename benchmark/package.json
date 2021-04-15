@@ -2,7 +2,7 @@
   "name": "exome-benchmark",
   "version": "0.0.0",
   "scripts": {
-    "build": "esbuild index.ts --sourcemap --minify --target=es2016 --platform=browser --format=esm --bundle --outdir=dist --define:process.env.NODE_ENV=\\\"production\\\"",
+    "build": "esbuild index.ts --sourcemap --minify --platform=browser --bundle --format=esm --outdir=dist",
     "test": "npm run build && npx serve"
   },
   "devDependencies": {

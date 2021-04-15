@@ -44,10 +44,16 @@ const testBunnies = [
     render: reactRecoil,
     target: null,
   },
-].map((bunny) => ({
-  ...bunny,
-  target: document.body.appendChild(document.createElement('div')),
-}));
+].map((bunny) => {
+  const target = document.getElementById('content')!.appendChild(document.createElement('div'));
+
+  target.setAttribute('data-content', bunny.name);
+
+  return {
+    ...bunny,
+    target,
+  }
+});
 
 const win: Window & { suite: any, bench: any, beforeBench: any } = window as any;
 
