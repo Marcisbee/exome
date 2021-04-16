@@ -221,6 +221,64 @@ newCounter.count // new counter instance has all of the state applied so also = 
 newCounter.increment // [Function]
 ```
 
+### `addMiddleware`
+Function that adds middleware to Exome. It takes in callback that will be called every time before an action is called.
+
+React hook integration is actually a middleware.
+
+```ts
+type Middleware = (instance: Exome, action: string, payload: any[]) => (void | Function)
+
+function addMiddleware(fn: Middleware): void
+```
+
+__Arguments__
+1. `callback` _(Function)_: Callback that will be triggered `BEFORE` action is started.<br>
+   __Arguments__
+   - `instance` _([Exome](#exome))_: Instance where action is taking place.
+   - `action` _(String)_: Action name.
+   - `payload` _(any[])_: Array of arguments passed in action.<br>
+
+   __Returns__
+   - _(void | Function)_: Callback can return function that will be called `AFTER` action is completed.
+
+__Returns__
+
+- _void_: Nothingness...
+
+__Example__
+
+```ts
+import { Exome, addMiddleware } from "exome"
+
+addMiddleware((instance, name, payload) => {
+  console.log(`before ${instance.name}.${name}`, instance.seconds)
+
+  return () => {
+    console.log(`after ${instance.name}.${name}`, instance.seconds)
+  }
+})
+
+class Timer extends Exome {
+  public seconds = 0
+
+  public increment() {
+    this.seconds += 1
+  }
+}
+
+const timer = new Timer()
+
+setInterval(timer.increment, 1000)
+
+// > "before Timer.increment", 0
+// > "after Timer.increment", 1
+//   ... after 1s
+// > "before Timer.increment", 1
+// > "after Timer.increment", 2
+//   ...
+```
+
 # FAQ
 ### Q: Can I use Exome inside Exome?
 YES! It was designed for that exact purpose.
@@ -292,7 +350,7 @@ loadState(newStore, savedState, { Todo })
 ```
 
 ### Q: Can I update state outside of React component?
-Absolutely. You can even share store across multiple React instances (or if we're looking into future - across the whole microfrontends architecture).
+Absolutely. You can even share store across multiple React instances (or if we're looking into future - across multiple frameworks).
 
 For example:
 ```tsx
