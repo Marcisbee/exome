@@ -44,7 +44,7 @@ export function useStore<T extends Exome>(store: T): Readonly<T> {
         }
       }
     },
-    [changed]
+    [id, changed]
   )
 
   if (!id) {

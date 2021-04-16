@@ -33,10 +33,9 @@
 - 🚀 **Fast**: Uses **no diffing** of state changes see [**benchmarks**](benchmark/README.md)
 - 😍 **Simple**: Uses classes as state
 - 🧬 **Nested**: Easily manage deeply nested state structures
-- 💪 **Immutable**: Data can only be changed via actions (only forced via typescript types)
+- 💪 **Immutable**: Data can only be changed via actions (only forced via typescript)
 - 🎛 **Middleware**: Built-in middleware for actions
-- 🛡 **Bulletproof**: Written in strict TypeScript
-- 🗂 **Typed**: All your state will be typed
+- 🛡 **Typed**: Written in strict TypeScript
 - 🔭 **Devtools**: Redux devtools integration
 - 💨 **Zero dependencies**
 
@@ -252,10 +251,10 @@ __Example__
 import { Exome, addMiddleware } from "exome"
 
 addMiddleware((instance, name, payload) => {
-  console.log(`before ${instance.name}.${name}`, instance.seconds)
+  console.log(`before ${instance.constructor.name}.${name}`, instance.seconds)
 
   return () => {
-    console.log(`after ${instance.name}.${name}`, instance.seconds)
+    console.log(`after ${instance.constructor.name}.${name}`, instance.seconds)
   }
 })
 
