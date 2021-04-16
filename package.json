@@ -55,10 +55,14 @@
     "uvu": "^0.5.1"
   },
   "peerDependencies": {
-    "react": ">= 16.8.0"
+    "react": ">= 16.8.0",
+    "vue": "^3.0.11"
   },
   "peerDependenciesMeta": {
     "react": {
+      "optional": true
+    },
+    "vue": {
       "optional": true
     }
   },
