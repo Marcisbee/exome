@@ -12,11 +12,5 @@
       "exome": ["./src/index.ts"]
     },
     "allowJs": true
-  },
-  "include": [
-    "src/**/*"
-  ],
-  "exclude": [
-    "src/**/*.test.ts"
-  ]
+  }
 }
