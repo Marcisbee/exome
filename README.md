@@ -107,23 +107,9 @@ addMiddleware(
 )
 ```
 
-Actions will look something like this:
+It all will look something like this:
 
-```ts
-[Counter] NEW
-[Counter] increment
-[Counter] increment
-```
-
-And store will be split into chunks for easy exploring:
-
-```ts
-Person
-  0 { name: "John Wick", dogs: [...] }
-  1 { name: "Jane Doe", dogs: [] }
-Dog
-  0 { name: "Jeff", breed: "beagle pup" }
-```
+![Exome using Redux Devtools](https://user-images.githubusercontent.com/16621507/115083737-871c3d00-9f10-11eb-94e7-21353d093a7e.png)
 
 # API
 ### `Exome`
