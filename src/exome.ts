@@ -15,7 +15,7 @@ export class Exome {
     updateMap[this[exomeId]] = []
 
     // Run this code after constructor to get all the parameters right.
-    Promise.resolve().then(() => {
+    requestAnimationFrame(() => {
       runMiddleware(this, 'NEW', [])
     })
 
