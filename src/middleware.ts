@@ -1,7 +1,5 @@
 import { Exome } from './exome'
 
-(global as any).requestAnimationFrame = (cb: Function) => { cb() }
-
 // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 export type Middleware = (instance: Exome, action: string, payload: any[]) => (void | (() => void))
 

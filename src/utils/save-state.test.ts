@@ -5,8 +5,6 @@ import { exomeId } from './exome-id'
 
 import { saveState } from './save-state'
 
-(global as any).requestAnimationFrame = (cb: Function) => { cb() }
-
 test('exports `saveState`', () => {
   assert.ok(saveState)
 })

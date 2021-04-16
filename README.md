@@ -251,10 +251,10 @@ __Example__
 import { Exome, addMiddleware } from "exome"
 
 addMiddleware((instance, name, payload) => {
-  console.log(`before ${instance.name}.${name}`, instance.seconds)
+  console.log(`before ${instance.constructor.name}.${name}`, instance.seconds)
 
   return () => {
-    console.log(`after ${instance.name}.${name}`, instance.seconds)
+    console.log(`after ${instance.constructor.name}.${name}`, instance.seconds)
   }
 })
 
