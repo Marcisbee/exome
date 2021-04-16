@@ -6,13 +6,10 @@
   "module": "exome.esm.js",
   "types": "index.d.ts",
   "scripts": {
-    "build": "npm run build:cjs && npm run build:esm && npm run build:jest && npm run declarations",
-    "build:cjs": "esbuild src/index.ts --outfile=dist/exome.js --target=es2016 --format=cjs --minify-identifiers --minify-syntax --bundle --define:process.env.NODE_ENV=\\\"production\\\" && esbuild src/react.ts --outfile=dist/react.js --target=es2016 --format=cjs --minify-identifiers --minify-syntax --bundle --external:react --external:exome --define:process.env.NODE_ENV=\\\"production\\\" && esbuild src/devtools.ts --outfile=dist/devtools.js --target=es2016 --format=cjs --minify-identifiers --minify-syntax --bundle --external:react --external:exome --define:process.env.NODE_ENV=\\\"production\\\"",
-    "build:esm": "esbuild src/index.ts --outfile=dist/exome.esm.js --target=es2016 --format=esm --minify-identifiers --minify-syntax --bundle --define:process.env.NODE_ENV=\\\"production\\\" && esbuild src/react.ts --outfile=dist/react.esm.js --target=es2016 --format=esm --minify-identifiers --minify-syntax --bundle --external:react --external:exome --define:process.env.NODE_ENV=\\\"production\\\" && esbuild src/devtools.ts --outfile=dist/devtools.esm.js --target=es2016 --format=esm --minify-identifiers --minify-syntax --bundle --external:react --external:exome --define:process.env.NODE_ENV=\\\"production\\\"",
-    "build:jest": "esbuild src/jest/serializer.ts --outfile=dist/jest/serializer.js --platform=node --target=node12 --minify --format=cjs --define:process.env.NODE_ENV=\\\"production\\\"",
+    "build": "node -r esbuild-register ./scripts/build.ts && npm run declarations",
     "dev": "npm run build:esm -- --sourcemap --define:process.env.NODE_ENV=\\\"development\\\" --watch",
     "playground": "esbuild playground/index.tsx --outfile=playground/dist/index.js --bundle --format=esm --sourcemap --define:process.env.NODE_ENV=\\\"development\\\" && npx serve playground/dist",
-    "lint": "eslint --ext .js,.ts ./src",
+    "lint": "eslint --ext .js,.ts ./",
     "test": "uvu -r esbuild-register",
     "coverage": "c8 --check-coverage npm test",
     "declarations": "tsc --declarationDir dist --emitDeclarationOnly --declaration",
@@ -37,11 +34,11 @@
   },
   "homepage": "https://github.com/Marcisbee/exome#readme",
   "devDependencies": {
-    "@types/node": "^14.14.37",
+    "@types/node": "^14.14.41",
     "@types/proxyquire": "^1.3.28",
     "@types/react": "^17.0.3",
     "@types/react-dom": "^17.0.3",
-    "@types/sinon": "^9.0.11",
+    "@types/sinon": "^10.0.0",
     "@typescript-eslint/eslint-plugin": "^4.20.0",
     "c8": "^7.7.1",
     "esbuild": "^0.11.2",
@@ -58,7 +55,12 @@
     "uvu": "^0.5.1"
   },
   "peerDependencies": {
-    "react": "^17.0.2"
+    "react": ">= 16.8.0"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    }
   },
   "exports": {
     ".": {
