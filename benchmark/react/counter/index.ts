@@ -1,14 +1,14 @@
 import ReactDOM from 'react-dom';
 
-import reactUseState from './react/use-state';
-import reactExome from './react/exome';
-import reactRedux from './react/redux';
-import reactReduxToolkit from './react/redux-toolkit';
-import reactMobx from './react/mobx';
-import reactValtio from './react/valtio';
-import reactJotai from './react/jotai';
-import reactRecoil from './react/recoil';
-import reactPullState from './react/pullstate';
+import reactUseState from './use-state';
+import reactExome from './exome';
+import reactRedux from './redux';
+import reactReduxToolkit from './redux-toolkit';
+import reactMobx from './mobx';
+import reactValtio from './valtio';
+import reactJotai from './jotai';
+import reactRecoil from './recoil';
+import reactPullState from './pullstate';
 
 const testBunnies = [
   {
