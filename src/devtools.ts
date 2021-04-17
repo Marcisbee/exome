@@ -108,7 +108,9 @@ export function exomeDevtools({
   ReduxTool.init(getFullStore())
 
   return (instance, action, payload) => {
-    const name: string = Object.getPrototypeOf(instance).constructor.name
+    const id = getExomeId(instance)
+    const name: string = id.replace(/-.*$/, '')
+    const type = `[${name}] ${action}`
 
     if (!name) {
       return
@@ -120,15 +122,17 @@ export function exomeDevtools({
 
     if (action === 'NEW') {
       fullStore.get(name)?.set(getExomeId(instance), instance)
+      ReduxTool.send({ type, payload: undefined }, getFullStore())
     }
 
-    const type = `[${name}] ${action}`
-    let parsedPayload: any[] = []
+    return () => {
+      let parsedPayload: any[] = []
 
-    try {
-      parsedPayload = JSON.parse(JSON.stringify(payload))
-    } catch (e) {}
+      try {
+        parsedPayload = JSON.parse(JSON.stringify(payload))
+      } catch (e) {}
 
-    ReduxTool.send({ type, payload: parsedPayload }, getFullStore())
+      ReduxTool.send({ type, payload: parsedPayload }, getFullStore())
+    }
   }
 }
