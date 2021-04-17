@@ -3,6 +3,7 @@ import { build } from 'esbuild'
 build({
   entryPoints: [
     './react/counter',
+    './react/fields',
   ],
   outdir: 'dist/react',
   target: 'es2016',
