@@ -39,6 +39,8 @@
 - 🔭 **Devtools**: Redux devtools integration
 - 💨 **Zero dependencies**
 
+[__Simple Demo__](https://codesandbox.io/s/exome-counter-96qfq)
+
 # Installation
 To install the stable version:
 ```bash
@@ -46,10 +48,27 @@ npm install --save exome
 ```
 This assumes you are using [npm](https://www.npmjs.com/package/exome) as your package manager.
 
+# Core concepts
+Any piece of state you have, must use a class that extends `Exome`.
+
+`Stores`
+
+Store can be a single class or multiple ones. I'd suggest keeping stores small, in terms of property sizes.
+
+`State values`
+
+Remember that this is quite a regular class (with some behind the scenes work vith Proxies). So you can write you data inside properties howerver you'd like. Properties can be public, private, object, arrays, getters, setters, static etc.
+
+`Actions`
+
+Every method in class is consideted as an action. They are only for changing state. Whenever any method is called in Exome it triggers update to middleware and updates view components. Actions can be regular methods or even async ones.
+
+If you want to get something from state via method, use getters.
+
 # Usage
 Library can be used without typescript, but I mostly recommend using it with typescript as it will guide you through what can and cannot be done as there are no checks without it and can lead to quite nasty bugs.
 
-To create a typed store just create new class with name of your choosing by extending `Exome` class exported from `exome` library.
+To create a typed store just create new class with a name of your choosing by extending `Exome` class exported from `exome` library.
 
 ```ts
 import { Exome } from 'exome'
@@ -61,10 +80,11 @@ class CounterStore extends Exome {
 
   // Now lets create action that will update "count" value
   public increment() {
-    this.count++
+    this.count += 1
   }
 }
 ```
+[__Open in codesandbox__](https://codesandbox.io/s/exome-counter-96qfq)
 
 That is the basic structure of simple store. It can have as many properties as you'd like. There are no restrictions.
 
@@ -146,6 +166,7 @@ function App() {
   return <button onClick={increment}>{count}</button>
 }
 ```
+[__Open in Codesandbox__](https://codesandbox.io/s/exome-counter-96qfq)
 
 ### `saveState`
 Function that saves snapshot of current state for any Exome and returns string.
@@ -237,18 +258,22 @@ __Example__
 import { Exome, addMiddleware } from "exome"
 
 addMiddleware((instance, name, payload) => {
-  console.log(`before ${instance.constructor.name}.${name}`, instance.seconds)
+  if (!(instance instanceof Timer)) {
+    return;
+  }
+
+  console.log(`before action "${name}"`, instance.time);
 
   return () => {
-    console.log(`after ${instance.constructor.name}.${name}`, instance.seconds)
-  }
-})
+    console.log(`after action "${name}"`, instance.time);
+  };
+});
 
 class Timer extends Exome {
-  public seconds = 0
+  public time = 0;
 
   public increment() {
-    this.seconds += 1
+    this.time += 1;
   }
 }
 
@@ -256,13 +281,14 @@ const timer = new Timer()
 
 setInterval(timer.increment, 1000)
 
-// > "before Timer.increment", 0
-// > "after Timer.increment", 1
+// > before action "increment", 0
+// > after action "increment", 1
 //   ... after 1s
-// > "before Timer.increment", 1
-// > "after Timer.increment", 2
+// > before action "increment", 1
+// > after action "increment", 2
 //   ...
 ```
+[__Open in Codesandbox__](https://codesandbox.io/s/exome-middleware-ro6of?file=/src/App.tsx)
 
 # FAQ
 ### Q: Can I use Exome inside Exome?
@@ -272,55 +298,57 @@ Exome can have deeply nested Exomes inside itself. And whenever new Exome is use
 For example:
 ```tsx
 class Todo extends Exome {
-  constructor(
-    public message: string,
-    public completed = false
-  ) {}
+  constructor(public message: string, public completed = false) {
+    super();
+  }
 
-  public complete() {
-    this.completed = true
+  public toggle() {
+    this.completed = !this.completed;
   }
 }
 
 class Store extends Exome {
-  constructor(
-    public list: Todo[]
-  ) {}
+  constructor(public list: Todo[]) {
+    super();
+  }
 }
 
 const store = new Store([
-  new Todo('Code a new state library', true),
-  new Todo('Write documentation'),
-])
+  new Todo("Code a new state library", true),
+  new Todo("Write documentation")
+]);
 
 function TodoView({ todo }: { todo: Todo }) {
-  const { message, complete } = useStore(todo)
+  const { message, completed, toggle } = useStore(todo);
 
   return (
     <li>
-      <strong>
+      <strong
+        style={{
+          textDecoration: completed ? "line-through" : "initial"
+        }}
+      >
         {message}
       </strong>
-
-      <button onClick={complete}>
-        complete
-      </button>
+      &nbsp;
+      <button onClick={toggle}>toggle</button>
     </li>
-  )
+  );
 }
 
 function App() {
-  const { list } = useStore(store)
+  const { list } = useStore(store);
 
   return (
     <ul>
       {list.map((todo) => (
-        <TodoView todo={todo} />
+        <TodoView key={getExomeId(todo)} todo={todo} />
       ))}
     </ul>
-  )
+  );
 }
 ```
+[__Open in Codesandbox__](https://codesandbox.io/s/exome-todo-sz1j4?file=/src/App.tsx)
 
 ### Q: Can deep state structure be saved to string and then loaded back as an instance?
 YES! This was also one of key requirements for this. We can save full state from any Exome with [`saveState`](#saveState), save it to file or database and the load that string up onto Exome instance with [`loadState`](#loadState).
@@ -340,10 +368,10 @@ Absolutely. You can even share store across multiple React instances (or if we'r
 For example:
 ```tsx
 class Timer extends Exome {
-  public seconds = 0
+  public time = 0
 
   public increment() {
-    this.seconds += 1
+    this.time += 1
   }
 }
 
@@ -352,11 +380,12 @@ const timer = new Timer()
 setInterval(timer.increment, 1000)
 
 function App() {
-  const { seconds } = useStore(timer)
+  const { time } = useStore(timer)
 
-  return <h1>{seconds}</h1>
+  return <h1>{time}</h1>
 }
 ```
+[__Open in Codesandbox__](https://codesandbox.io/s/exome-middleware-ro6of?file=/src/App.tsx)
 
 # Motivation
 I stumbled upon a need to store deeply nested store and manage chunks of them individually and regular flux selector/action architecture just didn't make much sense anymore. So I started to prototype what would ideal deeply nested store interaction look like and I saw that we could simply use classes for this.
