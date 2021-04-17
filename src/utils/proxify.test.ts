@@ -181,4 +181,17 @@ test('does not proxy already proxied Exome instance', () => {
   assert.is(dogVincent === output.dogs[0], true)
 })
 
+test('does not proxy Date instance', () => {
+  const date = new Date()
+  class Clock extends Exome {
+    public date = date
+  }
+  const input = new Clock()
+
+  const output = proxify(input)
+
+  assert.is(date === input.date, true)
+  assert.is(date === output.date, true)
+})
+
 test.run()

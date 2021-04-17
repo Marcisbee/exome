@@ -36,7 +36,7 @@ export function proxify<T extends Record<any, any>>(parent: T): T {
           }
         }
 
-        if (value !== null && typeof value === 'object' && !(value instanceof Exome)) {
+        if (value !== null && typeof value === 'object' && (value.constructor === Object || value.constructor === Array)) {
           return proxify(value)
         }
 
