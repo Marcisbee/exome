@@ -20,7 +20,7 @@ test('returns same instance of Exome just as Proxy', () => {
 })
 
 test('returns same object', () => {
-  const input = {
+  const input: any = {
     name: 'foo'
   }
 
@@ -33,7 +33,7 @@ test('returns same object', () => {
 })
 
 test('returns same array', () => {
-  const input = [1, 2, 3]
+  const input: any = [1, 2, 3]
 
   const output = proxify(input)
 
@@ -44,11 +44,11 @@ test('returns same array', () => {
 })
 
 test('can set value to proxied object', () => {
-  const input = {}
+  const input: any = {}
 
-  const output = proxify(input);
+  const output = proxify(input)
 
-  (output as any).hello = 'world'
+  output.hello = 'world'
 
   assert.equal(output, {
     hello: 'world'
@@ -56,7 +56,7 @@ test('can set value to proxied object', () => {
 })
 
 test('can get value from proxied object', () => {
-  const input = {
+  const input: any = {
     foo: 'bar'
   }
 
@@ -65,8 +65,8 @@ test('can get value from proxied object', () => {
   assert.equal(output.foo, 'bar')
 })
 
-test('proxies nested objects', () => {
-  const input = {
+test('does not proxy nested objects', () => {
+  const input: any = {
     first: {
       second: {
         name: 'John'
@@ -79,11 +79,11 @@ test('proxies nested objects', () => {
   assert.equal(output.first, input.first)
 
   // They are not equal because output is Proxy
-  assert.is(input.first === output.first, false)
+  assert.is(input.first === output.first, true)
 })
 
-test('proxies nested array', () => {
-  const input = {
+test('does not proxy nested array', () => {
+  const input: any = {
     first: {
       second: [
         1,
@@ -98,11 +98,11 @@ test('proxies nested array', () => {
   assert.equal(output.first, input.first)
 
   // They are not equal because output is Proxy
-  assert.is(input.first === output.first, false)
+  assert.is(input.first === output.first, true)
 })
 
 test('does not proxy function from regular object', () => {
-  const input = {
+  const input: any = {
     method() {}
   }
 

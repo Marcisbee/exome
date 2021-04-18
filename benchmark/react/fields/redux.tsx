@@ -23,7 +23,6 @@ const store = configureStore({
 })
 
 function Field({ index, field: name }: { index: number, field: string }) {
-  // const name: string = useSelector((state: any) => state.fields.fields[index], (a, b) => a === b)
   const dispatch = useDispatch()
 
   return (
