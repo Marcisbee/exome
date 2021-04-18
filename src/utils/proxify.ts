@@ -47,5 +47,10 @@ export function proxify<T extends Exome>(parent: T): T {
     }
   )
 
+  // It means we're using Proxy polyfill and we should actually allow
+  if (!Object.isExtensible(proxy) && Object.isExtensible(parent)) {
+    return Object.create(proxy)
+  }
+
   return proxy
 }
