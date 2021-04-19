@@ -41,7 +41,7 @@ function proxifyWithoutPromise<T extends Exome>(parent: T): T {
 
 export function proxify<T extends Exome>(parent: T): T {
   // Handles browsers that don't support Proxy
-  if (!Proxy) {
+  if (typeof Proxy === 'undefined') {
     return proxifyWithoutPromise(parent)
   }
 

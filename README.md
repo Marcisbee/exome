@@ -39,6 +39,8 @@
 - 🔭 **Devtools**: Redux devtools integration
 - 💨 **Zero dependencies**
 
+As a feature I should also mention, that [Exome supports IE](#ie-support) even tho it uses Proxy under the hood.
+
 [__Simple Demo__](https://codesandbox.io/s/exome-counter-96qfq)
 
 # Installation
@@ -57,11 +59,11 @@ Store can be a single class or multiple ones. I'd suggest keeping stores small, 
 
 `State values`
 
-Remember that this is quite a regular class (with some behind the scenes work vith Proxies). So you can write you data inside properties howerver you'd like. Properties can be public, private, object, arrays, getters, setters, static etc.
+Remember that this is quite a regular class (with some behind the scenes work with Proxies). So you can write you data inside properties however you'd like. Properties can be public, private, object, arrays, getters, setters, static etc.
 
 `Actions`
 
-Every method in class is consideted as an action. They are only for changing state. Whenever any method is called in Exome it triggers update to middleware and updates view components. Actions can be regular methods or even async ones.
+Every method in class is considered as an action. They are only for changing state. Whenever any method is called in Exome it triggers update to middleware and updates view components. Actions can be regular methods or even async ones.
 
 If you want to get something from state via method, use getters.
 
@@ -386,6 +388,12 @@ function App() {
 }
 ```
 [__Open in Codesandbox__](https://codesandbox.io/s/exome-middleware-ro6of?file=/src/App.tsx)
+
+# IE support
+This package works with IE. Even tho it uses Proxy, we can get by not using it on IE, but no performance penalty in other browsers that would utilize Proxy.
+
+To run Exome on IE, you must have `Symbol` and `Promise` polyfills and down-transpile to ES5 as usual. And that's it!
+Do not use `Proxy` polyfill! Most Proxy polyfills will just break Exome because of huge limitations in them.
 
 # Motivation
 I stumbled upon a need to store deeply nested store and manage chunks of them individually and regular flux selector/action architecture just didn't make much sense anymore. So I started to prototype what would ideal deeply nested store interaction look like and I saw that we could simply use classes for this.
