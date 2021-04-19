@@ -39,7 +39,7 @@
 - 🔭 **Devtools**: Redux devtools integration
 - 💨 **Zero dependencies**
 
-As a feature I should also mention, that [Exome supports IE](#ie-support) even tho it uses Proxy under the hood.
+As a feature I should also mention, that [Exome supports IE](#ie-support) as of `v0.8.5` even tho it uses Proxy under the hood.
 
 [__Simple Demo__](https://codesandbox.io/s/exome-counter-96qfq)
 
