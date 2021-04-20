@@ -39,17 +39,17 @@ export class Store extends Exome {
 export const dogStorePre = new Store()
 export const dogStore = new Store()
 
-export const dogAndy = new Dog('Andy', 'beagle pup')
+const dogAndyPre = new Dog('Andy', 'beagle pup')
 
 dogStorePre.addPerson(
   new Person('John Wick', [
-    dogAndy
+    dogAndyPre
   ])
 )
 
 dogStorePre.addPerson(
   new Person('Jane Doe', [
-    dogAndy
+    dogAndyPre
   ])
 )
 
@@ -63,3 +63,5 @@ loadState(dogStore, savedStore, {
   Person,
   Dog,
 })
+
+export const dogAndy = dogStore.persons[0].dogs[0]

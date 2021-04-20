@@ -1,6 +1,6 @@
 {
   "name": "exome",
-  "version": "0.8.3",
+  "version": "0.8.6",
   "description": "Proxy based store manager for deeply nested states",
   "main": "exome.js",
   "module": "exome.esm.js",
@@ -22,10 +22,12 @@
   "keywords": [
     "store",
     "state",
+    "state-manager",
     "proxy",
     "deep",
     "nested",
-    "react"
+    "react",
+    "preact"
   ],
   "author": "Marcis <marcisbergmanis@gmail.com>",
   "license": "MIT",
@@ -55,11 +57,15 @@
     "uvu": "^0.5.1"
   },
   "peerDependencies": {
+    "preact": ">= 10.1.0",
     "react": ">= 16.8.0",
-    "vue": "^3.0.11"
+    "vue": ">= 3.0.0"
   },
   "peerDependenciesMeta": {
     "react": {
+      "optional": true
+    },
+    "preact": {
       "optional": true
     },
     "vue": {
@@ -78,6 +84,10 @@
     "./react": {
       "require": "./react.js",
       "import": "./react.esm.js"
+    },
+    "./preact": {
+      "require": "./preact.js",
+      "import": "./preact.esm.js"
     }
   }
 }
