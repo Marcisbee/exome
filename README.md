@@ -24,7 +24,7 @@
 <br />
 
 <div align="center">
-  Proxy based state manager for deeply nested states
+  State manager for deeply nested states
 </div>
 
 ## Features
