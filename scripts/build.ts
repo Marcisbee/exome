@@ -22,6 +22,7 @@ import { build } from 'esbuild'
     build({
       entryPoints: [
         'src/react.ts',
+        'src/preact.ts',
         'src/devtools.ts'
       ],
       outdir: 'dist',
@@ -35,6 +36,7 @@ import { build } from 'esbuild'
       sourcemap: 'external',
       external: [
         'react',
+        'preact',
         'exome'
       ],
       logLevel: 'info'
