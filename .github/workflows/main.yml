@@ -22,3 +22,7 @@ jobs:
       run: npm run lint
       env:
         CI: true
+    - name: build
+      run: npm install preact && npm run build
+      env:
+        CI: true
