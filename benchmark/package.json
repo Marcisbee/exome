@@ -2,12 +2,12 @@
   "name": "exome-benchmark",
   "version": "0.0.0",
   "scripts": {
-    "build": "node -r esbuild-register build.ts",
-    "test": "npm run build && npx serve"
+    "test": "node -r esbuild-register run.ts"
   },
   "devDependencies": {
     "@prantlf/astrobench": "^1.1.0",
     "@reduxjs/toolkit": "^1.5.1",
+    "colorette": "^1.2.2",
     "jotai": "^0.16.0",
     "mobx": "^6.2.0",
     "mobx-react": "^7.1.0",

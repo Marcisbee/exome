@@ -1,35 +1,35 @@
 import ReactDOM from 'react-dom';
 
-import reactExome from './exome';
-import reactRedux from './redux';
-import reactMobx from './mobx';
-import reactRecoil from './recoil';
-import reactValtio from './valtio';
+import exome from './exome';
+import redux from './redux';
+import mobx from './mobx';
+import recoil from './recoil';
+import valtio from './valtio';
 
 const testBunnies = [
   {
-    name: 'React Exome - 1000 items',
-    render: reactExome,
+    name: 'Exome',
+    render: exome,
     target: null,
   },
   {
-    name: 'React Recoil - 1000 items',
-    render: reactRecoil,
+    name: 'Recoil',
+    render: recoil,
     target: null,
   },
   {
-    name: 'React Redux - 1000 items',
-    render: reactRedux,
+    name: 'Redux',
+    render: redux,
     target: null,
   },
   {
-    name: 'React Mobx - 1000 items',
-    render: reactMobx,
+    name: 'Mobx',
+    render: mobx,
     target: null,
   },
   {
-    name: 'React Valtio - 1000 items',
-    render: reactValtio,
+    name: 'Valtio',
+    render: valtio,
     target: null,
   },
 ].map((bunny) => {
@@ -45,7 +45,7 @@ const testBunnies = [
 
 const win: Window & { suite: any, bench: any, beforeBench: any } = window as any;
 
-win.suite("Start up", () => {
+win.suite("Start up 1000 items", () => {
   win.beforeBench(() => {
     testBunnies.forEach(({ target }) => {
       ReactDOM.unmountComponentAtNode(target);
@@ -59,7 +59,7 @@ win.suite("Start up", () => {
   });
 });
 
-win.suite("Change 10th value", function () {
+win.suite("Change 10th value from 1000 items", function () {
   win.beforeBench(function () {
     testBunnies.forEach(({ target, render }) => {
       ReactDOM.unmountComponentAtNode(target);

@@ -14,7 +14,7 @@ _Note: **Higher is better**_
 I know counter doesn't really show real world app performance, but I didn't want to waste much time re-creating real world app for each state so this will have to do.
 
 # Running benchmarks
-Since I use Macbook with M1 processor, it's not straight forward to install puppeteer, hence there's no cli to run tests and get results printed. It's all done via browser.
+There's a cli to run and return results. Tests run on top of `@prantlf/astrobench` library via Playwright.
 
 Before starting, make sure you're in `/benchmark` directory.
 
@@ -23,9 +23,15 @@ To prepare dependencies, run:
 npm install
 ```
 
-And to start test server run:
+And to run tests:
 ```
-npm test
+npm test -- ./react/counter
 ```
 
-It'll tell the address and port to open in browser of your choosing and just run benchmarks from there.
+`test` script takes in single arg that points to benchmark directory you want to run.
+
+Currently possible benchmarks are:
+```
+npm test -- ./react/counter
+npm test -- ./react/fields
+```
