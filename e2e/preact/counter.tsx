@@ -1,4 +1,5 @@
-import { render } from 'preact'
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { h, Fragment, render } from 'preact'
 import { useRef } from 'preact/hooks'
 import { Exome } from 'exome'
 import { useStore } from 'exome/preact'

@@ -1,10 +1,12 @@
+import { join } from 'path'
 import { suite } from 'uvu'
 import assert from 'uvu/assert'
 
 import * as ENV from '../setup/playwright'
 import { BrowserContext } from '../setup/playwright'
 
-const test = suite<BrowserContext>('Counter', { entry: 'react/counter.tsx' } as any)
+const entry = join(__dirname, './counter.tsx')
+const test = suite<BrowserContext>('Counter', { entry } as any)
 
 test.before(ENV.setup)
 test.before.each(ENV.homepage)

@@ -15,7 +15,7 @@ export async function setup(context: BrowserContext) {
     servedir: path.join(__dirname, 'www')
   }, {
     entryPoints: [
-      path.join(__dirname, '..', context.entry)
+      context.entry
     ],
     outfile: path.join(__dirname, 'www/app.js'),
     target: 'es2016',
