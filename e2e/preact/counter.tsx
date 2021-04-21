@@ -1,7 +1,7 @@
-import * as React from 'react'
-import * as ReactDom from 'react-dom'
+import { render } from 'preact'
+import { useRef } from 'preact/hooks'
 import { Exome } from 'exome'
-import { useStore } from 'exome/react'
+import { useStore } from 'exome/preact'
 
 class CounterStore extends Exome {
   public count = 0
@@ -15,7 +15,7 @@ const counter = new CounterStore()
 
 function App() {
   const { count, increment } = useStore(counter)
-  const renders = React.useRef(0)
+  const renders = useRef(0)
 
   renders.current += 1
 
@@ -27,4 +27,4 @@ function App() {
   )
 }
 
-ReactDom.render(<App />, document.body)
+render(<App />, document.body)
