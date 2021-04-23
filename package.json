@@ -79,6 +79,10 @@
       "require": "./devtools.js",
       "import": "./devtools.esm.js"
     },
+    "./vanilla": {
+      "require": "./vanilla.js",
+      "import": "./vanilla.esm.js"
+    },
     "./react": {
       "require": "./react.js",
       "import": "./react.esm.js"

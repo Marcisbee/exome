@@ -23,7 +23,8 @@ import { build } from 'esbuild'
       entryPoints: [
         'src/react.ts',
         'src/preact.ts',
-        'src/devtools.ts'
+        'src/devtools.ts',
+        'src/vanilla.ts'
       ],
       outdir: 'dist',
       entryNames: format === 'esm' ? '[dir]/[name].esm' : '[dir]/[name]',
