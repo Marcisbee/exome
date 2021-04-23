@@ -13,9 +13,13 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - name: install
-      run: npm ci
+      run: npm ci && npm install react preact
     - name: test
       run: npm run test
+      env:
+        CI: true
+    - name: e2e
+      run: npm run e2e
       env:
         CI: true
     - name: lint
@@ -23,6 +27,6 @@ jobs:
       env:
         CI: true
     - name: build
-      run: npm install preact && npm run build
+      run: npm run build
       env:
         CI: true

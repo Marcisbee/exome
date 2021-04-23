@@ -13,8 +13,10 @@ jobs:
         with:
           node-version: 12
       - run: npm ci
+      - run: npm install react preact
       - run: npm run lint
       - run: npm test
+      - run: npm e2e
 
   publish-npm:
     needs: test

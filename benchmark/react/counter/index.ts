@@ -1,59 +1,59 @@
 import ReactDOM from 'react-dom';
 
-import reactUseState from './use-state';
-import reactExome from './exome';
-import reactRedux from './redux';
-import reactReduxToolkit from './redux-toolkit';
-import reactMobx from './mobx';
-import reactValtio from './valtio';
-import reactJotai from './jotai';
-import reactRecoil from './recoil';
-import reactPullState from './pullstate';
+// import useState from './use-state';
+import exome from './exome';
+import redux from './redux';
+import reduxToolkit from './redux-toolkit';
+import mobx from './mobx';
+import valtio from './valtio';
+import jotai from './jotai';
+import recoil from './recoil';
+import pullState from './pullstate';
 
 const testBunnies = [
+  // {
+  //   name: 'useState',
+  //   render: useState,
+  //   target: null,
+  // },
   {
-    name: 'React useState',
-    render: reactUseState,
+    name: 'Exome',
+    render: exome,
     target: null,
   },
   {
-    name: 'React Exome',
-    render: reactExome,
+    name: 'Redux',
+    render: redux,
     target: null,
   },
   {
-    name: 'React Redux',
-    render: reactRedux,
+    name: 'Redux toolkit',
+    render: reduxToolkit,
     target: null,
   },
   {
-    name: 'React Redux toolkit',
-    render: reactReduxToolkit,
+    name: 'Mobx',
+    render: mobx,
     target: null,
   },
   {
-    name: 'React Mobx',
-    render: reactMobx,
+    name: 'Jotai',
+    render: jotai,
     target: null,
   },
   {
-    name: 'React Jotai',
-    render: reactJotai,
+    name: 'Valtio',
+    render: valtio,
     target: null,
   },
   {
-    name: 'React Valtio',
-    render: reactValtio,
+    name: 'Recoil',
+    render: recoil,
     target: null,
   },
   {
-    name: 'React Recoil',
-    render: reactRecoil,
-    target: null,
-  },
-  {
-    name: 'React Pullstate',
-    render: reactPullState,
+    name: 'Pullstate',
+    render: pullState,
     target: null,
   },
 ].map((bunny) => {
@@ -83,7 +83,7 @@ win.suite("Start up", () => {
   });
 });
 
-win.suite("Increment", function () {
+win.suite("Increment counter", function () {
   win.beforeBench(function () {
     testBunnies.forEach(({ target, render }) => {
       ReactDOM.unmountComponentAtNode(target);
