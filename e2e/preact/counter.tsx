@@ -1,18 +1,9 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { h, Fragment, render } from 'preact'
 import { useRef } from 'preact/hooks'
-import { Exome } from 'exome'
 import { useStore } from 'exome/preact'
 
-class CounterStore extends Exome {
-  public count = 0
-
-  public increment() {
-    this.count += 1
-  }
-}
-
-const counter = new CounterStore()
+import { counter } from '../stores/counter'
 
 function App() {
   const { count, increment } = useStore(counter)

@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "lib": [
+      "DOM",
+      "es2015"
+    ],
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "jsx": "react",
+    "paths": {
+      "exome": [
+        "../src/index.ts"
+      ],
+      "exome/react": [
+        "../src/react.ts"
+      ]
+    },
+    "allowJs": true
+  }
+}
