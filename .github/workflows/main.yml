@@ -13,7 +13,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - name: install
-      run: npm ci && npm install react preact
+      run: npm ci && npm install react preact vue@next
     - name: test
       run: npm run test
       env:
