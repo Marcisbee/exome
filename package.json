@@ -60,13 +60,17 @@
   },
   "peerDependencies": {
     "preact": ">= 10.1.0",
-    "react": ">= 16.8.0"
+    "react": ">= 16.8.0",
+    "vue": ">= 3.0.0"
   },
   "peerDependenciesMeta": {
     "react": {
       "optional": true
     },
     "preact": {
+      "optional": true
+    },
+    "vue": {
       "optional": true
     }
   },

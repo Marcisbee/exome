@@ -1,41 +1,11 @@
 import * as React from 'react'
 import * as ReactDom from 'react-dom'
-import { Exome } from 'exome'
 import { useStore } from 'exome/react'
 
-const api = {
-  getMessage() {
-    return new Promise<string>((resolve) => {
-      setTimeout(resolve, 100, 'Hello world')
-    })
-  }
-}
-
-class Store extends Exome {
-  public loading = false
-  public message: string | null = null
-
-  public async getMessage() {
-    this.message = await api.getMessage()
-  }
-
-  public async getMessageWithLoading() {
-    this.setLoading(true)
-
-    this.message = await api.getMessage()
-
-    this.setLoading(false)
-  }
-
-  public setLoading(value: boolean) {
-    this.loading = value
-  }
-}
-
-const store = new Store()
+import { asyncStore } from '../stores/async-store'
 
 function App() {
-  const { message, loading, getMessage, getMessageWithLoading } = useStore(store)
+  const { message, loading, getMessage, getMessageWithLoading } = useStore(asyncStore)
   const renders = React.useRef(0)
 
   renders.current += 1
