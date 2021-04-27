@@ -28,7 +28,7 @@ jobs:
           node-version: 12
           registry-url: https://registry.npmjs.org/
       - run: npm ci
-      - run: npm install preact
+      - run: npm install react preact vue@next
       - run: npm run build
       - run: npm publish dist
         env:
