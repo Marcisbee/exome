@@ -13,7 +13,7 @@
     "test": "uvu -r esbuild-register -i e2e",
     "e2e": "uvu -r esbuild-register -i src",
     "coverage": "c8 --check-coverage npm test",
-    "declarations": "tsc --declarationDir dist --emitDeclarationOnly --declaration",
+    "declarations": "tsc --outFile dist/index.js --emitDeclarationOnly --declaration",
     "postbuild": "cp package.json dist && cp README.md dist && cp LICENSE dist"
   },
   "repository": {
