@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.9.2
+
+* Fixes type declaration
+
 ## 0.9.1
 
 * Fixes vue export

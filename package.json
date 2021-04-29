@@ -1,6 +1,6 @@
 {
   "name": "exome",
-  "version": "0.9.1",
+  "version": "0.9.2",
   "description": "Proxy based store manager for deeply nested states",
   "main": "exome.js",
   "module": "exome.esm.js",
@@ -13,7 +13,7 @@
     "test": "uvu -r esbuild-register -i e2e",
     "e2e": "uvu -r esbuild-register -i src",
     "coverage": "c8 --check-coverage npm test",
-    "declarations": "tsc --outFile dist/index.js --emitDeclarationOnly --declaration",
+    "declarations": "tsc --declarationDir dist --emitDeclarationOnly --declaration",
     "postbuild": "cp package.json dist && cp README.md dist && cp LICENSE dist"
   },
   "repository": {
