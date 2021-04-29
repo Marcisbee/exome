@@ -90,6 +90,10 @@
     "./preact": {
       "require": "./preact.js",
       "import": "./preact.esm.js"
+    },
+    "./vue": {
+      "require": "./vue.js",
+      "import": "./vue.esm.js"
     }
   }
 }
