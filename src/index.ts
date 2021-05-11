@@ -1,4 +1,5 @@
 export { Exome } from './exome'
+export { GhostExome } from './ghost-exome'
 export { getExomeId } from './utils/get-id'
 export { setExomeId } from './utils/set-id'
 export { updateMap } from './utils/update-map'
