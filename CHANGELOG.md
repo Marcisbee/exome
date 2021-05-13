@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.10.1
+
+* Fixes jest serializer output for `GhostExome`;
+
 ## 0.10.0
 
 * Adds `GhostExome` class;
