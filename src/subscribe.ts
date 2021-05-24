@@ -1,6 +1,6 @@
 import { Exome, addMiddleware, Middleware, getExomeId, updateMap } from 'exome'
 
-const vanillaMiddleware: Middleware = (instance) => {
+const subscribeMiddleware: Middleware = (instance) => {
   return () => {
     const id = getExomeId(instance)
     const renderers = updateMap[id] ?? []
@@ -11,7 +11,7 @@ const vanillaMiddleware: Middleware = (instance) => {
   }
 }
 
-addMiddleware(vanillaMiddleware)
+addMiddleware(subscribeMiddleware)
 
 type Handler<T extends Exome> = (store: Readonly<T>) => void
 type Unsubscribe = () => void
@@ -21,7 +21,7 @@ export function subscribe<T extends Exome>(store: T, handler: Handler<T>): Unsub
 
   if (!id) {
     throw new Error(
-      '"subscribe" encountered store that is not an instance of "Exome"'
+      '"subscribe" received value that is not an instance of "Exome"'
     )
   }
 
@@ -29,10 +29,14 @@ export function subscribe<T extends Exome>(store: T, handler: Handler<T>): Unsub
     updateMap[id] = []
   }
 
-  const queue = updateMap[id]!
+  let queue = updateMap[id]!
 
   function render() {
     handler(store)
+
+    // Listen to next changes
+    queue = updateMap[id]
+    queue.push(render)
   }
 
   queue.push(render)

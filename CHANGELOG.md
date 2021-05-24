@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.10.0
+
+* Adds `subscribe` method that allows to listen for changes in particular Exome instance;
+
 ## 0.10.1
 
 * Fixes jest serializer output for `GhostExome`;

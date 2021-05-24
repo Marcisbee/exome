@@ -1,6 +1,6 @@
 {
   "name": "exome",
-  "version": "0.10.1",
+  "version": "0.11.0",
   "description": "Proxy based store manager for deeply nested states",
   "main": "exome.js",
   "module": "exome.esm.js",
@@ -84,9 +84,9 @@
       "require": "./devtools.js",
       "import": "./devtools.esm.js"
     },
-    "./vanilla": {
-      "require": "./vanilla.js",
-      "import": "./vanilla.esm.js"
+    "./subscribe": {
+      "require": "./subscribe.js",
+      "import": "./subscribe.esm.js"
     },
     "./react": {
       "require": "./react.js",
