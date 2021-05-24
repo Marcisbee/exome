@@ -21,6 +21,7 @@ import { build } from 'esbuild'
     // Utilities
     build({
       entryPoints: [
+        'src/subscribe.ts',
         'src/react.ts',
         'src/preact.ts',
         'src/vue.ts',

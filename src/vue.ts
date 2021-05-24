@@ -59,7 +59,7 @@ export function useStore<T extends Exome>(store: T): Readonly<T> {
 
   if (!id) {
     throw new Error(
-      '"useStore" encountered store that is not an instance of "Exome"'
+      '"useStore" received value that is not an instance of "Exome"'
     )
   }
 
