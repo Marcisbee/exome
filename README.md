@@ -27,7 +27,7 @@
   State manager for deeply nested states
 </div>
 
-## Features
+# Features
 
 - 📦 **Small**: Just **1 KB** minizipped
 - 🚀 **Fast**: Uses **no diffing** of state changes see [**benchmarks**](benchmark/README.md)

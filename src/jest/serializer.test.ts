@@ -3,6 +3,7 @@ import { test } from 'uvu'
 import assert from 'uvu/assert'
 
 import { Exome } from '../exome'
+import { GhostExome } from '../ghost-exome'
 
 const {
   print,
@@ -10,6 +11,7 @@ const {
 } = proxyquire('./serializer.ts', {
   exome: {
     Exome,
+    GhostExome,
     '@noCallThru': true
   }
 })
@@ -36,6 +38,12 @@ test('`test` returns `true` when encountering instance of Exome', () => {
   assert.is(output, true)
 })
 
+test('`test` returns `true` when encountering instance of GhostExome', () => {
+  const output = testSerializer(new GhostExome())
+
+  assert.is(output, true)
+})
+
 test('`test` returns `true` when encountering instance of extended Exome', () => {
   class Extended extends Exome {}
   const output = testSerializer(new Extended())
@@ -43,8 +51,21 @@ test('`test` returns `true` when encountering instance of extended Exome', () =>
   assert.is(output, true)
 })
 
+test('`test` returns `true` when encountering instance of extended GhostExome', () => {
+  class Extended extends GhostExome {}
+  const output = testSerializer(new Extended())
+
+  assert.is(output, true)
+})
+
 test('`test` returns `false` when encountering `Exome`', () => {
   const output = testSerializer(Exome)
+
+  assert.is(output, false)
+})
+
+test('`test` returns `false` when encountering `GhostExome`', () => {
+  const output = testSerializer(GhostExome)
 
   assert.is(output, false)
 })
@@ -138,6 +159,62 @@ test('`print` outputs nested extended Exome instance', () => {
     }
   }
   class Owner extends Exome {
+    public dogs = [
+      new Dog('Andy')
+    ]
+  }
+  const output = print(new Owner())
+
+  assert.snapshot(output, `Owner {
+  "dogs": [
+    {
+      "name": "Andy"
+    }
+  ]
+}`)
+})
+
+test('`print` outputs empty GhostExome instance', () => {
+  const output = print(new GhostExome())
+
+  assert.snapshot(output, 'GhostExome {}')
+})
+
+test('`print` outputs empty extended GhostExome instance', () => {
+  class Extended extends GhostExome { }
+  const output = print(new Extended())
+
+  assert.snapshot(output, 'Extended {}')
+})
+
+test('`print` outputs filled extended GhostExome instance', () => {
+  class Extended extends GhostExome {
+    public name?: string
+    public foo = 'bar'
+
+    public get gotName() {
+      return 'this will not show'
+    }
+
+    public methodFoo() {}
+    private methodBar() {}
+  }
+  const output = print(new Extended())
+
+  assert.snapshot(output, `Extended {
+  "foo": "bar"
+}`)
+})
+
+test('`print` outputs nested extended GhostExome instance', () => {
+  class Dog extends GhostExome {
+    constructor(
+      public name: string
+    ) {
+      super()
+    }
+  }
+  class Owner extends GhostExome {
     public dogs = [
       new Dog('Andy')
     ]

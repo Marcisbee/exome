@@ -16,7 +16,7 @@ jobs:
       - run: npm install react preact vue@next
       - run: npm run lint
       - run: npm test
-      - run: npm e2e
+      - run: npm run e2e
 
   publish-npm:
     needs: test
@@ -28,7 +28,7 @@ jobs:
           node-version: 12
           registry-url: https://registry.npmjs.org/
       - run: npm ci
-      - run: npm install preact
+      - run: npm install react preact vue@next
       - run: npm run build
       - run: npm publish dist
         env:
