@@ -390,7 +390,7 @@ const savedState = saveState(store)
 
 const newStore = new Store()
 
-loadState(newStore, savedState, { Todo })
+loadState(newStore, savedState)
 ```
 
 ### Q: Can I update state outside of React component?
