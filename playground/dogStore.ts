@@ -1,4 +1,4 @@
-import { Exome, loadState, saveState } from '../src'
+import { Exome, loadState, registerLoadable, saveState } from '../src'
 
 export class Dog extends Exome {
   constructor(public name: string, public breed: string) {
@@ -59,9 +59,11 @@ dogStorePre.addPerson(
 
 const savedStore = saveState(dogStorePre)
 
-loadState(dogStore, savedStore, {
+registerLoadable({
   Person,
   Dog,
 })
+
+loadState(dogStore, savedStore)
 
 export const dogAndy = dogStore.persons[0].dogs[0]
