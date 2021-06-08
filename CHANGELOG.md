@@ -1,6 +1,19 @@
 # Changelog
 
-## 0.10.0
+## 0.12.0
+
+### Breaking changes
+
+* Adds `registerLoadable` method that gathers all available Exomes that can be registered;
+* Removes 3rd argument for `loadState` method;
+
+```diff
+- loadState(target, state, { Person, Dog })
++ registerLoadable({ Person, Dog })
++ loadState(target, state)
+```
+
+## 0.11.0
 
 * Adds `subscribe` method that allows to listen for changes in particular Exome instance;
 

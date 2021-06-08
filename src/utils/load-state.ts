@@ -2,10 +2,15 @@ import { Exome } from '../exome'
 import { exomeId } from './exome-id'
 import { updateView } from './update-view'
 
+const loadableExomes: Record<string, typeof Exome> = {}
+
+export function registerLoadable(config: Record<string, any>) {
+  Object.assign(loadableExomes, config)
+}
+
 export function loadState(
   store: Exome,
-  state: string,
-  config: Record<string, any>
+  state: string
 ) {
   if (!state || typeof state !== 'string') {
     throw new Error(`State was not loaded. Passed state must be string, instead received "${typeof store}".`)
@@ -24,10 +29,10 @@ export function loadState(
       }
 
       const [name] = localId.split('-')
-      const StoreExome = config[name]
+      const StoreExome = loadableExomes[name]
 
       if (!StoreExome) {
-        throw new Error(`State cannot be loaded! "${name}" is missing from config.`)
+        throw new Error(`State cannot be loaded! "${name}" was not registered via \`registerLoadable\`.`)
       }
 
       try {

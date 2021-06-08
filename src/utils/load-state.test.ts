@@ -3,7 +3,7 @@ import assert from 'uvu/assert'
 import { Exome } from '../exome'
 import { exomeId } from './exome-id'
 
-import { loadState } from './load-state'
+import { loadState, registerLoadable } from './load-state'
 
 test('exports `loadState`', () => {
   assert.ok(loadState)
@@ -17,7 +17,7 @@ test('throws error if `undefined` is passed in', () => {
   const target = new Exome()
 
   assert.throws(() => {
-    loadState(target, undefined as any, {})
+    loadState(target, undefined as any)
   })
 })
 
@@ -25,7 +25,7 @@ test('throws error if `null` is passed in', () => {
   const target = new Exome()
 
   assert.throws(() => {
-    loadState(target, null as any, {})
+    loadState(target, null as any)
   })
 })
 
@@ -33,7 +33,7 @@ test('throws error if "null" is passed in', () => {
   const target = new Exome()
 
   assert.throws(() => {
-    loadState(target, 'null', {})
+    loadState(target, 'null')
   })
 })
 
@@ -41,7 +41,7 @@ test('throws error if "{}" is passed in', () => {
   const target = new Exome()
 
   assert.throws(() => {
-    loadState(target, '{}', {})
+    loadState(target, '{}')
   })
 })
 
@@ -49,7 +49,7 @@ test('throws error if "{}" is passed in', () => {
   const target = new Exome()
 
   assert.throws(() => {
-    loadState(target, '{}', {})
+    loadState(target, '{}')
   })
 })
 
@@ -59,7 +59,7 @@ test('doesn\'t modify root id of Exome instance', () => {
     $$exome_id: 'Exome-1'
   })
 
-  loadState(target, state, {})
+  loadState(target, state)
 
   assert.not.equal(target[exomeId], 'Exome-1')
 })
@@ -74,7 +74,7 @@ test('assigns simple property to Exome instance', () => {
     name: 'John'
   })
 
-  loadState(target, state, {})
+  loadState(target, state)
 
   assert.equal(target.name, 'John')
 })
@@ -96,7 +96,7 @@ test('throws error if class is missing', () => {
     ]
   })
 
-  assert.throws(() => loadState(target, state, {}))
+  assert.throws(() => loadState(target, state))
 })
 
 test('assigns nested property to Exome instance', () => {
@@ -116,7 +116,11 @@ test('assigns nested property to Exome instance', () => {
     ]
   })
 
-  loadState(target, state, { Person })
+  registerLoadable({
+    Person
+  })
+
+  loadState(target, state)
 
   assert.equal(target.name, 'John')
   assert.equal(target.friends.length, 1)
@@ -168,7 +172,12 @@ test('assigns circular property to Exome instance', () => {
     ]
   })
 
-  loadState(target, state, { Person, Dog })
+  registerLoadable({
+    Person,
+    Dog
+  })
+
+  loadState(target, state)
 
   assert.equal(target.persons.length, 2)
   assert.instance(target.persons[0], Person)
@@ -215,7 +224,11 @@ test('throws error if Exome instance cannot be constructed', () => {
     ]
   })
 
-  assert.throws(() => loadState(target, state, { Person }))
+  registerLoadable({
+    Person
+  })
+
+  assert.throws(() => loadState(target, state))
 })
 
 test.run()

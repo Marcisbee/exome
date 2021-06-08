@@ -198,17 +198,13 @@ Function that loads saved state in any Exome instance.
 ```ts
 function loadState(
   store: Exome,
-  state: string,
-  config: Record<string, Exome>
+  state: string
 ): Record<string, any>
 ```
 
 __Arguments__
 1. `store` _([Exome](#exome))_: Store to load saved state to.
 2. `state` _(String)_: Saved state string from `saveState` output.
-3. `config` _(Object)_: Saved state string from `saveState` output.
-   - key _(String)_: Name of the Exome state class (e.g. `"Counter"`).
-   - value _([Exome](#exome) constructor)_: Class of named Exome (e.g. `Counter`).
 
 __Returns__
 
@@ -217,16 +213,49 @@ __Returns__
 __Example__
 
 ```ts
-import { loadState } from "exome"
+import { loadState, registerLoadable } from "exome"
+
+registerLoadable({
+  Counter
+})
 
 const newCounter = new Counter()
 
-const loaded = loadState(newCounter, saved, { Counter })
+const loaded = loadState(newCounter, saved)
 loaded.count // e.g. = 15
 loaded.increment // undefined
 
 newCounter.count // new counter instance has all of the state applied so also = 15
 newCounter.increment // [Function]
+```
+
+### `registerLoadable`
+Function that registers Exomes that can be loaded from saved state via [`loadState`](#loadState).
+
+```ts
+function registerLoadable(
+  config: Record<string, typeof Exome>,
+): void
+```
+
+__Arguments__
+1. `config` _(Object)_: Saved state string from `saveState` output.
+   - key _(String)_: Name of the Exome state class (e.g. `"Counter"`).
+   - value _([Exome](#exome) constructor)_: Class of named Exome (e.g. `Counter`).
+
+__Returns__
+
+- _void_
+
+__Example__
+
+```ts
+import { loadState, registerLoadable } from "exome"
+
+registerLoadable({
+  Counter,
+  SampleStore
+})
 ```
 
 ### `addMiddleware`
