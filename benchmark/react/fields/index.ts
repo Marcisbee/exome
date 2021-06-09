@@ -1,82 +1,60 @@
+import { Suite, Options } from 'benchmark'
 import ReactDOM from 'react-dom';
 
 import exome from './exome';
 import redux from './redux';
 import mobx from './mobx';
-import recoil from './recoil';
 import valtio from './valtio';
+import recoil from './recoil';
 
-const testBunnies = [
-  {
-    name: 'Exome',
-    render: exome,
-    target: null,
-  },
-  {
-    name: 'Recoil',
-    render: recoil,
-    target: null,
-  },
-  {
-    name: 'Redux',
-    render: redux,
-    target: null,
-  },
-  {
-    name: 'Mobx',
-    render: mobx,
-    target: null,
-  },
-  {
-    name: 'Valtio',
-    render: valtio,
-    target: null,
-  },
-].map((bunny) => {
-  const target = document.getElementById('content')!.appendChild(document.createElement('div'));
+const suite = new Suite('1000 Fields')
 
-  target.setAttribute('data-content', bunny.name);
+const target = document.getElementById('bench')!;
 
+function configTest(renderer: (target: HTMLElement) => void): Options {
   return {
-    ...bunny,
-    target,
-  }
-});
-
-const win: Window & { suite: any, bench: any, beforeBench: any } = window as any;
-
-win.suite("Start up 1000 items", () => {
-  win.beforeBench(() => {
-    testBunnies.forEach(({ target }) => {
-      ReactDOM.unmountComponentAtNode(target);
-    });
-  });
-
-  testBunnies.forEach(({ name, render, target }) => {
-    win.bench(name, () => {
-      render(target);
-    });
-  });
-});
-
-win.suite("Change 10th value from 1000 items", function () {
-  win.beforeBench(function () {
-    testBunnies.forEach(({ target, render }) => {
-      ReactDOM.unmountComponentAtNode(target);
-      target.innerHTML = '';
-      render(target);
-    });
-  });
-
-  testBunnies.forEach(({ name, target }) => {
-    win.bench(name, function () {
+    fn() {
       const input = target.querySelectorAll('input')![10]!;
 
-      const evt = document.createEvent("HTMLEvents");
-      evt.initEvent("input", true, true);
+      const evt = document.createEvent('HTMLEvents');
+      evt.initEvent('input', true, true);
       input.value = '' + Math.random();
       (input as any)._valueTracker.setValue(Math.random())
       input.dispatchEvent(evt);
-    });
-  });
-});
+    },
+    onStart() {
+      console.log(`<blue><bold>${this.name}</bold></blue> <dim>...</dim>`)
+      renderer(target);
+    },
+    onComplete() {
+      console.log('<clear-line/>');
+      ReactDOM.unmountComponentAtNode(target);
+      target.innerHTML = '';
+    },
+  };
+}
+
+// add tests
+suite
+  .add('Exome', configTest(exome))
+  .add('Recoil', configTest(recoil))
+  .add('Redux', configTest(redux))
+  .add('Mobx', configTest(mobx))
+  .add('Valtio', configTest(valtio))
+
+  // add listeners
+  .on('start', function(this: any) {
+    console.log(`Starting <bold><green>${this.name}</green></bold>\n\n`)
+  })
+  .on('cycle', (event: any) => {
+    console.log(`<blue><bold>${(event.target.name + ' ').padEnd(15, '.').replace(/(\.+)$/, '<dim>$1</dim>')}</bold></blue> <yellow>${Math.round(event.target.hz).toLocaleString()} ops/sec</yellow> ±${event.target.stats.rme.toFixed(2)}% (${event.target.stats.sample.length} runs sampled)\n`)
+  })
+  .on('complete', function (this: any) {
+    console.log('\nFastest is <bold><green>' + this.filter('fastest').map('name') + '</green></bold>\n')
+
+    // @ts-ignore
+    window.PW_TEST.ended = true;
+  })
+
+  // run
+  .run({ async: true })

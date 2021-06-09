@@ -5,10 +5,12 @@
     "test": "node -r esbuild-register run.ts"
   },
   "devDependencies": {
-    "@prantlf/astrobench": "^1.1.0",
     "@reduxjs/toolkit": "^1.5.1",
+    "@types/benchmark": "^2.1.0",
+    "benchmark": "^2.1.4",
     "colorette": "^1.2.2",
     "jotai": "^0.16.0",
+    "lodash": "^4.17.21",
     "mobx": "^6.2.0",
     "mobx-react": "^7.1.0",
     "pullstate": "^1.22.1",

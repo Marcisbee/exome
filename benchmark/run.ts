@@ -1,7 +1,8 @@
-import { blue, bold, yellow, green, red, magenta, gray } from "colorette"
+import colorette from 'colorette'
 import esbuild from 'esbuild'
-import * as readline from 'readline'
 import playwright from 'playwright';
+
+import { colorize } from './colorize';
 
 const entry = process.argv.slice(2)[0]
 
@@ -9,13 +10,37 @@ if (!entry) {
   throw new Error('Entry was not provided');
 }
 
+const colors = {
+  bold: colorette.bold,
+  dim: colorette.dim,
+  italic: colorette.italic,
+  underline: colorette.underline,
+  inverse: colorette.inverse,
+  hidden: colorette.hidden,
+  strikethrough: colorette.strikethrough,
+  black: colorette.black,
+  red: colorette.red,
+  green: colorette.green,
+  yellow: colorette.yellow,
+  blue: colorette.blue,
+  magenta: colorette.magenta,
+  cyan: colorette.cyan,
+  white: colorette.white,
+  gray: colorette.gray,
+};
+
 esbuild.serve({
   servedir: 'www',
 }, {
-  entryPoints: [entry],
-  outfile: './www/benchmark.js',
+  inject: [
+    './lodash.ts',
+  ],
+  entryPoints: [
+    entry,
+  ],
+  outfile: './www/bench.js',
   target: 'es2016',
-  format: 'esm',
+  format: 'cjs',
   platform: 'browser',
   minify: true,
   bundle: true,
@@ -24,55 +49,27 @@ esbuild.serve({
   const browser = await playwright.chromium.launch()
   const context = await browser.newContext()
   const page = await context.newPage()
-  await page.goto(`http://${server.host}:${server.port}`)
-  await page.click('.fn-run-tests')
-  const state: any = await new Promise((resolve) => {
-    const interval = setInterval(check, 1000)
-
-    async function check() {
-      const state = await page.evaluate(() => (window as any).astrobench.state)
-
-      readline.clearLine(process.stdout, 0)
-      readline.cursorTo(process.stdout, 0)
-
-      if (!state.running) {
-        clearInterval(interval)
-        resolve(state)
-        return
-      }
-
-      const suite = state.describes[state.index].suite
-
-      process.stdout.write(`Running ${bold(blue(suite.name))} ${gray(`(${state.index + 1}/${state.describes.length})`)}`);
-
-      Array.from(suite).forEach((benchmark: any, index) => {
-        if (benchmark.running) {
-          process.stdout.write(` - ${bold(yellow(benchmark.name))} ${gray(`(${index + 1}/${suite.length})`)}`);
-        }
-      })
+  page.on('console', (...message) => {
+    if (message[0].text() === '<clear-line/>') {
+      process.stdout.write('\r\x1b[K');
+      return;
     }
-  })
 
-  console.log(bold('Results!'))
+    const parsedMessage = message.map((value) => colorize(value.text(), colors));
 
-  state.describes.forEach(({ suite }: any) => {
-    if (!suite) return;
-    console.log('')
-    console.log(bold(blue(suite.name)));
-    Array.from(suite).sort((a: any, b: any) => a.sum.delta - b.sum.delta).forEach((benchmark: any) => {
-      if (!benchmark.sum) return;
-      console.log(
-        '  ',
-        yellow(benchmark.name),
-        benchmark.count + '',
-        'x',
-        magenta(benchmark.sum.ops),
-        'ops/sec',
-        `±${benchmark.sum.rme}%`,
-        benchmark.sum.fastest ? green('(fastest)') : red(`(${benchmark.sum.delta}% slower)`)
-      );
-    });
+    process.stdout.write(parsedMessage.join(' '));
   });
+  await page.goto(`http://${server.host}:${server.port}`)
+
+  await page.waitForFunction(
+    // @ts-ignore
+    () => self.PW_TEST?.ended === true,
+    undefined,
+    {
+      timeout: 0,
+      polling: 100,
+    }
+  )
 
   await browser.close()
   server.stop()
