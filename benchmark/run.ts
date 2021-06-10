@@ -49,6 +49,14 @@ esbuild.serve({
   const browser = await playwright.chromium.launch()
   const context = await browser.newContext()
   const page = await context.newPage()
+
+  // Uncomment to open and test benchmark in browser manually
+  // await server.wait
+
+  page.on('pageerror', (error) => {
+    throw error;
+  })
+
   page.on('console', (...message) => {
     if (message[0].text() === '<clear-line/>') {
       process.stdout.write('\r\x1b[K');

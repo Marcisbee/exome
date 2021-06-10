@@ -1,4 +1,4 @@
-import { Suite, Options } from 'benchmark'
+import Benchmark, { Suite, Options } from 'benchmark'
 import ReactDOM from 'react-dom';
 
 import exome from './exome';
@@ -6,6 +6,9 @@ import redux from './redux';
 import mobx from './mobx';
 import valtio from './valtio';
 import recoil from './recoil';
+
+// @ts-ignore
+window.Benchmark = Benchmark;
 
 const suite = new Suite('1000 Fields')
 

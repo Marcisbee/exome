@@ -1,8 +1,8 @@
 import * as React from 'react';
 import * as ReactDom from 'react-dom';
 
-import { Exome } from '../../../dist/exome';
-import { useStore } from '../../../dist/react';
+import { Exome } from '../../../src/exome';
+import { useStore } from '../../../src/react';
 
 class Counter extends Exome {
   public count = 0;

@@ -1,4 +1,4 @@
-import { Suite, Options } from 'benchmark'
+import Benchmark, { Suite, Options } from 'benchmark'
 import ReactDOM from 'react-dom';
 
 import exome from './exome';
@@ -9,6 +9,9 @@ import jotai from './jotai';
 import valtio from './valtio';
 import recoil from './recoil';
 import pullState from './pullstate';
+
+// @ts-ignore
+window.Benchmark = Benchmark;
 
 const suite = new Suite('Count')
 
