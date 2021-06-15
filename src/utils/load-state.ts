@@ -13,7 +13,7 @@ export function loadState(
   state: string
 ) {
   if (!state || typeof state !== 'string') {
-    throw new Error(`State was not loaded. Passed state must be string, instead received "${typeof store}".`)
+    throw new Error(`State was not loaded. Passed state must be string, instead received "${typeof state}".`)
   }
 
   const instances = new Map<string, Exome>()
