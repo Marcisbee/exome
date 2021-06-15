@@ -1,11 +1,16 @@
 import { Exome } from '../exome'
 import { exomeId } from './exome-id'
+import { exomeName } from './exome-name'
 import { updateView } from './update-view'
 
 const loadableExomes: Record<string, typeof Exome> = {}
 
-export function registerLoadable(config: Record<string, any>) {
-  Object.assign(loadableExomes, config)
+export function registerLoadable(config: Record<string, any>): void {
+  Object.keys(config).forEach((key) => {
+    config[key].prototype[exomeName] = key
+
+    loadableExomes[key] = config[key]
+  })
 }
 
 export function loadState(

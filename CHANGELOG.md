@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.12.1
+
+### Bugfixes
+* `saveState` and `loadState` now works with minified class names;
+
 ## 0.12.0
 
 ### Breaking changes

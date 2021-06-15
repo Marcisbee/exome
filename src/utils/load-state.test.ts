@@ -231,4 +231,37 @@ test('throws error if Exome instance cannot be constructed', () => {
   assert.throws(() => loadState(target, state))
 })
 
+test('creates proper instances with minified class names', () => {
+  class P extends Exome {
+    public friends: P[] = []
+
+    constructor(public name: string) {
+      super()
+    }
+  }
+  const target = new P('Jeff')
+  const state = JSON.stringify({
+    $$exome_id: 'Person-1',
+    name: 'John',
+    friends: [
+      {
+        $$exome_id: 'Person-2',
+        name: 'Phil'
+      }
+    ]
+  })
+
+  registerLoadable({
+    Person: P
+  })
+
+  loadState(target, state)
+
+  assert.equal(target.name, 'John')
+
+  assert.equal(target.friends.length, 1)
+  assert.instance(target.friends[0], P)
+  assert.equal(target.friends[0].name, 'Phil')
+})
+
 test.run()
