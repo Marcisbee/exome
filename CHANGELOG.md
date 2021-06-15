@@ -4,7 +4,7 @@
 
 ### Bugfixes
 * `saveState` and `loadState` now works with minified class names;
-* Issue with state type but warning about store type in load-state (#8);
+* Issue with state type but warning about store type in load-state ([#8](https://github.com/Marcisbee/exome/pull/8)).
 
 ## 0.12.0
 
