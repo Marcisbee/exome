@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.12.2
+## 0.12.3
 
 ### Bugfixes
 * Fixes `saveState` snapshot of circular Exome instances.

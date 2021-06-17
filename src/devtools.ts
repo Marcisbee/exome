@@ -36,7 +36,6 @@ function deepCloneStore(value: any, depth: string[] = []): any {
 
   if (value instanceof Exome && getExomeId(value)) {
     const id = getExomeId(value)
-    console.log(depth, id)
 
     // Stop circular Exome
     // eslint-disable-next-line @typescript-eslint/prefer-includes
