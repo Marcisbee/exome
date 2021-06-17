@@ -30,7 +30,11 @@ export function loadState(
       const cachedInstance = instances.get(localId)
 
       if (cachedInstance) {
-        Object.assign(cachedInstance, state)
+        for (const key in state) {
+          if ((cachedInstance as any)[key] !== state[key]) {
+            (cachedInstance as any)[key] = state[key]
+          }
+        }
         return cachedInstance
       }
 
