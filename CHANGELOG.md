@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.12.4
+
+### Bugfixes
+* Fixes `loadState` inability to load circular Exome instances.
+
 ## 0.12.3
 
 ### Bugfixes

@@ -264,4 +264,49 @@ test('creates proper instances with minified class names', () => {
   assert.equal(target.friends[0].name, 'Phil')
 })
 
+test('creates proper instances with circular state', () => {
+  class Person extends Exome {
+    constructor(
+      public name: string,
+      public friends: Person[]
+    ) {
+      super()
+    }
+  }
+
+  class Store extends Exome {
+    constructor(
+      public persons: Person[]
+    ) {
+      super()
+    }
+  }
+
+  const target = new Store([])
+
+  const state = JSON.stringify({
+    $$exome_id: 'Store-123',
+    persons: [
+      {
+        $$exome_id: 'Person-123',
+        name: 'John',
+        friends: [
+          {
+            $$exome_id: 'Person-123'
+          }
+        ]
+      }
+    ]
+  })
+
+  registerLoadable({ Person, Store })
+
+  loadState(target, state)
+
+  assert.equal(target.persons.length, 1)
+  assert.equal(target.persons[0].name, 'John')
+  assert.equal(target.persons[0].friends.length, 1)
+  assert.is(target.persons[0].friends[0], target.persons[0])
+})
+
 test.run()
