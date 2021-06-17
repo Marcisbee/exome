@@ -55,3 +55,20 @@ export class CounterStore extends Exome {
 }
 
 export const counterStore = new CounterStore()
+
+class Person extends Exome {
+  constructor(
+    public name: string,
+    public friends: Person[]
+  ) {
+    super()
+  }
+
+  public addFriend(friend: Person) {
+    this.friends.push(friend)
+  }
+}
+
+export const circularStore = new Person('John', [])
+
+circularStore.addFriend(circularStore)

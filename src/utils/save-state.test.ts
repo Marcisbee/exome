@@ -89,7 +89,7 @@ test('returns correct snapshot with nested `Exome` instance', () => {
   personJohn[exomeId] = 'john-123'
 
   const personJane = new Person('Jane', [interestSkating])
-  personJane[exomeId] = 'john-123'
+  personJane[exomeId] = 'jane-123'
 
   class Store extends Exome {
     constructor(
@@ -122,12 +122,55 @@ test('returns correct snapshot with nested `Exome` instance', () => {
       ]
     },
     {
-      "$$exome_id": "john-123",
+      "$$exome_id": "jane-123",
       "name": "Jane",
       "interests": [
         {
-          "$$exome_id": "skating-123",
-          "type": "Skating"
+          "$$exome_id": "skating-123"
+        }
+      ]
+    }
+  ]
+}`)
+  assert.not.throws(() => JSON.parse(output))
+})
+
+test('returns correct snapshot for circular `Exome` instance', () => {
+  class Person extends Exome {
+    constructor(
+      public name: string,
+      public friends: Person[]
+    ) {
+      super()
+    }
+  }
+
+  class Store extends Exome {
+    constructor(
+      public persons: Person[]
+    ) {
+      super()
+    }
+  }
+
+  const personJohn = new Person('John', [])
+  personJohn[exomeId] = 'john-123'
+  personJohn.friends = [personJohn]
+
+  const store = new Store([personJohn])
+  store[exomeId] = 'store-123'
+
+  const output = saveState(store, true)
+
+  assert.snapshot(output, `{
+  "$$exome_id": "store-123",
+  "persons": [
+    {
+      "$$exome_id": "john-123",
+      "name": "John",
+      "friends": [
+        {
+          "$$exome_id": "john-123"
         }
       ]
     }

@@ -29,6 +29,40 @@ interface ReduxConfig {
 
 const fullStore = new Map<string, Map<string, Exome>>()
 
+function deepCloneStore(value: any, depth: string[] = []): any {
+  if (value == null || typeof value !== 'object') {
+    return value
+  }
+
+  if (value instanceof Exome && getExomeId(value)) {
+    const id = getExomeId(value)
+    console.log(depth, id)
+
+    // Stop circular Exome
+    // eslint-disable-next-line @typescript-eslint/prefer-includes
+    if (depth.indexOf(id) > -1) {
+      return {
+        $$exome_id: id
+      }
+    }
+
+    const data = deepCloneStore({ ...value }, depth.concat(id))
+
+    return {
+      $$exome_id: id,
+      ...data
+    }
+  }
+
+  const output = value.constructor() || {}
+
+  for (const key of Object.keys(value)) {
+    output[key] = deepCloneStore(value[key], depth)
+  }
+
+  return output
+}
+
 function getFullStore() {
   const output: Record<string, Exome[]> = {}
 
@@ -37,16 +71,7 @@ function getFullStore() {
   }
 
   // Improve serializer with `__serializedType__` once https://github.com/zalmoxisus/redux-devtools-extension/issues/737 is resolved
-  return JSON.parse(JSON.stringify(output, (_, value) => {
-    if (value instanceof Exome && getExomeId(value)) {
-      return {
-        $$exome_id: getExomeId(value),
-        ...value
-      }
-    }
-
-    return value
-  }))
+  return deepCloneStore(output)
 }
 
 export function exomeDevtools({
