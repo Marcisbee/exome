@@ -3,10 +3,15 @@ import { Exome } from './exome'
 // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 export type Middleware = (instance: Exome, action: string, payload: any[]) => (void | (() => void))
 
-const middleware: Middleware[] = []
+export const middleware: Middleware[] = []
 
 export function addMiddleware(fn: Middleware) {
   middleware.push(fn)
+
+  return () => {
+    const index = middleware.indexOf(fn)
+    middleware.splice(index, 1)
+  }
 }
 
 export function runMiddleware(...params: Parameters<Middleware>) {

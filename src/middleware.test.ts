@@ -70,4 +70,56 @@ test('runs middleware unsubscribe method', () => {
   assert.equal(unsubscribe.args[0], [])
 })
 
+test('removes middleware correctly', () => {
+  const instance = new Exome()
+  const middleware = fake()
+
+  const unsubscribe = addMiddleware(middleware)
+
+  runMiddleware(instance, 'actionName', [])
+
+  assert.equal(middleware.callCount, 1)
+  assert.equal(middleware.args[0], [instance, 'actionName', []])
+
+  runMiddleware(instance, 'actionName', [])
+
+  assert.equal(middleware.callCount, 2)
+  assert.equal(middleware.args[1], [instance, 'actionName', []])
+
+  unsubscribe()
+  runMiddleware(instance, 'actionName', [])
+
+  assert.equal(middleware.callCount, 2)
+})
+
+test('removes multiple middleware correctly', () => {
+  const instance = new Exome()
+  const middleware1 = fake()
+  const middleware2 = fake()
+
+  const unsubscribe1 = addMiddleware(middleware1)
+  const unsubscribe2 = addMiddleware(middleware2)
+
+  runMiddleware(instance, 'actionName', [])
+
+  assert.equal(middleware1.callCount, 1)
+  assert.equal(middleware1.args[0], [instance, 'actionName', []])
+  assert.equal(middleware2.callCount, 1)
+  assert.equal(middleware2.args[0], [instance, 'actionName', []])
+
+  runMiddleware(instance, 'actionName', [])
+
+  assert.equal(middleware1.callCount, 2)
+  assert.equal(middleware1.args[1], [instance, 'actionName', []])
+  assert.equal(middleware2.callCount, 2)
+  assert.equal(middleware2.args[1], [instance, 'actionName', []])
+
+  unsubscribe1()
+  unsubscribe2()
+  runMiddleware(instance, 'actionName', [])
+
+  assert.equal(middleware1.callCount, 2)
+  assert.equal(middleware2.callCount, 2)
+})
+
 test.run()

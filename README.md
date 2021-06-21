@@ -170,6 +170,45 @@ function App() {
 ```
 [__Open in Codesandbox__](https://codesandbox.io/s/exome-counter-96qfq)
 
+### `onAction`
+Function that calls callback whenever specific action on Exome is called.
+
+```ts
+function onAction(store: typeof Exome): Unsubscribe
+```
+
+__Arguments__
+1. `store` _([Exome](#exome) constructor)_: Store that has desired action to listen to.
+2. `action` _(string)_: method (action) name on store instance.
+3. `callback` _(Function)_: Callback that will be triggered before or after action.<br>
+   __Arguments__
+   - `instance` _([Exome](#exome))_: Instance where action is taking place.
+   - `action` _(String)_: Action name.
+   - `payload` _(any[])_: Array of arguments passed in action.<br>
+4. `type` _("before" | "after")_: when to run callback - before or after action, default is `"after"`.
+
+__Returns__
+
+- _Function_: Unsubscribes this action listener
+
+__Example__
+
+```tsx
+import { onAction } from "exome"
+
+const unsubscribe = onAction(
+  Person,
+  'rename',
+  (instance, action, payload) => {
+    console.log(`Person ${instance} was renamed to ${payload[0]}`);
+
+    // Unsubscribe is no longer needed
+    unsubscribe();
+  },
+  'before'
+)
+```
+
 ### `saveState`
 Function that saves snapshot of current state for any Exome and returns string.
 

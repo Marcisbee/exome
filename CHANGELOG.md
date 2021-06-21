@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.13.0
+
+### Feature
+* Adds new `onAction` method that triggers callback whenever specific action is called.
+
 ## 0.12.4
 
 ### Bugfixes
