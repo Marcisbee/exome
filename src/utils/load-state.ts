@@ -13,6 +13,8 @@ export function registerLoadable(config: Record<string, any>): void {
   })
 }
 
+export let afterLoadStateCallbacks: Array<() => void> | null = null
+
 export function loadState(
   store: Exome,
   state: string
@@ -46,6 +48,9 @@ export function loadState(
       }
 
       try {
+        const afterLoadStateCallbacksBackup = afterLoadStateCallbacks
+        afterLoadStateCallbacks = []
+
         const instance = new StoreExome()
 
         instance[exomeId] = localId
@@ -53,6 +58,9 @@ export function loadState(
         Object.assign(instance, state)
 
         instances.set(localId, instance)
+
+        afterLoadStateCallbacks.forEach((cb) => cb())
+        afterLoadStateCallbacks = afterLoadStateCallbacksBackup
 
         return instance
       } catch (e) {

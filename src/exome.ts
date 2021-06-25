@@ -1,6 +1,7 @@
 import { runMiddleware } from './middleware'
 import { exomeId } from './utils/exome-id'
 import { exomeName } from './utils/exome-name'
+import { afterLoadStateCallbacks } from './utils/load-state'
 import { proxify } from './utils/proxify'
 import { ranID } from './utils/ran-id'
 import { updateMap } from './utils/update-map'
@@ -22,5 +23,13 @@ export class Exome {
     })
 
     return proxify(this)
+  }
+
+  public afterLoadState(cb: () => void) {
+    if (afterLoadStateCallbacks == null) {
+      return
+    }
+
+    afterLoadStateCallbacks.push(cb)
   }
 }

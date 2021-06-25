@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.14.0
+
+### Feature
+* Adds experimental `afterLoadState` method that triggers callback whenever Exome data was loaded via `loadState`.
+
 ## 0.13.0
 
 ### Feature
