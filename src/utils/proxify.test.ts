@@ -112,6 +112,25 @@ test('does not proxy function from regular object', () => {
   assert.is(input.method === output.method, true)
 })
 
+test('skips proxy for arrow function from Exome instance', () => {
+  class Person extends Exome {
+    public method = (first: number, second: number) => {
+      return `method:${first}:${second}`
+    }
+  }
+  const input = new Person()
+
+  const output = proxify(input)
+
+  assert.is(input.method === output.method, true)
+
+  const returnInput = input.method(1, 2)
+  const returnOutput = output.method(1, 2)
+
+  assert.is(returnInput, 'method:1:2')
+  assert.is(returnOutput, 'method:1:2')
+})
+
 test('proxies function from Exome instance', () => {
   class Person extends Exome {
     public method(first: number, second: number) {

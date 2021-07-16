@@ -45,13 +45,16 @@ export function proxify<T extends Exome>(parent: T): T {
     return proxifyWithoutPromise(parent)
   }
 
+  const proto = Object.getPrototypeOf(parent) || {}
+
   const proxy = new Proxy<T>(
     parent,
     {
       get(target: any, key) {
+        const isMethod = !!proto[key]
         const value = target[key]
 
-        if (typeof value === 'function' && parent === target && parent instanceof Exome) {
+        if (isMethod && typeof value === 'function' && parent === target && parent instanceof Exome) {
           return (...args: any) => {
             const middleware = runMiddleware(proxy, key as any, args)
 

@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.15.0
+
+### Feature
+* Arrow functions no longer trigger actions.
+
+This was previously wrong as we only should trigger actions for prototype methods. It is useful to define arrow method to GET some data and that should NOT trigger action and re-render.
+
 ## 0.14.0
 
 ### Feature
