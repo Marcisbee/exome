@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 
 import exome from './exome';
 import redux from './redux';
+import reduxToolkit from './redux-toolkit';
 import mobx from './mobx';
 import valtio from './valtio';
 import recoil from './recoil';
@@ -42,6 +43,7 @@ suite
   .add('Exome', configTest(exome))
   .add('Recoil', configTest(recoil))
   .add('Redux', configTest(redux))
+  .add('Redux Toolkit', configTest(reduxToolkit))
   .add('Mobx', configTest(mobx))
   .add('Valtio', configTest(valtio))
 

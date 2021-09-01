@@ -1,41 +1,53 @@
-import { configureStore, createSlice } from '@reduxjs/toolkit'
 import { combineReducers, createStore } from 'redux'
 import { Provider, useDispatch, useSelector } from 'react-redux'
 import * as React from 'react';
 import * as ReactDom from 'react-dom';
 
-const fieldsSlice = createSlice({
-  name: 'fields',
-  initialState: {
-    fields: Array.from(Array(1000).keys()).map((i) => `Field #${i + 1}`),
-  },
-  reducers: {
-    rename: (state, action) => {
-      state.fields[action.payload.index] = action.payload.value
-    },
-  },
+const rename = (index: number, value: string) => {
+  return {
+    type: "RENAME",
+    index,
+    value,
+  }
+}
+
+const initialState = Array.from(Array(1000).keys()).map((i) => `Field #${i + 1}`);
+
+const counter = (state = initialState, action: any) => {
+  switch (action.type) {
+    case "RENAME":
+      return state.map((value, index) => {
+        if (action.index === index) {
+          return action.value;
+        }
+
+        return value;
+      })
+    default:
+      return state
+  }
+}
+
+const rootReducer = combineReducers({
+  counter
 })
 
-const store = configureStore({
-  reducer: {
-    fields: fieldsSlice.reducer,
-  },
-})
+const store = createStore(rootReducer)
 
 function Field({ index, field: name }: { index: number, field: string }) {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   return (
     <div>
       Last {`<Field>`} render at: {new Date().toISOString()}
       &nbsp;
-      <input value={name} onChange={(e) => dispatch(fieldsSlice.actions.rename({ index, value: e.target.value }))} />
+      <input value={name} onChange={(e) => dispatch(rename(index, e.target.value))} />
     </div>
   );
 }
 
 function App() {
-  const fields: string[] = useSelector((state: any) => state.fields.fields, () => false)
+  const fields: string[] = useSelector((state: any) => state.counter, () => false)
 
   return (
     <div>

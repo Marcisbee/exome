@@ -23,7 +23,8 @@ Fastest is Exome
 ```
 Exome ......... 11,173 ops/sec ±1.37% (66 runs sampled)
 Recoil ........ 9,540 ops/sec ±3.28% (53 runs sampled)
-Redux ......... 392 ops/sec ±0.79% (66 runs sampled)
+Redux ......... 424 ops/sec ±1.46% (65 runs sampled)
+Redux Toolkit . 392 ops/sec ±0.79% (66 runs sampled)
 Mobx .......... 403 ops/sec ±1.57% (64 runs sampled)
 Valtio ........ 83 ops/sec ±2.95% (56 runs sampled)
 
