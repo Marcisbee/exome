@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "lib": [
+      "DOM",
+      "es2015"
+    ],
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "experimentalDecorators": true,
+    "paths": {
+      "exome": [
+        "../../src/index.ts"
+      ],
+      "exome/lit": [
+        "../../src/lit.ts"
+      ]
+    },
+    "allowJs": true
+  }
+}

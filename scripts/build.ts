@@ -25,6 +25,7 @@ import { build } from 'esbuild'
         'src/react.ts',
         'src/preact.ts',
         'src/vue.ts',
+        'src/lit.ts',
         'src/devtools.ts'
       ],
       outdir: 'dist',
@@ -40,6 +41,7 @@ import { build } from 'esbuild'
         'react',
         'preact',
         'vue',
+        'lit',
         'exome'
       ],
       logLevel: 'info'
