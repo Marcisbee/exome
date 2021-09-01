@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.16.0
+
+### Feature
+* Adds `lit` support.
+
+Added new ReactiveController named `StoreController` as part of lit v2.0.
+
 ## 0.15.0
 
 ### Feature
