@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.0
+
+### Stable release
+No actual changes as it's proven to be stable fo v1.
+
 ## 0.16.0
 
 ### Feature
