@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.1
+
+### Bugfixes
+* Fixes rxjs compatibility issue when using `BehaviorSubject` inside `Exome`.
+
 ## 1.0.0
 
 ### Stable release

@@ -53,7 +53,17 @@ function deepCloneStore(value: any, depth: string[] = []): any {
     }
   }
 
-  const output = value.constructor() || {}
+  if (
+    value.constructor !== Array &&
+    value.constructor !== Object &&
+    value.constructor !== Date
+  ) {
+    return {
+      $$exome_class: value.constructor.name
+    }
+  }
+
+  const output: Record<string, unknown> = value.constructor() || {}
 
   for (const key of Object.keys(value)) {
     output[key] = deepCloneStore(value[key], depth)
