@@ -51,7 +51,8 @@ export function proxify<T extends Exome>(parent: T): T {
     parent,
     {
       get(target: any, key) {
-        const isMethod = !!proto[key]
+        // eslint-disable-next-line no-prototype-builtins
+        const isMethod = (proto as Record<string, any>).hasOwnProperty(key)
         const value = target[key]
 
         if (isMethod && typeof value === 'function' && parent === target && parent instanceof Exome) {

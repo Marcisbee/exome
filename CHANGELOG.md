@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.2
+
+### Bugfixes
+* Fixes issue where getter get called before ready.
+
 ## 1.0.1
 
 ### Bugfixes
