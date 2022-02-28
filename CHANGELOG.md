@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.3
+
+### Bugfixes
+* Fixes broken redux devtools url.
+
 ## 1.0.2
 
 ### Bugfixes

@@ -104,7 +104,7 @@ export function exomeDevtools({
     if (process.env.NODE_ENV !== 'production') {
       console.warn(
         'Please install Redux devtools extension\n' +
-        'http://extension.remotedev.io/'
+        'https://github.com/reduxjs/redux-devtools'
       )
     }
     return () => {}
