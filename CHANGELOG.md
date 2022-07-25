@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.1.0
+
+### Features
+* Adds Deno support.
+
 ## 1.0.3
 
 ### Bugfixes
