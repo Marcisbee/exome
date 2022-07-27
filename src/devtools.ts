@@ -127,7 +127,7 @@ export function exomeDevtools({
           const [name] = $$exome_id.split('-')
           const instance = fullStore.get(name)?.get($$exome_id)
 
-          Object.assign(instance, restValue)
+          Object.assign(instance!, restValue)
 
           return instance
         }

@@ -5,20 +5,20 @@
     "test": "node -r esbuild-register run.ts"
   },
   "devDependencies": {
-    "@reduxjs/toolkit": "^1.5.1",
-    "@types/benchmark": "^2.1.0",
+    "@reduxjs/toolkit": "^1.8.3",
+    "@types/benchmark": "^2.1.1",
     "benchmark": "^2.1.4",
-    "colorette": "^1.2.2",
-    "jotai": "^0.16.0",
+    "colorette": "^2.0.19",
+    "jotai": "^1.7.6",
     "lodash": "^4.17.21",
-    "mobx": "^6.2.0",
-    "mobx-react": "^7.1.0",
-    "pullstate": "^1.22.1",
+    "mobx": "^6.6.1",
+    "mobx-react": "^7.5.2",
+    "pullstate": "^1.24.0",
     "react": "file:../node_modules/react",
     "react-dom": "file:../node_modules/react-dom",
-    "react-redux": "^7.2.3",
-    "recoil": "^0.2.0",
-    "redux": "^4.0.5",
-    "valtio": "^1.0.3"
+    "react-redux": "^8.0.2",
+    "recoil": "^0.7.4",
+    "redux": "^4.2.0",
+    "valtio": "^1.6.3"
   }
 }

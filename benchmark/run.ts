@@ -1,4 +1,4 @@
-import colorette from 'colorette'
+import * as colorette from 'colorette'
 import esbuild from 'esbuild'
 import playwright from 'playwright';
 
@@ -39,7 +39,7 @@ esbuild.serve({
     entry,
   ],
   outfile: './www/bench.js',
-  target: 'es2016',
+  target: 'es2020',
   format: 'cjs',
   platform: 'browser',
   minify: true,

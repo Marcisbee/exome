@@ -8,7 +8,7 @@ import { updateMap } from './utils/update-map'
 
 export class Exome {
   private [exomeId]: string
-  private [exomeName]: string
+  private [exomeName]!: string
 
   constructor() {
     const name = this[exomeName] || this.constructor.name
