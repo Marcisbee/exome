@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.2.0
+
+### Features
+* Adds RXJS Observable support.
+
 ## 1.1.0
 
 ### Features
