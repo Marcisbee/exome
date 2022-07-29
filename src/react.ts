@@ -1,57 +1,22 @@
-import { Exome, addMiddleware, Middleware, getExomeId, updateMap } from 'exome'
+import type { Exome } from 'exome'
 import React from 'react'
+import { subscribe } from './subscribe'
 
 const useIsomorphicLayoutEffect = typeof window !== 'undefined'
   ? React.useLayoutEffect
   : React.useEffect
 
-const reactMiddleware: Middleware = (instance) => {
-  return () => {
-    const id = getExomeId(instance)
-    const renderers = updateMap[id] ?? []
-
-    updateMap[id] = []
-
-    renderers.forEach((renderer) => renderer())
-  }
+function flipBit(number: number) {
+  return ~number
 }
 
-addMiddleware(reactMiddleware)
-
 export function useStore<T extends Exome>(store: T): Readonly<T> {
-  const [changed, render] = React.useReducer((n: boolean) => !n, true)
-  const id = getExomeId(store)
+  const [, render] = React.useState(0)
 
   useIsomorphicLayoutEffect(
-    () => {
-      if (!updateMap[id]) {
-        updateMap[id] = []
-      }
-
-      const queue = updateMap[id]!
-
-      queue.push(render)
-
-      return () => {
-        if (queue === updateMap[id]!) {
-          const index = queue.indexOf(render)
-
-          if (index === -1) {
-            return
-          }
-
-          queue.splice(index, 1)
-        }
-      }
-    },
-    [id, changed]
+    () => subscribe(store, () => render(flipBit)),
+    [store]
   )
-
-  if (!id) {
-    throw new Error(
-      '"useStore" received value that is not an instance of "Exome"'
-    )
-  }
 
   return store
 }

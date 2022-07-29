@@ -27,6 +27,7 @@ function configTest(renderer: (target: HTMLElement) => void): Options {
       increment.click();
     },
     onStart() {
+      console.log(`<blue><bold>${this.name}</bold></blue> <dim>...</dim>`)
       renderer(target);
 
       increment = target.querySelector('h1')!;
@@ -36,6 +37,7 @@ function configTest(renderer: (target: HTMLElement) => void): Options {
 
       ReactDOM.unmountComponentAtNode(target);
       target.innerHTML = '';
+      console.log('<clear-line/>');
     },
   };
 }
