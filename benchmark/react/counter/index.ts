@@ -1,6 +1,8 @@
 import Benchmark, { Suite, Options } from 'benchmark'
 import ReactDOM from 'react-dom';
 
+// import useState from './use-state';
+// import useReducer from './use-reducer';
 import exome from './exome';
 import redux from './redux';
 import reduxToolkit from './redux-toolkit';
@@ -40,6 +42,11 @@ function configTest(renderer: (target: HTMLElement) => void): Options {
 
 // add tests
 suite
+  // React baseline for performance
+  // .add('useState', configTest(useState))
+  // .add('useReducer', configTest(useReducer))
+
+  // Benchmark subjects
   .add('Exome', configTest(exome))
   .add('Redux', configTest(redux))
   .add('Redux Toolkit', configTest(reduxToolkit))
