@@ -6,15 +6,15 @@ const useIsomorphicLayoutEffect = typeof window !== 'undefined'
   ? useLayoutEffect
   : useEffect
 
-function flipBit(number: number) {
-  return ~number
+function increment(number: number) {
+  return number + 1
 }
 
 export function useStore<T extends Exome>(store: T): Readonly<T> {
   const [, render] = useState(0)
 
   useIsomorphicLayoutEffect(
-    () => subscribe(store, () => render(flipBit)),
+    () => subscribe(store, () => render(increment)),
     [store]
   )
 
