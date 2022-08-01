@@ -7,6 +7,7 @@ import reduxToolkit from './redux-toolkit';
 import mobx from './mobx';
 import valtio from './valtio';
 import recoil from './recoil';
+import trashly from './trashly';
 
 // @ts-ignore
 window.Benchmark = Benchmark;
@@ -45,6 +46,7 @@ suite
   .add('Redux', configTest(redux))
   .add('Redux Toolkit', configTest(reduxToolkit))
   .add('Mobx', configTest(mobx))
+  .add('Trashly', configTest(trashly))
   .add('Valtio', configTest(valtio))
 
   // add listeners

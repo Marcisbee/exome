@@ -11,6 +11,7 @@ import jotai from './jotai';
 import valtio from './valtio';
 import recoil from './recoil';
 import pullState from './pullstate';
+import trashly from './trashly';
 
 // @ts-ignore
 window.Benchmark = Benchmark;
@@ -57,6 +58,7 @@ suite
   .add('Valtio', configTest(valtio))
   .add('Recoil', configTest(recoil))
   .add('PullState', configTest(pullState))
+  .add('Trashly', configTest(trashly))
 
   // add listeners
   .on('start', function (this: any) {
