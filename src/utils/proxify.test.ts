@@ -1,11 +1,12 @@
 import { test } from 'uvu'
 import assert from 'uvu/assert'
+import { fake } from 'sinon'
 import { Exome } from '../exome'
 import { exomeId } from './exome-id'
 
 import { proxify } from './proxify'
 
-test('returns same instance of Exome just as Proxy', () => {
+test('returns same instance of Exome', () => {
   class Test extends Exome {}
   const input = new Test()
 
@@ -15,8 +16,7 @@ test('returns same instance of Exome just as Proxy', () => {
   assert.instance(output, Exome)
   assert.is(input[exomeId], output[exomeId])
 
-  // They are not equal because output is Proxy
-  assert.is(input === output, false)
+  assert.is(input === output, true)
 })
 
 test('returns same object', () => {
@@ -28,8 +28,7 @@ test('returns same object', () => {
 
   assert.equal(output, input)
 
-  // They are not equal because output is Proxy
-  assert.is(input === output, false)
+  assert.is(input === output, true)
 })
 
 test('returns same array', () => {
@@ -39,8 +38,7 @@ test('returns same array', () => {
 
   assert.equal(output, input)
 
-  // They are not equal because output is Proxy
-  assert.is(input === output, false)
+  assert.is(input === output, true)
 })
 
 test('can set value to proxied object', () => {
@@ -78,7 +76,6 @@ test('does not proxy nested objects', () => {
 
   assert.equal(output.first, input.first)
 
-  // They are not equal because output is Proxy
   assert.is(input.first === output.first, true)
 })
 
@@ -97,7 +94,6 @@ test('does not proxy nested array', () => {
 
   assert.equal(output.first, input.first)
 
-  // They are not equal because output is Proxy
   assert.is(input.first === output.first, true)
 })
 
@@ -138,12 +134,13 @@ test('proxies function from Exome instance', () => {
     }
   }
   const input = new Person()
+  const method1 = input.method
 
   const output = proxify(input)
 
-  assert.is(input.method === output.method, false)
+  assert.is(method1 === output.method, false)
 
-  const returnInput = input.method(1, 2)
+  const returnInput = method1(1, 2)
   const returnOutput = output.method(1, 2)
 
   assert.is(returnInput, 'method:1:2')
@@ -157,12 +154,13 @@ test('proxies async function from Exome instance', async() => {
     }
   }
   const input = new Person()
+  const method1 = input.method
 
   const output = proxify(input)
 
-  assert.is(input.method === output.method, false)
+  assert.is(method1 === output.method, false)
 
-  const returnInput = await input.method(1, 2)
+  const returnInput = await method1(1, 2)
   const returnOutput = await output.method(1, 2)
 
   assert.is(returnInput, 'method:1:2')
@@ -211,6 +209,25 @@ test('does not proxy Date instance', () => {
 
   assert.is(date === input.date, true)
   assert.is(date === output.date, true)
+})
+
+test('does not call getter while initializing', () => {
+  const activeGetter = fake(() => 'Hello')
+  class Store extends Exome {
+    public get active() {
+      return activeGetter()
+    }
+  }
+  const store = new Store()
+
+  assert.is(activeGetter.callCount, 0)
+
+  const output = proxify(store)
+
+  assert.is(activeGetter.callCount, 0)
+  assert.is(store.active, 'Hello')
+  assert.is(activeGetter.callCount, 1)
+  assert.is(store.active === output.active, true)
 })
 
 test.run()

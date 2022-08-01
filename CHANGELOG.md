@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.3.0
+
+### Features
+* Performance improvements;
+* Gets rid of Proxy usage as it was just an overhead without real benefits.
+
 ## 1.2.0
 
 ### Features

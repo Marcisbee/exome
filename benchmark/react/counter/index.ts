@@ -11,6 +11,7 @@ import jotai from './jotai';
 import valtio from './valtio';
 import recoil from './recoil';
 import pullState from './pullstate';
+import trashly from './trashly';
 
 // @ts-ignore
 window.Benchmark = Benchmark;
@@ -27,6 +28,7 @@ function configTest(renderer: (target: HTMLElement) => void): Options {
       increment.click();
     },
     onStart() {
+      console.log(`<blue><bold>${this.name}</bold></blue> <dim>...</dim>`)
       renderer(target);
 
       increment = target.querySelector('h1')!;
@@ -36,6 +38,7 @@ function configTest(renderer: (target: HTMLElement) => void): Options {
 
       ReactDOM.unmountComponentAtNode(target);
       target.innerHTML = '';
+      console.log('<clear-line/>');
     },
   };
 }
@@ -55,6 +58,7 @@ suite
   .add('Valtio', configTest(valtio))
   .add('Recoil', configTest(recoil))
   .add('PullState', configTest(pullState))
+  .add('Trashly', configTest(trashly))
 
   // add listeners
   .on('start', function (this: any) {

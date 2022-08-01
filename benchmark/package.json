@@ -19,6 +19,7 @@
     "react-redux": "^8.0.2",
     "recoil": "^0.7.4",
     "redux": "^4.2.0",
+    "trashly-react": "^0.1.6",
     "valtio": "^1.6.3"
   }
 }

@@ -39,8 +39,6 @@
 - 🔭 **Devtools**: Redux devtools integration
 - 💨 **Zero dependencies**
 
-As a feature I should also mention, that [Exome supports IE](#ie-support) as of `v0.8.5` even tho it uses Proxy under the hood.
-
 [__Simple Demo__](https://codesandbox.io/s/exome-counter-96qfq)
 
 # Installation
@@ -458,10 +456,7 @@ function App() {
 [__Open in Codesandbox__](https://codesandbox.io/s/exome-middleware-ro6of?file=/src/App.tsx)
 
 # IE support
-This package works with IE. Even tho it uses Proxy, we can get by not using it on IE, but no performance penalty in other browsers that would utilize Proxy.
-
 To run Exome on IE, you must have `Symbol` and `Promise` polyfills and down-transpile to ES5 as usual. And that's it!
-Do not use `Proxy` polyfill! Most Proxy polyfills will just break Exome because of huge limitations in them.
 
 # Motivation
 I stumbled upon a need to store deeply nested store and manage chunks of them individually and regular flux selector/action architecture just didn't make much sense anymore. So I started to prototype what would ideal deeply nested store interaction look like and I saw that we could simply use classes for this.
