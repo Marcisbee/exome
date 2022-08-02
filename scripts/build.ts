@@ -26,6 +26,7 @@ import { build } from 'esbuild'
         'src/preact.ts',
         'src/vue.ts',
         'src/lit.ts',
+        'src/svelte.ts',
         'src/rxjs.ts',
         'src/devtools.ts'
       ],
@@ -43,6 +44,7 @@ import { build } from 'esbuild'
         'preact',
         'vue',
         'lit',
+        'svelte',
         'rxjs',
         'exome'
       ],
