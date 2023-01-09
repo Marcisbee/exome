@@ -12,7 +12,8 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 16
-      - run: npm ci && npm install react preact vue@next
+      - run: npm ci
+      - run: npm install react preact vue@next
       - run: npm run lint
       - run: npm test
       - run: npm run e2e
@@ -26,7 +27,10 @@ jobs:
         with:
           node-version: '14.x'
           registry-url: 'https://registry.npmjs.org'
-      - run: npm ci && npm install react preact vue@next && npm run build
-      - run: cd dist && npm publish
+      - run: npm ci
+      - run: npm install react preact vue@next
+      - run: npm run build
+      - run: cd dist
+      - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
