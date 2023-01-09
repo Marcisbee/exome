@@ -7,7 +7,7 @@ import { build } from 'esbuild'
       entryPoints: [
         'src/index.ts'
       ],
-      outfile: format === 'esm' ? 'dist/exome.esm.js' : 'dist/exome.js',
+      outfile: format === 'esm' ? 'dist/exome.mjs' : 'dist/exome.js',
       target: 'es2016',
       format,
       platform: 'browser',
@@ -31,7 +31,10 @@ import { build } from 'esbuild'
         'src/devtools.ts'
       ],
       outdir: 'dist',
-      entryNames: format === 'esm' ? '[dir]/[name].esm' : '[dir]/[name]',
+      entryNames: '[dir]/[name]',
+      outExtension: {
+        '.js': format === 'esm' ? '.mjs' : '.js',
+      },
       target: 'es2016',
       format,
       platform: 'browser',

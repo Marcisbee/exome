@@ -11,11 +11,10 @@ export function proxify<T extends Exome>(parent: T): T {
       return
     }
 
-    // eslint-disable-next-line no-prototype-builtins
     const isMethod = (proto as Record<string, any>).hasOwnProperty(key)
     const value = (parent as any)[key]
 
-    if (!isMethod || !(parent instanceof Exome) || key === 'constructor' || typeof value !== 'function') {
+    if (!(isMethod && (parent instanceof Exome)) || key === 'constructor' || typeof value !== 'function') {
       return
     }
 

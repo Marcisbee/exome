@@ -73,7 +73,7 @@ export function loadState(
     return value
   })
 
-  if (!output || !output.$$exome_id) {
+  if (!output?.$$exome_id) {
     throw new Error('State was not loaded. Passed state string is not saved Exome instance.')
   }
 

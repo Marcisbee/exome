@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.5.0
+
+### Features
+* Moves exported import files to `.mjs` file format.
+
 ## 1.4.0
 
 ### Features

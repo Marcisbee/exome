@@ -6,7 +6,6 @@ import { updateMap } from './update-map'
 import { updateView } from './update-view'
 
 test.before.each(() => {
-  // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
   for (const member in updateMap) delete updateMap[member]
 })
 

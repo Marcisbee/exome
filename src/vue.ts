@@ -29,7 +29,6 @@ export function useStore<T extends Exome>(store: T): Readonly<T> {
   watchEffect(
     () => {
       // Set ref dependency
-      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
       _.value
 
       if (!updateMap[id]) {

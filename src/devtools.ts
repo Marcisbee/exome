@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 import { Exome, getExomeId, updateView, Middleware } from 'exome'
 
 interface ReduxMessage {
@@ -38,7 +37,6 @@ function deepCloneStore(value: any, depth: string[] = []): any {
     const id = getExomeId(value)
 
     // Stop circular Exome
-    // eslint-disable-next-line @typescript-eslint/prefer-includes
     if (depth.indexOf(id) > -1) {
       return {
         $$exome_id: id

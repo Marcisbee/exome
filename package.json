@@ -1,15 +1,15 @@
 {
   "name": "exome",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "Proxy based store manager for deeply nested states",
   "main": "exome.js",
-  "module": "exome.esm.js",
+  "module": "exome.mjs",
   "types": "index.d.ts",
   "scripts": {
     "build": "node -r esbuild-register ./scripts/build.ts && npm run declarations",
     "dev": "npm run build -- --sourcemap --define:process.env.NODE_ENV=\\\"development\\\" --watch",
     "playground": "esbuild playground/index.tsx --outfile=playground/dist/index.js --bundle --format=esm --sourcemap --define:process.env.NODE_ENV=\\\"development\\\" && npx serve playground/dist",
-    "lint": "eslint --ext .js,.ts ./",
+    "lint": "rome check src",
     "test": "uvu -r esbuild-register -i e2e",
     "e2e": "uvu -r esbuild-register -i src",
     "coverage": "c8 --check-coverage npm test",
@@ -46,33 +46,28 @@
     "@types/react": "^18.0.15",
     "@types/react-dom": "^18.0.6",
     "@types/sinon": "^10.0.13",
-    "@typescript-eslint/eslint-plugin": "^4.33.0",
     "c8": "^7.12.0",
     "esbuild": "^0.14.50",
     "esbuild-register": "^3.3.3",
-    "eslint": "^7.32.0",
-    "eslint-config-standard-with-typescript": "^20.0.0",
-    "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^6.0.0",
     "lit": "^2.2.8",
     "playwright": "^1.24.1",
     "preact": "^10.10.0",
     "proxyquire": "^2.1.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "rome": "^11.0.0",
+    "rxjs": "^7.0.0",
     "sinon": "^14.0.0",
     "typescript": "^4.7.4",
     "uvu": "^0.5.6",
-    "vue": "^3.2.37",
-    "rxjs": "^7.0.0"
+    "vue": "^3.2.37"
   },
   "peerDependencies": {
     "lit": ">= 2.0.0",
     "preact": ">= 10.1.0",
     "react": ">= 16.8.0",
-    "vue": ">= 3.0.0",
-    "rxjs": ">= 6.0.0"
+    "rxjs": ">= 6.0.0",
+    "vue": ">= 3.0.0"
   },
   "peerDependenciesMeta": {
     "lit": {
@@ -94,39 +89,39 @@
   "exports": {
     ".": {
       "require": "./exome.js",
-      "import": "./exome.esm.js"
+      "import": "./exome.mjs"
     },
     "./devtools": {
       "require": "./devtools.js",
-      "import": "./devtools.esm.js"
+      "import": "./devtools.mjs"
     },
     "./subscribe": {
       "require": "./subscribe.js",
-      "import": "./subscribe.esm.js"
+      "import": "./subscribe.mjs"
     },
     "./react": {
       "require": "./react.js",
-      "import": "./react.esm.js"
+      "import": "./react.mjs"
     },
     "./preact": {
       "require": "./preact.js",
-      "import": "./preact.esm.js"
+      "import": "./preact.mjs"
     },
     "./vue": {
       "require": "./vue.js",
-      "import": "./vue.esm.js"
+      "import": "./vue.mjs"
     },
     "./lit": {
       "require": "./lit.js",
-      "import": "./lit.esm.js"
+      "import": "./lit.mjs"
     },
     "./rxjs": {
       "require": "./rxjs.js",
-      "import": "./rxjs.esm.js"
+      "import": "./rxjs.mjs"
     },
     "./svelte": {
       "require": "./svelte.js",
-      "import": "./svelte.esm.js"
+      "import": "./svelte.mjs"
     }
   }
 }

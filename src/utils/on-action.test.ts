@@ -93,7 +93,6 @@ test('calls NEW action correctly', async() => {
 
   assert.equal(handler.callCount, 0)
 
-  // eslint-disable-next-line no-new
   new Person('John')
 
   await new Promise((resolve) => setTimeout(resolve, 10))
