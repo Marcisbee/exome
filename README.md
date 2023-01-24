@@ -8,7 +8,7 @@
 
 <div align="center">
   <a href="https://github.com/Marcisbee/exome/actions">
-    <img alt="CI" src="https://img.shields.io/github/workflow/status/Marcisbee/exome/CI?style=flat-square" />
+    <img alt="CI" src="https://img.shields.io/github/actions/workflow/status/Marcisbee/exome/main.yml?branch=main&style=flat-square" />
   </a>
   <a href="https://snyk.io/test/github/Marcisbee/exome">
     <img alt="snyk" src="https://img.shields.io/snyk/vulnerabilities/github/Marcisbee/exome?style=flat-square" />
