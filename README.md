@@ -1,45 +1,78 @@
-<br />
+<a href="../../"><img src="assets/logo.svg" width="220" /></a>
 
-<div align="center">
-  <a href="../../"><img src="assets/logo.svg" width="420" /></a>
-</div>
+<a href="https://github.com/Marcisbee/exome/actions">
+  <img alt="CI" src="https://img.shields.io/github/actions/workflow/status/Marcisbee/exome/main.yml?branch=main&style=flat-square" />
+</a>
+<a href="https://snyk.io/test/github/Marcisbee/exome">
+  <img alt="snyk" src="https://img.shields.io/snyk/vulnerabilities/github/Marcisbee/exome?style=flat-square" />
+</a>
+<a href="https://www.npmjs.com/package/exome">
+  <img alt="npm" src="https://img.shields.io/npm/v/exome.svg?style=flat-square" />
+</a>
+<a href="https://bundlephobia.com/result?p=exome">
+  <img alt="package size" src="https://img.shields.io/bundlephobia/minzip/exome?style=flat-square" />
+</a>
 
-<br />
-
-<div align="center">
-  <a href="https://github.com/Marcisbee/exome/actions">
-    <img alt="CI" src="https://img.shields.io/github/actions/workflow/status/Marcisbee/exome/main.yml?branch=main&style=flat-square" />
-  </a>
-  <a href="https://snyk.io/test/github/Marcisbee/exome">
-    <img alt="snyk" src="https://img.shields.io/snyk/vulnerabilities/github/Marcisbee/exome?style=flat-square" />
-  </a>
-  <a href="https://www.npmjs.com/package/exome">
-    <img alt="npm" src="https://img.shields.io/npm/v/exome.svg?style=flat-square" />
-  </a>
-  <a href="https://bundlephobia.com/result?p=exome">
-    <img alt="package size" src="https://img.shields.io/bundlephobia/minzip/exome?style=flat-square" />
-  </a>
-</div>
-
-<br />
-
-<div align="center">
-  State manager for deeply nested states
-</div>
+State manager for deeply nested states. Includes integration for [React](#react), [Preact](#preact), [Vue](#vue), [Svelte](#svelte), [Lit](#lit), [Rxjs](#rxjs), [Angular](#angular) & [No framework](#no-framework). Can be easily used in microfrontends architecture.
 
 # Features
 
 - 📦 **Small**: Just **1 KB** minizipped
 - 🚀 **Fast**: Uses **no diffing** of state changes see [**benchmarks**](benchmark/README.md)
-- 😍 **Simple**: Uses classes as state
-- 🧬 **Nested**: Easily manage deeply nested state structures
-- 💪 **Immutable**: Data can only be changed via actions (only forced via typescript)
-- 🎛 **Middleware**: Built-in middleware for actions
+- 😍 **Simple**: Uses classes as state, methods as actions
 - 🛡 **Typed**: Written in strict TypeScript
 - 🔭 **Devtools**: Redux devtools integration
 - 💨 **Zero dependencies**
 
+```ts
+// store/counter.ts
+import { Exome } from "exome"
+
+export class Counter extends Exome {
+  public count = 0
+
+  public increment() {
+    this.count += 1
+  }
+}
+
+export const counter = new Counter()
+```
+
+```tsx
+// components/counter.tsx
+import { useStore } from "exome/react"
+import { counter } from "../stores/counter.ts"
+
+export default function App() {
+  const { count, increment } = useStore(counter)
+
+  return (
+    <h1 onClick={increment}>{count}</h1>
+  )
+}
+```
+
 [__Simple Demo__](https://codesandbox.io/s/exome-counter-96qfq)
+
+# Table of contents
+
+- [Core concepts](#core-concepts)
+- [Usage](#usage)
+- Integration
+  - [React](#react)
+  - [Preact](#preact)
+  - [Vue](#vue)
+  - [Svelte](#svelte)
+  - [Lit](#lit)
+  - [Rxjs](#rxjs)
+  - [Angular](#angular)
+  - [No framework](#no-framework)
+- [Redux devtools](#redux-devtools)
+- [API](#api)
+- [FAQ](#faq)
+- [**Benchmarks**](benchmark/README.md)
+- [Motivation](#motivation)
 
 # Installation
 To install the stable version:
@@ -71,7 +104,7 @@ Library can be used without typescript, but I mostly recommend using it with typ
 To create a typed store just create new class with a name of your choosing by extending `Exome` class exported from `exome` library.
 
 ```ts
-import { Exome } from 'exome'
+import { Exome } from "exome"
 
 // We'll have a store called "CounterStore"
 class CounterStore extends Exome {
@@ -91,24 +124,147 @@ That is the basic structure of simple store. It can have as many properties as y
 Now we should create an instance of `CounterStore` to use it.
 
 ```ts
-const counterStore = new CounterStore()
+const counter = new CounterStore()
 ```
 
-Nice! Now we can start using `counterStore` state. Lets include it in our `react` component via `useStore` hook that is exported by `exome/react`.
+Nice! Now we can start using `counter` state.
+
+# Integration
+## React
+Use `useStore()` from `exome/react` to get store value and re-render component on store change.
 
 ```tsx
-import { useStore } from 'exome/react'
+import { useStore } from "exome/react"
+import { counter } from "../stores/counter.ts"
 
-function Counter() {
-  const { count, increment } = useStore(counterStore)
-
-  return (
-    <button onClick={increment}>{count}</button>
-  )
+export function Example() {
+  const { count, increment } = useStore(counter)
+  return <button onClick={increment}>{count}</button>
 }
 ```
 
-And that is it! No providers, no context, no boilerplate, just your state and actions.
+## Preact
+Use `useStore()` from `exome/preact` to get store value and re-render component on store change.
+
+```tsx
+import { useStore } from "exome/preact"
+import { counter } from "../stores/counter.ts"
+
+export function Example() {
+  const { count, increment } = useStore(counter)
+  return <button onClick={increment}>{count}</button>
+}
+```
+
+## Vue
+Use `useStore()` from `exome/vue` to get store value and re-render component on store change.
+
+```html
+<script lang="ts" setup>
+  import { useStore } from "exome/vue";
+  import { counter } from "./store/counter.ts";
+
+  const { count, increment } = useStore(counter);
+</script>
+
+<template>
+  <button @click="increment()">{{ count }}</button>
+</template>
+```
+
+## Svelte
+Use `useStore()` from `exome/svelte` to get store value and re-render component on store change.
+
+```html
+<script>
+  import { useStore } from "exome/svelte"
+  import { counter } from "./store/counter.js"
+
+  const { increment } = counter
+  const count = useStore(counter, s => s.count)
+</script>
+
+<main>
+  <button on:click={increment}>{$count}</button>
+</main>
+```
+
+## Lit
+Use `StoreController` from `exome/lit` to get store value and re-render component on store change.
+
+```ts
+import { StoreController } from "exome/lit"
+import { counter } from "./store/counter.js"
+
+@customElement("counter")
+class extends LitElement {
+  private counter = new StoreController(this, counter);
+
+  render() {
+    const { count, increment } = this.counter.store;
+
+    return html`
+      <h1 @click=${increment}>${count}</h1>
+    `;
+  }
+}
+```
+
+## Rxjs
+Use `observableFromExome` from `exome/rxjs` to get store value as Observable and trigger it when it changes.
+
+```ts
+import { observableFromExome } from "exome/rxjs"
+import { counter } from "./store/counter.js"
+
+observableFromExome(countStore)
+  .pipe(
+    map(({ count }) => count),
+    distinctUntilChanged()
+  )
+  .subscribe((value) => {
+    console.log("Count changed to", value);
+  });
+
+setInterval(counter.increment, 1000);
+```
+
+## Angular
+Angular support is handled via rxjs async pipes!
+
+Use `observableFromExome` from `exome/rxjs` to get store value as Observable and trigger it when it changes.
+
+```ts
+import { observableFromExome } from "exome/rxjs"
+import { counter } from "./store/counter.ts"
+
+@Component({
+  selector: 'my-app',
+  template: `
+    <h1 *ngIf="(counter$ | async) as counter" (click)="counter.increment()">
+      {{counter.count}}
+    </h1>
+  `,
+})
+export class App {
+  public counter$ = observableFromExome(counter)
+}
+```
+
+## No framework
+Use `subscribe` from `exome/subscribe` to get store value in subscription callback event when it changes.
+
+```ts
+import { subscribe } from "exome/subscribe"
+import { counter } from "./store/counter.js"
+
+const unsubscribe = subscribe(counter, ({ count }) => {
+  console.log("Count changed to", count)
+})
+
+setInterval(counter.increment, 1000)
+setTimeout(unsubscribe, 5000)
+```
 
 # Redux devtools
 
