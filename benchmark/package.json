@@ -5,6 +5,7 @@
     "test": "node -r esbuild-register run.ts"
   },
   "devDependencies": {
+    "@preact/signals-react": "^1.2.2",
     "@reduxjs/toolkit": "^1.8.3",
     "@types/benchmark": "^2.1.1",
     "benchmark": "^2.1.4",

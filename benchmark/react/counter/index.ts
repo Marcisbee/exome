@@ -12,6 +12,7 @@ import valtio from './valtio';
 import recoil from './recoil';
 import pullState from './pullstate';
 import trashly from './trashly';
+import preactSignals from './preact-signals';
 
 // @ts-ignore
 window.Benchmark = Benchmark;
@@ -59,13 +60,14 @@ suite
   .add('Recoil', configTest(recoil))
   .add('PullState', configTest(pullState))
   .add('Trashly', configTest(trashly))
+  .add('@preact/signals-react', configTest(preactSignals))
 
   // add listeners
   .on('start', function (this: any) {
     console.log(`Starting <bold><green>${this.name}</green></bold>\n\n`)
   })
   .on('cycle', (event: any) => {
-    console.log(`<blue><bold>${(event.target.name + ' ').padEnd(15, '.').replace(/(\.+)$/, '<dim>$1</dim>')}</bold></blue> <yellow>${Math.round(event.target.hz).toLocaleString()} ops/sec</yellow> ±${event.target.stats.rme.toFixed(2)}% (${event.target.stats.sample.length} runs sampled) <dim>${event.target.output.toLocaleString()} was output</dim>\n`)
+    console.log(`<blue><bold>${(event.target.name + ' ').padEnd(23, '.').replace(/(\.+)$/, '<dim>$1</dim>')}</bold></blue> <yellow>${Math.round(event.target.hz).toLocaleString()} ops/sec</yellow> ±${event.target.stats.rme.toFixed(2)}% (${event.target.stats.sample.length} runs sampled) <dim>${event.target.output.toLocaleString()} was output</dim>\n`)
   })
   .on('complete', function (this: any) {
     console.log('\nFastest is <bold><green>' + this.filter('fastest').map('name') + '</green></bold>\n')
