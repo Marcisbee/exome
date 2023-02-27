@@ -1,11 +1,12 @@
 {
   "compilerOptions": {
-    "target": "es6",
-    "module": "commonjs",
+    "target": "ES2017",
+    "module": "esnext",
     "lib": [
       "DOM",
       "es2015"
     ],
+    "moduleResolution": "node",
     "outDir": "ts-dist",
     "strict": true,
     "esModuleInterop": true,

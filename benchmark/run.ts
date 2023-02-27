@@ -29,56 +29,57 @@ const colors = {
   gray: colorette.gray,
 };
 
-esbuild.serve({
-  servedir: 'www',
-}, {
+esbuild.context({
   inject: [
     './lodash.ts',
   ],
-  entryPoints: [
-    entry,
-  ],
+  entryPoints: [entry],
+  bundle: true,
   outfile: './www/bench.js',
   target: 'es2020',
   format: 'cjs',
   platform: 'browser',
   minify: true,
-  bundle: true,
   sourcemap: 'external',
-}).then(async (server) => {
-  const browser = await playwright.chromium.launch()
-  const context = await browser.newContext()
-  const page = await context.newPage()
+}).then(async (ctx) => {
+  ctx.serve({
+    port: 8000,
+    servedir: 'www',
+  }).then(async (server) => {
+    const browser = await playwright.chromium.launch()
+    const context = await browser.newContext()
+    const page = await context.newPage()
 
-  // Uncomment to open and test benchmark in browser manually
-  // await server.wait
+    // Uncomment to open and test benchmark in browser manually
+    // await server.wait
 
-  page.on('pageerror', (error) => {
-    throw error;
+    page.on('pageerror', (error) => {
+      throw error;
+    })
+
+    page.on('console', (...message) => {
+      if (message[0].text() === '<clear-line/>') {
+        process.stdout.write('\r\x1b[K');
+        return;
+      }
+
+      const parsedMessage = message.map((value) => colorize(value.text(), colors));
+
+      process.stdout.write(parsedMessage.join(' '));
+    });
+    await page.goto(`http://${server.host}:${server.port}`)
+
+    await page.waitForFunction(
+      // @ts-ignore
+      () => self.PW_TEST?.ended === true,
+      undefined,
+      {
+        timeout: 0,
+        polling: 100,
+      }
+    )
+
+    await browser.close()
+    ctx.dispose()
   })
-
-  page.on('console', (...message) => {
-    if (message[0].text() === '<clear-line/>') {
-      process.stdout.write('\r\x1b[K');
-      return;
-    }
-
-    const parsedMessage = message.map((value) => colorize(value.text(), colors));
-
-    process.stdout.write(parsedMessage.join(' '));
-  });
-  await page.goto(`http://${server.host}:${server.port}`)
-
-  await page.waitForFunction(
-    // @ts-ignore
-    () => self.PW_TEST?.ended === true,
-    undefined,
-    {
-      timeout: 0,
-      polling: 100,
-    }
-  )
-
-  await browser.close()
-  server.stop()
 })
