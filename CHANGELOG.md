@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.5.4
+
+### Bugfix
+* Removes peerDependencies from package.json.
+
+## 1.5.3
+
+### Bugfixes
+* Updates documentation;
+* Cleans up published package.json file.
+
 ## 1.5.0
 
 ### Features
