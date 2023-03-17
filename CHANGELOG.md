@@ -3,7 +3,7 @@
 ## 1.5.4
 
 ### Bugfix
-* Removes peerDependencies from package.json.
+* Removes `peerDependencies` from package.json.
 
 ## 1.5.3
 
