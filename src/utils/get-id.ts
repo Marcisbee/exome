@@ -1,6 +1,6 @@
-import { Exome } from '../exome'
-import { exomeId } from './exome-id'
+import { Exome } from "../exome";
+import { exomeId } from "./exome-id";
 
 export function getExomeId(store: Exome): string {
-  return store[exomeId]
+	return store[exomeId];
 }

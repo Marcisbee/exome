@@ -1,1 +1,1 @@
-export const exomeName = Symbol('exomeName')
+export const exomeName = Symbol("exomeName");

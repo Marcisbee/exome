@@ -1,10 +1,10 @@
-import { test } from 'uvu'
-import assert from 'uvu/assert'
+import { test } from "uvu";
+import assert from "uvu/assert";
 
-import { exomeName } from './exome-name'
+import { exomeName } from "./exome-name";
 
-test('exports `exomeName`', () => {
-  assert.ok(exomeName)
-})
+test("exports `exomeName`", () => {
+	assert.ok(exomeName);
+});
 
-test.run()
+test.run();

@@ -1,2 +1,2 @@
-export type UpdateMap = Record<string, Array<(() => void)>>
-export const updateMap: UpdateMap = {}
+export type UpdateMap = Record<string, Array<() => void>>;
+export const updateMap: UpdateMap = {};

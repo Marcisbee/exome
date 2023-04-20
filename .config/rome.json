@@ -1,9 +1,0 @@
-{
-  "lint": {
-    "disabledRules": {
-      "ts": [
-        "noExplicitAny"
-      ]
-    }
-  }
-}

@@ -1,44 +1,44 @@
-import { test } from 'uvu'
-import assert from 'uvu/assert'
+import { test } from "uvu";
+import assert from "uvu/assert";
 
-import { Exome } from './exome'
-import { exomeId } from './utils/exome-id'
+import { Exome } from "./exome";
+import { exomeId } from "./utils/exome-id";
 
-test('exports `Exome`', () => {
-  assert.instance(Exome, Function)
-})
+test("exports `Exome`", () => {
+	assert.instance(Exome, Function);
+});
 
-test('exome instance have `exomeId`', () => {
-  const instance = new Exome()
+test("exome instance have `exomeId`", () => {
+	const instance = new Exome();
 
-  assert.is(typeof instance[exomeId], 'string')
-})
+	assert.is(typeof instance[exomeId], "string");
+});
 
-test('extended exome instance have `exomeId`', () => {
-  class Person extends Exome {}
-  const instance = new Person()
+test("extended exome instance have `exomeId`", () => {
+	class Person extends Exome {}
+	const instance = new Person();
 
-  assert.is(typeof instance[exomeId], 'string')
-})
+	assert.is(typeof instance[exomeId], "string");
+});
 
 test('exome instance has "Exome" in id', () => {
-  const instance = new Exome()
+	const instance = new Exome();
 
-  assert.match(instance[exomeId], /^Exome-[A-Z0-9]+$/)
-})
-
-test('extended exome instance has "Person" in id', () => {
-  class Person extends Exome {}
-  const instance = new Person()
-
-  assert.match(instance[exomeId], /^Person-[A-Z0-9]+$/)
-})
+	assert.match(instance[exomeId], /^Exome-[A-Z0-9]+$/);
+});
 
 test('extended exome instance has "Person" in id', () => {
-  class Person extends Exome {}
-  const instance = new Person()
+	class Person extends Exome {}
+	const instance = new Person();
 
-  assert.match(instance[exomeId], /^Person-[A-Z0-9]+$/)
-})
+	assert.match(instance[exomeId], /^Person-[A-Z0-9]+$/);
+});
 
-test.run()
+test('extended exome instance has "Person" in id', () => {
+	class Person extends Exome {}
+	const instance = new Person();
+
+	assert.match(instance[exomeId], /^Person-[A-Z0-9]+$/);
+});
+
+test.run();

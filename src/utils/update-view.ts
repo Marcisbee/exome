@@ -1,11 +1,11 @@
-import { updateMap } from './update-map'
+import { updateMap } from "./update-map";
 
 export function updateView(): void {
-  Object.keys(updateMap).forEach((key) => {
-    const renderers = updateMap[key]
+	Object.keys(updateMap).forEach((key) => {
+		const renderers = updateMap[key];
 
-    updateMap[key] = []
+		updateMap[key] = [];
 
-    renderers.forEach((renderer) => renderer())
-  })
+		renderers.forEach((renderer) => renderer());
+	});
 }

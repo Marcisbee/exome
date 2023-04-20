@@ -1,22 +1,27 @@
 {
-  "compilerOptions": {
-    "target": "es6",
-    "module": "commonjs",
-    "lib": ["DOM", "es2015"],
-    "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "jsx": "react",
-    "paths": {
-      "exome": ["./src/index.ts"]
+    "compilerOptions": {
+        "target": "es6",
+        "module": "commonjs",
+        "lib": [
+            "DOM",
+            "es2015"
+        ],
+        "strict": true,
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true,
+        "jsx": "react",
+        "paths": {
+            "exome": [
+                "./src/index.ts"
+            ]
+        },
+        "allowJs": true
     },
-    "allowJs": true
-  },
-  "include": [
-    "src/**/*"
-  ],
-  "exclude": [
-    "src/**/*.test.ts"
-  ]
+    "include": [
+        "src/**/*"
+    ],
+    "exclude": [
+        "src/**/*.test.ts"
+    ]
 }

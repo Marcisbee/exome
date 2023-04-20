@@ -1,12 +1,12 @@
-import { Exome, GhostExome } from 'exome'
+import { Exome, GhostExome } from "exome";
 
 export function test(val: any): boolean {
-  return val instanceof Exome || val instanceof GhostExome
+	return val instanceof Exome || val instanceof GhostExome;
 }
 
 export function print(val: typeof Exome): string {
-  const proto: Exome | GhostExome = Object.getPrototypeOf(val)
-  const name: string = proto.constructor.name || ''
+	const proto: Exome | GhostExome = Object.getPrototypeOf(val);
+	const name: string = proto.constructor.name || "";
 
-  return `${name} ${JSON.stringify(val, null, '  ')}`
+	return `${name} ${JSON.stringify(val, null, "  ")}`;
 }
