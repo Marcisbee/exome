@@ -1,6 +1,6 @@
 {
   "name": "exome",
-  "version": "1.5.4",
+  "version": "1.5.5",
   "description": "Proxy based store manager for deeply nested states",
   "main": "exome.js",
   "module": "exome.mjs",
@@ -55,10 +55,10 @@
     "proxyquire": "^2.1.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "rome": "^11.0.0",
+    "rome": "^12.0.0",
     "rxjs": "^7.0.0",
     "sinon": "^14.0.0",
-    "typescript": "^4.7.4",
+    "typescript": "^5.0.4",
     "uvu": "^0.5.6",
     "vue": "^3.2.37"
   },
