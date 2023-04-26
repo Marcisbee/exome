@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.5.6
+
+### Other
+* Published to npm with new logo.
+
+## 1.5.5
+
+### Other
+* Published to npm with provenance.
+
 ## 1.5.4
 
 ### Bugfix
