@@ -1,4 +1,4 @@
-<a href="../../"><img src="assets/logo.svg" width="220" /></a>
+<a href="../../"><img src="logo/logo-title-dark.png" width="220" /></a>
 
 <a href="https://github.com/Marcisbee/exome/actions">
   <img alt="CI" src="https://img.shields.io/github/actions/workflow/status/Marcisbee/exome/main.yml?branch=main&style=flat-square" />
