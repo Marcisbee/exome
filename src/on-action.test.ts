@@ -2,8 +2,8 @@ import { fake } from "sinon";
 import { test } from "uvu";
 import assert from "uvu/assert";
 
-import { Exome } from "../exome";
-import { middleware, runMiddleware } from "../middleware";
+import { Exome } from "./constructor";
+import { middleware, runMiddleware } from "./middleware";
 
 import { onAction } from "./on-action";
 

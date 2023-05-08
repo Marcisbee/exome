@@ -1,4 +1,6 @@
-import { Exome } from "./exome";
+import { update } from "./subscribe.ts";
+import type { Exome } from "./constructor.ts";
+import { FUNCTION } from "./constants.ts";
 
 export type Middleware = (
 	instance: Exome,
@@ -8,25 +10,29 @@ export type Middleware = (
 
 export const middleware: Middleware[] = [];
 
-export function addMiddleware(fn: Middleware) {
+export const addMiddleware = (fn: Middleware) => {
 	middleware.push(fn);
 
 	return () => {
-		const index = middleware.indexOf(fn);
-		middleware.splice(index, 1);
+		middleware.splice(middleware.indexOf(fn), 1);
 	};
-}
+};
 
-export function runMiddleware(...params: Parameters<Middleware>) {
-	const after = middleware.map((middleware) => middleware(...params));
+export const runMiddleware = (
+	parent: Parameters<Middleware>[0],
+	key: Parameters<Middleware>[1],
+	args: Parameters<Middleware>[2],
+) => {
+	const after = middleware.map((middleware) => middleware(parent, key, args));
 
 	return () => {
-		after.forEach((middleware) => {
-			if (typeof middleware !== "function") {
-				return;
-			}
+		update(parent);
 
-			middleware();
-		});
+		let x = 0;
+		const l = after.length;
+		while (x < l) {
+			typeof after[x] === FUNCTION && (after[x] as Function)();
+			++x;
+		}
 	};
-}
+};

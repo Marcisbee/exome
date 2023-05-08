@@ -1,14 +1,14 @@
-import { Exome } from "../exome";
-import { addMiddleware } from "../middleware";
+import type { Exome } from "./constructor.ts";
+import { addMiddleware } from "./middleware.ts";
 
 type Unsubscribe = () => void;
 
-export function onAction<T extends Exome>(
+export const onAction = <T extends Exome>(
 	Parent: new (...args: any[]) => T,
 	action: null | "NEW" | keyof T,
 	callback: (instance: T, action: "NEW" | keyof T, payload: any[]) => void,
 	type: "before" | "after" = "after",
-): Unsubscribe {
+): Unsubscribe => {
 	return addMiddleware((instance, targetAction, payload) => {
 		if (
 			!(
@@ -24,8 +24,6 @@ export function onAction<T extends Exome>(
 			return;
 		}
 
-		return () => {
-			callback(instance, targetAction as any, payload);
-		};
+		return () => callback(instance, targetAction as any, payload);
 	});
-}
+};

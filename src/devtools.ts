@@ -1,4 +1,4 @@
-import { Exome, getExomeId, updateView, Middleware } from "exome";
+import { Exome, getExomeId, updateAll, Middleware } from "exome";
 
 interface ReduxMessage {
 	type: string;
@@ -70,7 +70,7 @@ function deepCloneStore(value: any, depth: string[] = []): any {
 	return output;
 }
 
-function getFullStore() {
+const getFullStore = () => {
 	const output: Record<string, Exome[]> = {};
 
 	for (const [key, map] of fullStore.entries()) {
@@ -79,9 +79,9 @@ function getFullStore() {
 
 	// Improve serializer with `__serializedType__` once https://github.com/zalmoxisus/redux-devtools-extension/issues/737 is resolved
 	return deepCloneStore(output);
-}
+};
 
-export function exomeDevtools({
+export const exomeDevtools = ({
 	name,
 	maxAge,
 	actionsBlacklist,
@@ -89,7 +89,7 @@ export function exomeDevtools({
 	name?: string;
 	maxAge?: number;
 	actionsBlacklist?: string;
-}): Middleware {
+}): Middleware => {
 	const devtoolName: string = "__REDUX_DEVTOOLS_EXTENSION__";
 	let extension;
 	try {
@@ -136,7 +136,7 @@ export function exomeDevtools({
 				return value;
 			});
 
-			updateView();
+			updateAll();
 		}
 	});
 
@@ -170,4 +170,4 @@ export function exomeDevtools({
 			ReduxTool.send({ type, payload: parsedPayload }, getFullStore());
 		};
 	};
-}
+};

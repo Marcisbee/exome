@@ -2,8 +2,8 @@ import { test } from "uvu";
 import assert from "uvu/assert";
 
 import { Exome } from "../exome";
-import { exomeId } from "./exome-id";
-import { setExomeId } from "./set-id";
+import { exomeId } from "../constants";
+import { setExomeId } from "./id";
 
 test("exports `setExomeId`", () => {
 	assert.ok(setExomeId);

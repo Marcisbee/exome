@@ -4,9 +4,9 @@
 	"description": "Proxy based store manager for deeply nested states",
 	"main": "exome.js",
 	"module": "exome.mjs",
-	"types": "index.d.ts",
+	"types": "exome.d.ts",
 	"scripts": {
-		"build": "node -r esbuild-register ./scripts/build.ts && npm run declarations",
+		"build": "node ./scripts/build.mjs && npm run declarations",
 		"dev": "npm run build -- --sourcemap --define:process.env.NODE_ENV=\\\"development\\\" --watch",
 		"playground": "esbuild playground/index.tsx --outfile=playground/dist/index.js --bundle --format=esm --sourcemap --define:process.env.NODE_ENV=\\\"development\\\" && npx serve playground/dist",
 		"lint": "rome ci src",
@@ -71,9 +71,13 @@
 			"require": "./devtools.js",
 			"import": "./devtools.mjs"
 		},
-		"./subscribe": {
-			"require": "./subscribe.js",
-			"import": "./subscribe.mjs"
+		"./ghost": {
+			"require": "./ghost.js",
+			"import": "./ghost.mjs"
+		},
+		"./state": {
+			"require": "./state.js",
+			"import": "./state.mjs"
 		},
 		"./react": {
 			"require": "./react.js",

@@ -1,21 +1,18 @@
-import { Exome } from "../exome";
-import { exomeId } from "./exome-id";
-import { exomeName } from "./exome-name";
-import { updateView } from "./update-view";
+import { Exome, exomeId, exomeName, updateAll } from "exome";
 
 const loadableExomes: Record<string, typeof Exome> = {};
 
-export function registerLoadable(config: Record<string, any>): void {
+export const registerLoadable = (config: Record<string, any>): void => {
 	Object.keys(config).forEach((key) => {
 		config[key].prototype[exomeName] = key;
 
 		loadableExomes[key] = config[key];
 	});
-}
+};
 
 export let afterLoadStateCallbacks: Array<() => void> | null = null;
 
-export function loadState(store: Exome, state: string) {
+export const loadState = (store: Exome, state: string) => {
 	if (!state || typeof state !== "string") {
 		throw new Error(
 			`State was not loaded. Passed state must be string, instead received "${typeof state}".`,
@@ -88,7 +85,7 @@ export function loadState(store: Exome, state: string) {
 	Object.assign(store, data);
 
 	// Run view update after state has been loaded
-	updateView();
+	updateAll();
 
 	return data;
-}
+};

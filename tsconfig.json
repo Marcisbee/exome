@@ -13,12 +13,18 @@
         "jsx": "react",
         "paths": {
             "exome": [
-                "./src/index.ts"
+                "./src/exome.ts"
+            ],
+            "exome/ghost": [
+                "./src/ghost.ts"
             ]
         },
+				"allowImportingTsExtensions": true,
+				"noEmit": true,
         "allowJs": true
     },
     "include": [
+				"mod.ts",
         "src/**/*"
     ],
     "exclude": [

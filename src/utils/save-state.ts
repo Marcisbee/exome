@@ -1,7 +1,6 @@
-import { Exome } from "../exome";
-import { getExomeId } from "./get-id";
+import { Exome, getExomeId } from "exome";
 
-function replacer(): any {
+const replacer = (): any => {
 	const savedInstances: Record<string, true> = {};
 
 	return (_: string, value: any): any => {
@@ -30,9 +29,9 @@ function replacer(): any {
 
 		return value;
 	};
-}
+};
 
-export function saveState(store: Exome, readable: boolean = false): string {
+export const saveState = (store: Exome, readable: boolean = false): string => {
 	const output = JSON.stringify(store, replacer(), readable ? 2 : undefined);
 
 	if (output === undefined) {
@@ -40,4 +39,4 @@ export function saveState(store: Exome, readable: boolean = false): string {
 	}
 
 	return output;
-}
+};

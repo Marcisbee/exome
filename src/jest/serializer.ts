@@ -1,4 +1,5 @@
-import { Exome, GhostExome } from "exome";
+import { Exome } from "exome";
+import { GhostExome } from "exome/ghost";
 
 export function test(val: any): boolean {
 	return val instanceof Exome || val instanceof GhostExome;

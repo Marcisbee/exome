@@ -1,44 +1,54 @@
 import { test } from "uvu";
 import assert from "uvu/assert";
 
-import { Exome } from "./exome";
-import { exomeId } from "./utils/exome-id";
+import {
+	Exome,
+	updateMap,
+	updateView,
+	saveState,
+	loadState,
+	getExomeId,
+	addMiddleware,
+} from "./exome";
+
+test.before.each(() => {
+	Object.keys(updateMap).forEach((key) => {
+		delete updateMap[key];
+	});
+});
 
 test("exports `Exome`", () => {
-	assert.instance(Exome, Function);
+	assert.ok(Exome);
 });
 
-test("exome instance have `exomeId`", () => {
-	const instance = new Exome();
-
-	assert.is(typeof instance[exomeId], "string");
+test("exports `updateMap`", () => {
+	assert.ok(updateMap);
+	assert.equal(updateMap, {});
 });
 
-test("extended exome instance have `exomeId`", () => {
-	class Person extends Exome {}
-	const instance = new Person();
-
-	assert.is(typeof instance[exomeId], "string");
+test("exports `updateView`", () => {
+	assert.ok(updateView);
+	assert.instance(updateView, Function);
 });
 
-test('exome instance has "Exome" in id', () => {
-	const instance = new Exome();
-
-	assert.match(instance[exomeId], /^Exome-[A-Z0-9]+$/);
+test("exports `saveState`", () => {
+	assert.ok(saveState);
+	assert.instance(saveState, Function);
 });
 
-test('extended exome instance has "Person" in id', () => {
-	class Person extends Exome {}
-	const instance = new Person();
-
-	assert.match(instance[exomeId], /^Person-[A-Z0-9]+$/);
+test("exports `loadState`", () => {
+	assert.ok(loadState);
+	assert.instance(loadState, Function);
 });
 
-test('extended exome instance has "Person" in id', () => {
-	class Person extends Exome {}
-	const instance = new Person();
+test("exports `getExomeId`", () => {
+	assert.ok(getExomeId);
+	assert.instance(getExomeId, Function);
+});
 
-	assert.match(instance[exomeId], /^Person-[A-Z0-9]+$/);
+test("exports `addMiddleware`", () => {
+	assert.ok(addMiddleware);
+	assert.instance(addMiddleware, Function);
 });
 
 test.run();

@@ -15,7 +15,7 @@
     "jsx": "react",
     "paths": {
       "exome": [
-        "../../src/index.ts"
+        "../../src/exome.ts"
       ],
       "exome/preact": [
         "../../src/preact.ts"

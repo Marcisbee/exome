@@ -1,5 +1,4 @@
-import type { Exome } from "exome";
-import { subscribe } from "./subscribe";
+import { type Exome, subscribe } from "exome";
 
 export function useStore<T extends Exome, R = T>(
 	store: T,

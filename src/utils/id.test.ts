@@ -1,9 +1,9 @@
 import { test } from "uvu";
 import assert from "uvu/assert";
 
-import { Exome } from "../exome";
-import { exomeId } from "./exome-id";
-import { getExomeId } from "./get-id";
+import { Exome } from "../constructor";
+import { exomeId } from "../constants";
+import { getExomeId } from "./id";
 
 test("exports `getExomeId`", () => {
 	assert.ok(getExomeId);
