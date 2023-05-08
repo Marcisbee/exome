@@ -8,7 +8,9 @@ export const subscribe = (store: Exome, fn: Function) => {
 
 	set.add(fn);
 
-	return () => set.delete(fn);
+	return () => {
+		set.delete(fn);
+	};
 };
 
 export const update = (store: Exome) => {

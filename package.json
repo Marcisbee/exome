@@ -2,9 +2,9 @@
 	"name": "exome",
 	"version": "1.5.6",
 	"description": "Proxy based store manager for deeply nested states",
-	"main": "exome.js",
-	"module": "exome.mjs",
-	"types": "exome.d.ts",
+	"main": "./dist/exome.js",
+	"module": "./dist/exome.mjs",
+	"types": "./dist/exome.d.ts",
 	"scripts": {
 		"build": "node ./scripts/build.mjs && npm run declarations",
 		"dev": "npm run build -- --sourcemap --define:process.env.NODE_ENV=\\\"development\\\" --watch",
@@ -14,7 +14,7 @@
 		"e2e": "uvu -r esbuild-register -i src",
 		"coverage": "c8 --check-coverage npm test",
 		"declarations": "tsc --declarationDir dist --emitDeclarationOnly --declaration",
-		"postbuild": "cat package.json | sed '/\\\"devDependencies\\\"/,/}/ d; /^$/d' > ./dist/package.json && cp README.md dist && cp LICENSE dist"
+		"postbuild": "cat package.json | sed '/\\\"devDependencies\\\"/,/}/ d; /^$/d' | sed 's/\\.\\/dist\\//\\.\\//g' > ./dist/package.json && cp README.md dist && cp LICENSE dist"
 	},
 	"repository": {
 		"type": "git",
@@ -64,44 +64,44 @@
 	},
 	"exports": {
 		".": {
-			"require": "./exome.js",
-			"import": "./exome.mjs"
+			"require": "./dist/exome.js",
+			"import": "./dist/exome.mjs"
 		},
 		"./devtools": {
-			"require": "./devtools.js",
-			"import": "./devtools.mjs"
+			"require": "./dist/devtools.js",
+			"import": "./dist/devtools.mjs"
 		},
 		"./ghost": {
-			"require": "./ghost.js",
-			"import": "./ghost.mjs"
+			"require": "./dist/ghost.js",
+			"import": "./dist/ghost.mjs"
 		},
 		"./state": {
-			"require": "./state.js",
-			"import": "./state.mjs"
+			"require": "./dist/state.js",
+			"import": "./dist/state.mjs"
 		},
 		"./react": {
-			"require": "./react.js",
-			"import": "./react.mjs"
+			"require": "./dist/react.js",
+			"import": "./dist/react.mjs"
 		},
 		"./preact": {
-			"require": "./preact.js",
-			"import": "./preact.mjs"
+			"require": "./dist/preact.js",
+			"import": "./dist/preact.mjs"
 		},
 		"./vue": {
-			"require": "./vue.js",
-			"import": "./vue.mjs"
+			"require": "./dist/vue.js",
+			"import": "./dist/vue.mjs"
 		},
 		"./lit": {
-			"require": "./lit.js",
-			"import": "./lit.mjs"
+			"require": "./dist/lit.js",
+			"import": "./dist/lit.mjs"
 		},
 		"./rxjs": {
-			"require": "./rxjs.js",
-			"import": "./rxjs.mjs"
+			"require": "./dist/rxjs.js",
+			"import": "./dist/rxjs.mjs"
 		},
 		"./svelte": {
-			"require": "./svelte.js",
-			"import": "./svelte.mjs"
+			"require": "./dist/svelte.js",
+			"import": "./dist/svelte.mjs"
 		}
 	}
 }

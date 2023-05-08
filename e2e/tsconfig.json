@@ -13,10 +13,10 @@
     "jsx": "react",
     "paths": {
       "exome": [
-        "../../src/exome.ts"
+        "../src/exome.ts"
       ],
       "exome/react": [
-        "../../src/react.ts"
+        "../src/react.ts"
       ]
     },
     "allowJs": true
