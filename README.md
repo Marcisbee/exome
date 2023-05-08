@@ -255,10 +255,10 @@ export class App {
 ```
 
 ## No framework
-Use `subscribe` from `exome/subscribe` to get store value in subscription callback event when it changes.
+Use `subscribe` from `exome` to get store value in subscription callback event when it changes.
 
 ```ts
-import { subscribe } from "exome/subscribe"
+import { subscribe } from "exome"
 import { counter } from "./store/counter.js"
 
 const unsubscribe = subscribe(counter, ({ count }) => {
@@ -383,7 +383,7 @@ __Returns__
 __Example__
 
 ```tsx
-import { saveState } from "exome"
+import { saveState } from "exome/state"
 
 const saved = saveState(counter)
 ```
@@ -409,7 +409,7 @@ __Returns__
 __Example__
 
 ```ts
-import { loadState, registerLoadable } from "exome"
+import { loadState, registerLoadable } from "exome/state"
 
 registerLoadable({
   Counter
@@ -446,7 +446,7 @@ __Returns__
 __Example__
 
 ```ts
-import { loadState, registerLoadable } from "exome"
+import { loadState, registerLoadable } from "exome/state"
 
 registerLoadable({
   Counter,
