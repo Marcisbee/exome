@@ -11,19 +11,18 @@ export const wrapper = <T extends Exome>(parent: T): T => {
 
 		if (!isGetter) {
 			const isMethod = proto.hasOwnProperty(key);
+			const value = (parent as any)[key];
 
 			if (
 				isMethod &&
 				parent instanceof Exome &&
 				key !== CONSTRUCTOR &&
-				typeof (parent as any)[key] === FUNCTION
+				typeof value === FUNCTION
 			) {
-				const value = (parent as any)[key].bind(parent);
-
 				(parent as any)[key] = (...args: any) => {
 					const middleware = runMiddleware(parent, key, args);
 
-					const output = value(...args);
+					const output = value.apply(parent, args);
 
 					if (output instanceof Promise) {
 						return output.then((result) => (middleware(), result));

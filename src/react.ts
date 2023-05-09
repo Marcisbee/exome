@@ -1,9 +1,18 @@
 import { type Exome, subscribe } from "exome";
-import { useCallback, useSyncExternalStore } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
+
+const renderIncrement = (number: number) => number + 1;
+
+const useIsomorphicLayoutEffect =
+	window === undefined ? useLayoutEffect : useEffect;
 
 export const useStore = <T extends Exome>(store: T): Readonly<T> => {
-	return useSyncExternalStore(
-		useCallback((l) => subscribe(store, l), [store]),
-		useCallback(() => store, [store]),
+	const [, render] = useState(0);
+
+	useIsomorphicLayoutEffect(
+		() => subscribe(store, () => render(renderIncrement)),
+		[store],
 	);
+
+	return store;
 };
