@@ -1,9 +1,8 @@
 import { test } from "uvu";
 import assert from "uvu/assert";
-import { Exome } from "../exome";
-import { exomeId } from "./exome-id";
 
-import { saveState } from "./save-state";
+import { Exome, exomeId } from "exome";
+import { saveState } from "exome/state";
 
 test("exports `saveState`", () => {
 	assert.ok(saveState);

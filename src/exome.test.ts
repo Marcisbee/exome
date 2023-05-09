@@ -1,44 +1,20 @@
 import { test } from "uvu";
 import assert from "uvu/assert";
 
-import {
-	Exome,
-	updateMap,
-	updateView,
-	saveState,
-	loadState,
-	getExomeId,
-	addMiddleware,
-} from "./exome";
-
-test.before.each(() => {
-	Object.keys(updateMap).forEach((key) => {
-		delete updateMap[key];
-	});
-});
+import { Exome, update, updateAll, getExomeId, addMiddleware } from "./exome";
 
 test("exports `Exome`", () => {
 	assert.ok(Exome);
 });
 
-test("exports `updateMap`", () => {
-	assert.ok(updateMap);
-	assert.equal(updateMap, {});
+test("exports `update`", () => {
+	assert.ok(update);
+	assert.instance(update, Function);
 });
 
-test("exports `updateView`", () => {
-	assert.ok(updateView);
-	assert.instance(updateView, Function);
-});
-
-test("exports `saveState`", () => {
-	assert.ok(saveState);
-	assert.instance(saveState, Function);
-});
-
-test("exports `loadState`", () => {
-	assert.ok(loadState);
-	assert.instance(loadState, Function);
+test("exports `updateAll`", () => {
+	assert.ok(updateAll);
+	assert.instance(updateAll, Function);
 });
 
 test("exports `getExomeId`", () => {

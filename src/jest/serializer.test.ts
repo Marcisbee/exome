@@ -8,6 +8,9 @@ import { GhostExome } from "../ghost";
 const { print, test: testSerializer } = proxyquire("./serializer.ts", {
 	exome: {
 		Exome,
+		"@noCallThru": true,
+	},
+	"exome/ghost": {
 		GhostExome,
 		"@noCallThru": true,
 	},

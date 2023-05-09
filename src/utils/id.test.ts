@@ -1,9 +1,7 @@
 import { test } from "uvu";
 import assert from "uvu/assert";
 
-import { Exome } from "../constructor";
-import { exomeId } from "../constants";
-import { getExomeId } from "./id";
+import { Exome, exomeId, getExomeId, setExomeId } from "exome";
 
 test("exports `getExomeId`", () => {
 	assert.ok(getExomeId);
@@ -41,6 +39,23 @@ test("returns correct id from class", () => {
 	const output = getExomeId(foo);
 
 	assert.equal(output, "Foo-Test-123");
+});
+
+test("exports `setExomeId`", () => {
+	assert.ok(setExomeId);
+});
+
+test("that `setExomeId` is function", () => {
+	assert.instance(setExomeId, Function);
+});
+
+test("sets correct id on exome", () => {
+	class Foo extends Exome {}
+	const foo = new Foo();
+
+	setExomeId(foo, "0110010101111000011011110110110101100101");
+
+	assert.equal(foo[exomeId], "Foo-0110010101111000011011110110110101100101");
 });
 
 test.run();

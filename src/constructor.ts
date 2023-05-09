@@ -10,7 +10,7 @@ export class Exome {
 
 	constructor() {
 		const name = this[exomeName] || this[CONSTRUCTOR].name;
-		const id = (this[exomeId] = name + createID());
+		const id = (this[exomeId] = name + "-" + createID());
 
 		subscriptions[id] = new Set();
 
