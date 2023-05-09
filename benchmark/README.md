@@ -48,7 +48,7 @@ trashly ...... 267.76ms/ops ±3.47% (195.31kb)
 valtio ....... 1170.39ms/ops ±1.14% (175.15kb)
 ```
 
-<!-- _Note: **Higher is better**_ -->
+<!-- _Note: **Less is better**_ -->
 
 I know counter doesn't really show real world app performance, but I didn't want to waste much time re-creating real world app for each state so this will have to do.
 
