@@ -1,21 +1,23 @@
 {
-    "$schema": "./node_modules/rome/configuration_schema.json",
-    "linter": {
-        "enabled": true,
-        "rules": {
-            "recommended": true,
-            "suspicious": {
-                "noExplicitAny": "off"
-            },
-            "performance": {
-                "noDelete": "off"
-            },
-            "style": {
-                "noNonNullAssertion": "off"
-            },
-            "correctness": {
-                "noConstructorReturn": "off"
-            }
-        }
-    }
+	"$schema": "./node_modules/rome/configuration_schema.json",
+	"linter": {
+		"enabled": true,
+		"rules": {
+			"recommended": true,
+			"suspicious": {
+				"noExplicitAny": "off",
+				"useValidTypeof": "off"
+			},
+			"performance": {
+				"noDelete": "off"
+			},
+			"style": {
+				"noNonNullAssertion": "off",
+				"useTemplate": "off"
+			},
+			"correctness": {
+				"noConstructorReturn": "off"
+			}
+		}
+	}
 }
