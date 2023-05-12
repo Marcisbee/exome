@@ -19,13 +19,4 @@ export class Exome {
 
 		return wrapper(this);
 	}
-
-	// @TODO what to do with this?
-	// public afterLoadState(cb: () => void) {
-	//   if (afterLoadStateCallbacks == null) {
-	//     return;
-	//   }
-
-	//   afterLoadStateCallbacks.push(cb);
-	// }
 }

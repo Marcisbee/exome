@@ -1,4 +1,4 @@
-import { Exome, exomeId, exomeName, updateAll } from "exome";
+import { Exome, exomeId, exomeName, updateAll, runMiddleware } from "exome";
 
 const loadableExomes: Record<string, typeof Exome> = {};
 
@@ -9,8 +9,6 @@ export const registerLoadable = (config: Record<string, any>): void => {
 		loadableExomes[key] = config[key];
 	});
 };
-
-export let afterLoadStateCallbacks: Array<() => void> | null = null;
 
 export const loadState = (store: Exome, state: string) => {
 	if (!state || typeof state !== "string") {
@@ -49,10 +47,9 @@ export const loadState = (store: Exome, state: string) => {
 			}
 
 			try {
-				const afterLoadStateCallbacksBackup = afterLoadStateCallbacks;
-				afterLoadStateCallbacks = [];
-
 				const instance = new StoreExome();
+
+				const after = runMiddleware(instance, "LOAD_STATE", []);
 
 				instance[exomeId] = localId;
 
@@ -60,8 +57,7 @@ export const loadState = (store: Exome, state: string) => {
 
 				instances.set(localId, instance);
 
-				afterLoadStateCallbacks.forEach((cb) => cb());
-				afterLoadStateCallbacks = afterLoadStateCallbacksBackup;
+				after();
 
 				return instance;
 			} catch (e) {
