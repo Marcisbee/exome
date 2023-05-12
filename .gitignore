@@ -106,6 +106,7 @@ typings/
 /e2e/setup/www/app.js
 /e2e/setup/www/app.js.map
 /benchmark/dist
+/benchmark/**/dist/
 /playground/dist/*.js
 /playground/dist/*.js.map
 .DS_Store

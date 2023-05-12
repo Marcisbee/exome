@@ -4,7 +4,7 @@ import type { Exome } from "./constructor.ts";
 export const subscriptions: Record<string, Set<Function>> = {};
 
 export const subscribe = (store: Exome, fn: Function) => {
-	const set = subscriptions[store[exomeId]];
+	const set = (subscriptions[store[exomeId]] ??= new Set());
 
 	set.add(fn);
 
@@ -14,7 +14,7 @@ export const subscribe = (store: Exome, fn: Function) => {
 };
 
 export const update = (store: Exome) => {
-	for (const fn of subscriptions[store[exomeId]].values()) {
+	for (const fn of subscriptions[store[exomeId]]?.values?.() || []) {
 		fn();
 	}
 };

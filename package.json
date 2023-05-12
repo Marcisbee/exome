@@ -63,43 +63,54 @@
 		"vue": "^3.2.37"
 	},
 	"exports": {
+    "./package.json": "./dist/package.json",
 		".": {
+			"types": "./dist/exome.d.ts",
 			"require": "./dist/exome.js",
 			"import": "./dist/exome.mjs"
 		},
 		"./devtools": {
+			"types": "./dist/devtools.d.ts",
 			"require": "./dist/devtools.js",
 			"import": "./dist/devtools.mjs"
 		},
 		"./ghost": {
+			"types": "./dist/ghost.d.ts",
 			"require": "./dist/ghost.js",
 			"import": "./dist/ghost.mjs"
 		},
 		"./state": {
+			"types": "./dist/state.d.ts",
 			"require": "./dist/state.js",
 			"import": "./dist/state.mjs"
 		},
 		"./react": {
+			"types": "./dist/react.d.ts",
 			"require": "./dist/react.js",
 			"import": "./dist/react.mjs"
 		},
 		"./preact": {
+			"types": "./dist/preact.d.ts",
 			"require": "./dist/preact.js",
 			"import": "./dist/preact.mjs"
 		},
 		"./vue": {
+			"types": "./dist/vue.d.ts",
 			"require": "./dist/vue.js",
 			"import": "./dist/vue.mjs"
 		},
 		"./lit": {
+			"types": "./dist/lit.d.ts",
 			"require": "./dist/lit.js",
 			"import": "./dist/lit.mjs"
 		},
 		"./rxjs": {
+			"types": "./dist/rxjs.d.ts",
 			"require": "./dist/rxjs.js",
 			"import": "./dist/rxjs.mjs"
 		},
 		"./svelte": {
+			"types": "./dist/svelte.d.ts",
 			"require": "./dist/svelte.js",
 			"import": "./dist/svelte.mjs"
 		}
