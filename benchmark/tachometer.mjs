@@ -28,19 +28,10 @@ export async function tachometer(extendConfig) {
 		opts["npm-install-dir"],
 		config.benchmarks,
 	);
-	// await Promise.all(
-	// 	gitInstalls.map((gitInstall) =>
-	// 		installGitDependency(gitInstall, config.forceCleanNpmInstall),
-	// 	),
-	// );
+
 	const servers = new Map();
 	const promises = [];
 	for (const { npmInstalls, mountPoints, specs } of plans) {
-		// promises.push(
-		// 	...npmInstalls.map((install) =>
-		// 		prepareVersionDirectory(install, config.forceCleanNpmInstall),
-		// 	),
-		// );
 		promises.push(
 			(async () => {
 				const server = await Server.start({
