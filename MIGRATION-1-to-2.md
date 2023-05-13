@@ -33,3 +33,10 @@ Here are changes that need to be made:
 -import { updateView } from "exome";
 +import { updateAll } from "exome";
 ```
+
+6. `exomeDevtools` is renamed to `exomeReduxDevtools`:
+
+```diff
+-import { exomeDevtools } from "exome/devtools";
++import { exomeReduxDevtools } from "exome/devtools";
+```

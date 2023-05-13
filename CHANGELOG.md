@@ -5,7 +5,8 @@
 ### Breaking
 * Reorganizes imports;
 * Removes `updateMap`;
-* Replaces `updateView` with `updateAll`.
+* Replaces `updateView` with `updateAll`;
+* Replaces `exomeDevtools` with `exomeReduxDevtools`.
 
 Please read the [migration guide](/MIGRATION-1-to-2.md) to ease the upgrade process.
 

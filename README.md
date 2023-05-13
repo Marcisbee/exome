@@ -276,14 +276,14 @@ setTimeout(unsubscribe, 5000)
 
 You can use redux devtools extension to explore Exome store chunk by chunk.
 
-Just add `exomeDevtools` middleware via `addMiddleware` function exported by library before you start defining store.
+Just add `exomeReduxDevtools` middleware via `addMiddleware` function exported by library before you start defining store.
 
 ```ts
 import { addMiddleware } from 'exome'
-import { exomeDevtools } from 'exome/devtools'
+import { exomeReduxDevtools } from 'exome/devtools'
 
 addMiddleware(
-  exomeDevtools({
+  exomeReduxDevtools({
     name: 'Exome Playground'
   })
 )
