@@ -39,16 +39,18 @@ xstate ................. 36.61ms/ops ±2.25% (238.26kb)
 
 2. Triggered increment action and updated component view
 ```sh
-exome ......... 17.96ms/ops ±3.81% (168.28kb)
-preact-signals  18.78ms/ops ±0.55% (175.05kb)
-signia ........ 19.02ms/ops ±1.38% (173.88kb)
-jotai ......... 19.30ms/ops ±2.25% (175.20kb)
-recoil ........ 24.50ms/ops ±0.67% (255.05kb)
-mobx .......... 221.64ms/ops ±2.23% (236.64kb)
-redux ......... 222.91ms/ops ±0.74% (180.55kb)
-redux-toolkit . 229.51ms/ops ±1.53% (201.04kb)
-trashly ....... 255.97ms/ops ±1.77% (194.35kb)
-valtio ........ 1145.55ms/ops ±0.95% (173.83kb)
+exome ......... 17.72ms/ops ±4.01% (168.28kb)
+nanostores .... 18.72ms/ops ±1.46% (168.72kb)
+simpler-state . 18.73ms/ops ±0.67% (169.95kb)
+preact-signals  18.77ms/ops ±0.51% (175.05kb)
+jotai ......... 19.20ms/ops ±2.25% (175.20kb)
+signia ........ 19.23ms/ops ±4.34% (173.88kb)
+recoil ........ 24.81ms/ops ±1.21% (255.05kb)
+redux ......... 224.54ms/ops ±0.72% (180.55kb)
+mobx .......... 225.30ms/ops ±1.29% (236.64kb)
+redux-toolkit . 232.03ms/ops ±1.16% (201.04kb)
+trashly ....... 254.36ms/ops ±2.10% (194.35kb)
+valtio ........ 1142.38ms/ops ±1.59% (173.83kb)
 ```
 
 <!-- _Note: **Less is better**_ -->
