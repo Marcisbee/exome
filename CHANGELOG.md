@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.0.2
+
+### Bugfix
+* Fixes `subscribe` method where it did not send store instance as argument.
+
 ## 2.0.1
 
 ### Bugfix

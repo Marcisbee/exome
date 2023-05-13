@@ -3,13 +3,17 @@ import type { Exome } from "./constructor.ts";
 
 export const subscriptions: Record<string, Set<Function>> = {};
 
-export const subscribe = (store: Exome, fn: Function) => {
+export const subscribe = <T extends Exome>(
+	store: T,
+	fn: (store: T) => void,
+) => {
 	const set = (subscriptions[store[exomeId]] ??= new Set());
+	const update = () => fn(store);
 
-	set.add(fn);
+	set.add(update);
 
 	return () => {
-		set.delete(fn);
+		set.delete(update);
 	};
 };
 
