@@ -25,7 +25,7 @@ function Field({ index }: { index: number }) {
 }
 
 function App() {
-	const { fields } = useSnapshot(state, { sync: true });
+	const { fields } = useSnapshot(state);
 
 	return (
 		<div>

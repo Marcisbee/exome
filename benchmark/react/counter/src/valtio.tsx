@@ -8,7 +8,7 @@ import { clickAction } from "./utils/click-action";
 const state = proxy({ count: 0 });
 
 function App() {
-	const snapshot = useSnapshot(state, { sync: true });
+	const snapshot = useSnapshot(state);
 
 	return <h1 onClick={clickAction(() => state.count++)}>{snapshot.count}</h1>;
 }
