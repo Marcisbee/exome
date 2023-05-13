@@ -11,6 +11,7 @@ await run({
 		"./react/fields/src/redux-toolkit.tsx",
 		"./react/fields/src/trashly.tsx",
 		"./react/fields/src/valtio.tsx",
+		"./react/fields/src/preact-signals.tsx",
 	],
 	outdir: "./react/fields/dist",
 	runPath: "react/fields/index.mjs",

@@ -39,13 +39,14 @@ xstate ................. 37.21ms/ops ±2.11% (240.74kb)
 
 2. Triggered increment action and updated component view
 ```
-exome ........ 19.50ms/ops ±20.87% (169.19kb)
-recoil ....... 24.91ms/ops ±2.00% (255.96kb)
-redux ........ 223.90ms/ops ±2.80% (182.78kb)
-mobx ......... 225.36ms/ops ±2.97% (237.55kb)
-redux-toolkit  230.58ms/ops ±2.47% (203.26kb)
-trashly ...... 255.18ms/ops ±2.44% (195.26kb)
-valtio ....... 1155.63ms/ops ±2.18% (175.09kb)
+exome ......... 17.87ms/ops ±3.82% (169.19kb)
+preact-signals  18.82ms/ops ±0.90% (176.93kb)
+recoil ........ 24.51ms/ops ±1.06% (255.96kb)
+redux ......... 220.81ms/ops ±1.34% (182.78kb)
+mobx .......... 221.23ms/ops ±1.90% (237.55kb)
+redux-toolkit . 230.08ms/ops ±1.48% (203.26kb)
+trashly ....... 253.83ms/ops ±1.64% (195.26kb)
+valtio ........ 1151.83ms/ops ±1.17% (175.09kb)
 ```
 
 <!-- _Note: **Less is better**_ -->
