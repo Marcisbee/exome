@@ -1,5 +1,14 @@
 # Changelog
 
+## 2.0.0
+
+### Breaking
+* Reorganizes imports;
+* Removes `updateMap`;
+* Replaces `updateView` with `updateAll`.
+
+Please read the [migration guide](/MIGRATION-1-to-2.md) to ease the upgrade process.
+
 ## 1.5.6
 
 ### Other
