@@ -7,10 +7,6 @@ export default async function run(target) {
 		const newValue = String(Math.random());
 		const elementReactPromise = elementUpdatedTo(input, newValue);
 
-		console.log({
-			input, newValue,
-		});
-
 		const evt = document.createEvent("HTMLEvents");
 		evt.initEvent("input", true, true);
 		input.value = newValue;
