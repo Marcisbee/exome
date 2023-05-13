@@ -12,6 +12,8 @@ await run({
 		"./react/fields/src/trashly.tsx",
 		"./react/fields/src/valtio.tsx",
 		"./react/fields/src/preact-signals.tsx",
+		"./react/fields/src/signia.tsx",
+		"./react/fields/src/jotai.tsx",
 	],
 	outdir: "./react/fields/dist",
 	runPath: "react/fields/index.mjs",

@@ -15,6 +15,8 @@ export async function run(config) {
 		format: "esm",
 		minify: true,
 		bundle: true,
+		// Legal comments should not be part of bundle as we compare raw size too
+		legalComments: "none",
 		define: {
 			"process.env.NODE_ENV": '"production"',
 		},
