@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.0.1
+
+### Bugfix
+* Fixes vue integration of `useStore`.
+
 ## 2.0.0
 
 ### Breaking
