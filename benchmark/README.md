@@ -6,7 +6,7 @@ Also one thing to note is that I disabled batching in valtio as it is avoids syn
 So I created a simple `counter state` with `increment action` with each library I cared to test and:
 
 1. Rendered that counter component with initial state
-```
+```sh
 use-reducer ............ 17.27ms/ops ±1.59% (166.88kb)
 use-state .............. 17.68ms/ops ±2.04% (166.86kb)
 use-sync-external-store  18.35ms/ops ±1.07% (167.03kb)
@@ -38,7 +38,7 @@ xstate ................. 37.21ms/ops ±2.11% (240.74kb)
 ```
 
 2. Triggered increment action and updated component view
-```
+```sh
 exome ......... 17.87ms/ops ±3.82% (169.19kb)
 preact-signals  18.82ms/ops ±0.90% (176.93kb)
 recoil ........ 24.51ms/ops ±1.06% (255.96kb)
