@@ -1,5 +1,5 @@
 import * as React from 'react'
-import * as ReactDom from 'react-dom'
+import * as ReactDom from 'react-dom/client'
 import { useStore } from 'exome/react'
 
 import { counter } from '../stores/counter'
@@ -18,4 +18,5 @@ function App() {
   )
 }
 
-ReactDom.render(<App />, document.body)
+const root = ReactDom.createRoot(document.body);
+root.render(<App />);

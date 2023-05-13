@@ -1,10 +1,8 @@
 import { test } from "uvu";
 import assert from "uvu/assert";
 
-import { Exome } from "../exome";
-import { exomeId } from "./exome-id";
-
-import { loadState, registerLoadable } from "./load-state";
+import { Exome, exomeId } from "exome";
+import { loadState, registerLoadable } from "exome/state";
 
 test("exports `loadState`", () => {
 	assert.ok(loadState);

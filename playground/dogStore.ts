@@ -1,69 +1,60 @@
-import { Exome, loadState, registerLoadable, saveState } from '../src'
+import { Exome } from "../src/exome";
+import { loadState, registerLoadable, saveState } from "../src/state";
 
 export class Dog extends Exome {
-  constructor(public name: string, public breed: string) {
-    super()
-  }
+	constructor(public name: string, public breed: string) {
+		super();
+	}
 
-  public rename(name: string) {
-    this.name = name
-  }
+	public rename(name: string) {
+		this.name = name;
+	}
 
-  public changeBreed(breed: string) {
-    this.breed = breed
-  }
+	public changeBreed(breed: string) {
+		this.breed = breed;
+	}
 }
 
 export class Person extends Exome {
-  constructor(public name: string, public dogs: Dog[] = []) {
-    super()
-  }
+	constructor(public name: string, public dogs: Dog[] = []) {
+		super();
+	}
 
-  public rename(name: string) {
-    this.name = name
-  }
+	public rename(name: string) {
+		this.name = name;
+	}
 
-  public addDog(dog: Dog) {
-    this.dogs.push(dog)
-  }
+	public addDog(dog: Dog) {
+		this.dogs.push(dog);
+	}
 }
 
 export class Store extends Exome {
-  public persons: Person[] = []
+	public persons: Person[] = [];
 
-  public addPerson(person: Person) {
-    this.persons.push(person)
-  }
+	public addPerson(person: Person) {
+		this.persons.push(person);
+	}
 }
 
-export const dogStorePre = new Store()
-export const dogStore = new Store()
+export const dogStorePre = new Store();
+export const dogStore = new Store();
 
-const dogAndyPre = new Dog('Andy', 'beagle pup')
+const dogAndyPre = new Dog("Andy", "beagle pup");
 
-dogStorePre.addPerson(
-  new Person('John Wick', [
-    dogAndyPre
-  ])
-)
+dogStorePre.addPerson(new Person("John Wick", [dogAndyPre]));
 
-dogStorePre.addPerson(
-  new Person('Jane Doe', [
-    dogAndyPre
-  ])
-)
+dogStorePre.addPerson(new Person("Jane Doe", [dogAndyPre]));
 
-dogStorePre.addPerson(
-  new Person('Daniel Craig')
-)
+dogStorePre.addPerson(new Person("Daniel Craig"));
 
-const savedStore = saveState(dogStorePre)
+const savedStore = saveState(dogStorePre);
 
 registerLoadable({
-  Person,
-  Dog,
-})
+	Person,
+	Dog,
+});
 
-loadState(dogStore, savedStore)
+loadState(dogStore, savedStore);
 
-export const dogAndy = dogStore.persons[0].dogs[0]
+export const dogAndy = dogStore.persons[0].dogs[0];

@@ -103,7 +103,11 @@ typings/
 # TernJS port file
 .tern-port
 
+/e2e/setup/www/app.js
+/e2e/setup/www/app.js.map
 /benchmark/dist
+/benchmark/**/dist/
+/playground/www/*.js
 /playground/dist/*.js
 /playground/dist/*.js.map
 .DS_Store

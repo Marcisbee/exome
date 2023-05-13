@@ -27,6 +27,9 @@ State manager for deeply nested states. Includes integration for [React](#react)
 - 🔭 **Devtools**: Redux devtools integration
 - 💨 **Zero dependencies**
 
+> **Note**
+> If you're upgrading from v1 to v2, please read the [migration guide](/MIGRATION-1-to-2.md) to ease the upgrade process.
+
 ```ts
 // store/counter.ts
 import { Exome } from "exome"
@@ -255,10 +258,10 @@ export class App {
 ```
 
 ## No framework
-Use `subscribe` from `exome/subscribe` to get store value in subscription callback event when it changes.
+Use `subscribe` from `exome` to get store value in subscription callback event when it changes.
 
 ```ts
-import { subscribe } from "exome/subscribe"
+import { subscribe } from "exome"
 import { counter } from "./store/counter.js"
 
 const unsubscribe = subscribe(counter, ({ count }) => {
@@ -273,14 +276,14 @@ setTimeout(unsubscribe, 5000)
 
 You can use redux devtools extension to explore Exome store chunk by chunk.
 
-Just add `exomeDevtools` middleware via `addMiddleware` function exported by library before you start defining store.
+Just add `exomeReduxDevtools` middleware via `addMiddleware` function exported by library before you start defining store.
 
 ```ts
 import { addMiddleware } from 'exome'
-import { exomeDevtools } from 'exome/devtools'
+import { exomeReduxDevtools } from 'exome/devtools'
 
 addMiddleware(
-  exomeDevtools({
+  exomeReduxDevtools({
     name: 'Exome Playground'
   })
 )
@@ -383,7 +386,7 @@ __Returns__
 __Example__
 
 ```tsx
-import { saveState } from "exome"
+import { saveState } from "exome/state"
 
 const saved = saveState(counter)
 ```
@@ -409,7 +412,7 @@ __Returns__
 __Example__
 
 ```ts
-import { loadState, registerLoadable } from "exome"
+import { loadState, registerLoadable } from "exome/state"
 
 registerLoadable({
   Counter
@@ -446,7 +449,7 @@ __Returns__
 __Example__
 
 ```ts
-import { loadState, registerLoadable } from "exome"
+import { loadState, registerLoadable } from "exome/state"
 
 registerLoadable({
   Counter,

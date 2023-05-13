@@ -2,12 +2,15 @@ import proxyquire from "proxyquire";
 import { test } from "uvu";
 import assert from "uvu/assert";
 
-import { Exome } from "../exome";
-import { GhostExome } from "../ghost-exome";
+import { Exome } from "../constructor";
+import { GhostExome } from "../ghost";
 
 const { print, test: testSerializer } = proxyquire("./serializer.ts", {
 	exome: {
 		Exome,
+		"@noCallThru": true,
+	},
+	"exome/ghost": {
 		GhostExome,
 		"@noCallThru": true,
 	},
