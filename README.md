@@ -10,7 +10,7 @@
   <img alt="npm" src="https://img.shields.io/npm/v/exome.svg?style=flat-square" />
 </a>
 <a href="https://bundlephobia.com/result?p=exome">
-  <img alt="package size" src="https://img.shields.io/bundlephobia/minzip/exome?style=flat-square" />
+  <img alt="package size" src="https://deno.bundlejs.com/?q=exome&badge=&badge-style=flat-square" />
 </a>
 <a href="https://discord.gg/a62gfaDW2e">
   <img alt="discord" src="https://dcbadge.vercel.app/api/server/a62gfaDW2e?style=flat-square" />
