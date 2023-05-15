@@ -8,19 +8,22 @@
 <body>
 	<div id="app"></div>
 	<script type="module">
-		import * as bench from '/bench.js';
-
 		const urlSearchParams = new URLSearchParams(window.location.search);
 		const params = Object.fromEntries(urlSearchParams.entries());
 
 		const { default: mount } = await import(`./${params.bench}`);
 		const { default: run } = await import(`./${params.run}`);
 
+		const startupStart = performance.now();
 		await mount(app);
+		window.tachometerResultStartup = performance.now() - startupStart;
 
-		bench.start();
+		window.gc();
+		const performanceStart = performance.now();
 		await run(app);
-		bench.stop();
+		window.tachometerResultPerformance = performance.now() - performanceStart;
+		window.gc();
+		window.tachometerResultMemory = window.performance.memory.usedJSHeapSize;
 	</script>
 </body>
 

@@ -7,11 +7,7 @@ import { parseFlags } from "tachometer/lib/flags.js";
 import { makeConfig } from "tachometer/lib/config.js";
 import { Server } from "tachometer/lib/server.js";
 import { manualMode } from "tachometer/lib/manual.js";
-import {
-	prepareVersionDirectory,
-	makeServerPlans,
-	installGitDependency,
-} from "tachometer/lib/versions.js";
+import { makeServerPlans } from "tachometer/lib/versions.js";
 import { Runner } from "tachometer/lib/runner.js";
 
 /**
@@ -23,7 +19,7 @@ export async function tachometer(extendConfig) {
 
 	Object.assign(config, extendConfig);
 
-	const { plans, gitInstalls } = await makeServerPlans(
+	const { plans } = await makeServerPlans(
 		config.root,
 		opts["npm-install-dir"],
 		config.benchmarks,
@@ -57,7 +53,12 @@ export async function tachometer(extendConfig) {
 		const runner = new Runner(config, servers);
 
 		try {
-			return await runner.run();
+			const log = console.log;
+			console.log = () => {};
+			return await runner.run().then((result) => {
+				console.log = log;
+				return result;
+			});
 		} finally {
 			const allServers = new Set([...servers.values()]);
 			await Promise.all([...allServers].map((server) => server.close()));

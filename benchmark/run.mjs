@@ -44,10 +44,41 @@ export async function run(config) {
 			},
 			browser: {
 				name: "chrome",
+				addArguments: [
+					"--no-sandbox",
+					"--no-first-run",
+					"--enable-automation",
+					"--disable-infobars",
+					"--disable-background-networking",
+					"--disable-background-timer-throttling",
+					"--disable-cache",
+					"--disable-translate",
+					"--disable-sync",
+					"--disable-extensions",
+					"--disable-default-apps",
+					"--js-flags=--expose-gc",
+					"--enable-precise-memory-info",
+				],
 				headless: true,
 				windowSize: { width: 800, height: 600 },
 			},
-			measurement: [{ mode: "callback" }],
+			measurement: [
+				{
+					mode: "expression",
+					name: "performance",
+					expression: "window.tachometerResultPerformance",
+				},
+				{
+					mode: "expression",
+					name: "startup",
+					expression: "window.tachometerResultStartup",
+				},
+				{
+					mode: "expression",
+					name: "memory",
+					expression: "window.tachometerResultMemory",
+				},
+			],
 		})),
 	};
 
@@ -68,17 +99,40 @@ export async function run(config) {
 
 	console.log(`Results for ${colorette.bold(colorette.red(config.suite))}\n`);
 
-	const maxNameWidth = results.reduce(
-		(acc, { result: { name: { length } } }) => (acc > length ? acc : length),
-		0,
+	const maxNameWidth = results.reduce((acc, { result: { name } }) => {
+		const length = name.replace(/ \[[^\]]+\]$/, "").length;
+
+		return acc > length ? acc : length;
+	}, 0);
+
+	const groupedResults = results.reduce(
+		/**
+		 * @param {Record<string, Record<string, import('tachometer/src/stats').ResultStatsWithDifferences>>} acc
+		 * @param {import('tachometer/src/stats').ResultStatsWithDifferences} result
+		 * @returns
+		 */
+		(acc, result) => {
+			const [name, type] = result.result.name.split(/ \[([^\]]+)\]$/);
+
+			if (!acc[name]) {
+				acc[name] = {
+					[type]: result,
+				};
+			} else {
+				acc[name][type] = result;
+			}
+
+			return acc;
+		},
+		{},
 	);
 
-	for (const { result, stats } of results.sort(
-		(a, b) => a.stats.mean - b.stats.mean,
-	)) {
-		const { name, bytesSent } = result;
-		const { mean, relativeStandardDeviation } = stats;
-		const kb = (bytesSent / 1024).toFixed(2);
+	const sortedResults = Object.entries(groupedResults).sort(
+		([, a], [, b]) => a.performance.stats.mean - b.performance.stats.mean,
+	);
+
+	for (const [name, { performance, startup, memory }] of sortedResults) {
+		const kb = (performance.result.bytesSent / 1024).toFixed(2);
 
 		const nameWithPadding = name.padEnd(maxNameWidth, ".");
 		const [nameOnly, paddingOnly = ""] = nameWithPadding.split(/(\.*)$/);
@@ -87,9 +141,14 @@ export async function run(config) {
 			[
 				colorette.blue(colorette.bold(nameOnly)),
 				colorette.dim(paddingOnly),
-				colorette.yellow(`${mean.toFixed(2)}ms/ops`),
-				`±${(relativeStandardDeviation * 100).toFixed(2)}%`,
-				colorette.dim(`(${kb}kb)`),
+				colorette.yellow(`${performance.stats.mean.toFixed(2)} ms/ops`),
+				`±${performance.stats.standardDeviation.toFixed(2)}`,
+				// "|",
+				// colorette.yellow(`${startup.stats.mean.toFixed(2)} ms`),
+				"|",
+				colorette.dim(`${kb} KB`),
+				// "|",
+				// colorette.dim(`${(memory.stats.mean / 1024 / 1024).toFixed(2)} MB`),
 			].join(" ") + "\n",
 		);
 	}
