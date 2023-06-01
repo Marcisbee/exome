@@ -1,4 +1,5 @@
 import { configureStore, createSlice } from "@reduxjs/toolkit";
+export { version } from "../../../node_modules/@reduxjs/toolkit/package.json";
 import { Provider, useDispatch, useSelector } from "react-redux";
 import * as React from "react";
 import * as ReactDom from "react-dom/client";

@@ -1,9 +1,10 @@
 // @ts-check
 import * as colorette from "colorette";
-import { basename } from "path";
+import { basename, resolve } from "path";
 import esbuild from "esbuild";
 
 import { tachometer } from "./tachometer.mjs";
+import { writeFileSync } from "fs";
 
 /**
  * @param {{ suite: string, entryPoints: string[], outdir: string, runPath: string, manual: boolean }} config
@@ -15,6 +16,9 @@ export async function run(config) {
 		format: "esm",
 		minify: true,
 		bundle: true,
+		outExtension: {
+			".js": ".mjs",
+		},
 		// Legal comments should not be part of bundle as we compare raw size too
 		legalComments: "none",
 		define: {
@@ -35,51 +39,59 @@ export async function run(config) {
 		sampleSize: 10,
 		timeout: 0,
 		mode: config.manual ? "manual" : undefined,
-		benchmarks: distPaths.map((path) => ({
-			name: basename(path).replace(/\..*$/, ""),
-			url: {
-				kind: "local",
-				urlPath: "/bench.html",
-				queryString: `?bench=${path}&run=${config.runPath}`,
-			},
-			browser: {
-				name: "chrome",
-				addArguments: [
-					"--no-sandbox",
-					"--no-first-run",
-					"--enable-automation",
-					"--disable-infobars",
-					"--disable-background-networking",
-					"--disable-background-timer-throttling",
-					"--disable-cache",
-					"--disable-translate",
-					"--disable-sync",
-					"--disable-extensions",
-					"--disable-default-apps",
-					"--js-flags=--expose-gc",
-					"--enable-precise-memory-info",
-				],
-				headless: true,
-				windowSize: { width: 800, height: 600 },
-			},
-			measurement: [
-				{
-					mode: "expression",
-					name: "performance",
-					expression: "window.tachometerResultPerformance",
-				},
-				{
-					mode: "expression",
-					name: "startup",
-					expression: "window.tachometerResultStartup",
-				},
-				{
-					mode: "expression",
-					name: "memory",
-					expression: "window.tachometerResultMemory",
-				},
-			],
-		})),
+		benchmarks: await Promise.all(
+			distPaths.map(async (path) => {
+				const { version } = await import(resolve(path));
+
+				return {
+					name: [basename(path).replace(/\..*$/, ""), version]
+						.filter(Boolean)
+						.join("-v"),
+					url: {
+						kind: "local",
+						urlPath: "/bench.html",
+						queryString: `?bench=${path}&run=${config.runPath}`,
+					},
+					browser: {
+						name: "chrome",
+						addArguments: [
+							"--no-sandbox",
+							"--no-first-run",
+							"--enable-automation",
+							"--disable-infobars",
+							"--disable-background-networking",
+							"--disable-background-timer-throttling",
+							"--disable-cache",
+							"--disable-translate",
+							"--disable-sync",
+							"--disable-extensions",
+							"--disable-default-apps",
+							"--js-flags=--expose-gc",
+							"--enable-precise-memory-info",
+						],
+						headless: true,
+						windowSize: { width: 800, height: 600 },
+					},
+					measurement: [
+						{
+							mode: "expression",
+							name: "performance",
+							expression: "window.tachometerResultPerformance",
+						},
+						{
+							mode: "expression",
+							name: "startup",
+							expression: "window.tachometerResultStartup",
+						},
+						{
+							mode: "expression",
+							name: "memory",
+							expression: "window.tachometerResultMemory",
+						},
+					],
+				};
+			}),
+		),
 	};
 
 	console.log(`Running ${colorette.bold(colorette.red(config.suite))}..`);
@@ -132,7 +144,11 @@ export async function run(config) {
 	);
 
 	for (const [name, { performance, startup, memory }] of sortedResults) {
-		const kb = (performance.result.bytesSent / 1024).toFixed(2);
+		const kb = (performance.result.bytesSent / 1024).toFixed(1);
+
+		delete performance.differences;
+		delete startup.differences;
+		delete memory.differences;
 
 		const nameWithPadding = name.padEnd(maxNameWidth, ".");
 		const [nameOnly, paddingOnly = ""] = nameWithPadding.split(/(\.*)$/);
@@ -141,8 +157,8 @@ export async function run(config) {
 			[
 				colorette.blue(colorette.bold(nameOnly)),
 				colorette.dim(paddingOnly),
-				colorette.yellow(`${performance.stats.mean.toFixed(2)} ms/ops`),
-				`±${performance.stats.standardDeviation.toFixed(2)}`,
+				colorette.yellow(`${performance.stats.mean.toFixed(1)} ms/ops`),
+				`±${performance.stats.standardDeviation.toFixed(1)}`,
 				// "|",
 				// colorette.yellow(`${startup.stats.mean.toFixed(2)} ms`),
 				"|",
@@ -152,4 +168,12 @@ export async function run(config) {
 			].join(" ") + "\n",
 		);
 	}
+
+	writeFileSync(
+		`meta.${config.suite
+			.trim()
+			.replace(/[A-Z]/g, (match) => match.toLowerCase())
+			.replace(/[ ]+/g, ".")}.json`,
+		JSON.stringify(sortedResults, null, 2),
+	);
 }

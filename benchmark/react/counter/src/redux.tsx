@@ -1,4 +1,5 @@
 import { combineReducers, createStore } from "redux";
+export { version } from "../../../node_modules/redux/package.json";
 import { Provider, useDispatch, useSelector } from "react-redux";
 import * as React from "react";
 import * as ReactDom from "react-dom/client";

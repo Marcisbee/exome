@@ -1,4 +1,5 @@
 import { store, view } from "@risingstack/react-easy-state";
+export { version } from "../../../node_modules/@risingstack/react-easy-state/package.json";
 import * as React from "react";
 import * as ReactDom from "react-dom/client";
 

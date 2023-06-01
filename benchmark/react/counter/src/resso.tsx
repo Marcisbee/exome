@@ -1,7 +1,8 @@
+import resso from "resso";
+export { version } from "../../../node_modules/resso/package.json";
 import * as React from "react";
 import { unstable_batchedUpdates as batch } from "react-dom";
 import * as ReactDom from "react-dom/client";
-import resso from "resso";
 
 import { elementReady } from "./utils/wait-for-element";
 import { clickAction } from "./utils/click-action";

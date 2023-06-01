@@ -1,4 +1,5 @@
 import { create } from "zustand";
+export { version } from "../../../node_modules/zustand/package.json";
 import * as React from "react";
 import * as ReactDom from "react-dom/client";
 

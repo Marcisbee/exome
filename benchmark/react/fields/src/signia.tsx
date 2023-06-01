@@ -1,4 +1,5 @@
 import { atom, Atom } from "signia";
+export { version } from "../../../node_modules/signia/package.json";
 import { track } from "signia-react";
 import * as React from "react";
 import * as ReactDom from "react-dom/client";

@@ -3,6 +3,7 @@ import * as ReactDom from "react-dom/client";
 
 import { Exome } from "../../../../src/exome";
 import { useStore } from "../../../../src/react";
+export { version } from "../../../../package.json";
 
 import { elementReady } from "./utils/wait-for-element";
 import { clickAction } from "./utils/click-action";

@@ -1,6 +1,7 @@
+import useChange from "use-change";
+export { version } from "../../../node_modules/use-change/package.json";
 import * as React from "react";
 import * as ReactDom from "react-dom/client";
-import useChange from "use-change";
 
 import { elementReady } from "./utils/wait-for-element";
 import { clickAction } from "./utils/click-action";

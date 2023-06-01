@@ -1,7 +1,8 @@
+import { atom } from "nanostores";
+export { version } from "../../../node_modules/nanostores/package.json";
+import { useStore } from "@nanostores/react";
 import * as React from "react";
 import * as ReactDom from "react-dom/client";
-import { atom } from "nanostores";
-import { useStore } from "@nanostores/react";
 
 import { elementReady } from "./utils/wait-for-element";
 import { clickAction } from "./utils/click-action";

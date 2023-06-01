@@ -1,4 +1,5 @@
 import { superstate } from "@superstate/core";
+export { version } from "../../../node_modules/@superstate/core/package.json";
 import { useSuperState } from "@superstate/react";
 import * as React from "react";
 import * as ReactDom from "react-dom/client";

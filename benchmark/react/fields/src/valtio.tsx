@@ -1,6 +1,7 @@
+import { proxy, useSnapshot } from "valtio";
+export { version } from "../../../node_modules/valtio/package.json";
 import * as React from "react";
 import * as ReactDom from "react-dom/client";
-import { proxy, useSnapshot } from "valtio";
 
 import { elementReady } from "./utils/wait-for-element";
 

@@ -3,6 +3,7 @@ import * as ReactDom from "react-dom/client";
 
 import { Exome, getExomeId } from "../../../../src/exome";
 import { useStore } from "../../../../src/react";
+export { version } from "../../../../package.json";
 
 import { elementReady } from "./utils/wait-for-element";
 

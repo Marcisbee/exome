@@ -1,4 +1,5 @@
 import { box, update } from "remini";
+export { version } from "../../../node_modules/remini/package.json";
 import { useBox } from "remini/react";
 import * as React from "react";
 import * as ReactDom from "react-dom/client";

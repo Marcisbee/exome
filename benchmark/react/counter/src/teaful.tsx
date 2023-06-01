@@ -1,6 +1,7 @@
+import createStore from "teaful";
+export { version } from "../../../node_modules/teaful/package.json";
 import * as React from "react";
 import * as ReactDom from "react-dom/client";
-import createStore from "teaful";
 
 import { clickAction } from "./utils/click-action";
 import { elementReady } from "./utils/wait-for-element";

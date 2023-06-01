@@ -7,50 +7,50 @@ So I created a simple `counter state` with `increment action` with each library 
 
 1. Rendered that counter component with initial state
 ```sh
-use-reducer ............ 17.64 ms/ops ±0.28 | 165.64 KB
-use-state .............. 17.78 ms/ops ±0.28 | 165.62 KB
-use-sync-external-store  18.54 ms/ops ±0.32 | 165.79 KB
-exome .................. 18.76 ms/ops ±0.36 | 167.15 KB
-superstate ............. 19.26 ms/ops ±0.38 | 169.49 KB
-nanostores ............. 19.44 ms/ops ±0.34 | 167.70 KB
-use-context ............ 19.44 ms/ops ±0.34 | 165.87 KB
-constate ............... 19.78 ms/ops ±0.29 | 166.86 KB
-simpler-state .......... 19.84 ms/ops ±0.39 | 168.96 KB
-zustand ................ 19.87 ms/ops ±0.28 | 168.94 KB
-storeon ................ 20.18 ms/ops ±0.25 | 166.67 KB
-preact-signals ......... 20.25 ms/ops ±0.22 | 174.03 KB
-teaful ................. 20.45 ms/ops ±0.27 | 167.92 KB
-use-change ............. 20.57 ms/ops ±0.36 | 170.35 KB
-signia ................. 20.94 ms/ops ±0.29 | 172.84 KB
-remini ................. 21.23 ms/ops ±0.50 | 171.58 KB
-redux .................. 21.70 ms/ops ±0.26 | 179.42 KB
-mobx ................... 22.59 ms/ops ±0.26 | 235.57 KB
-trashly ................ 22.65 ms/ops ±0.36 | 193.26 KB
-react-easy-state ....... 22.66 ms/ops ±0.27 | 176.43 KB
-effector ............... 23.01 ms/ops ±0.38 | 182.28 KB
-pullstate .............. 23.78 ms/ops ±0.37 | 187.18 KB
-jotai .................. 24.86 ms/ops ±0.38 | 174.16 KB
-redux-toolkit .......... 26.58 ms/ops ±0.30 | 199.93 KB
-valtio ................. 27.19 ms/ops ±0.31 | 172.75 KB
-resso .................. 30.03 ms/ops ±0.29 | 167.85 KB
-recoil ................. 33.80 ms/ops ±1.55 | 253.97 KB
-xstate ................. 37.27 ms/ops ±0.72 | 237.94 KB
+use-state .............. 18.4 ms/ops ±1.1 | 165.6 KB
+use-reducer ............ 18.4 ms/ops ±1.3 | 165.6 KB
+use-sync-external-store  18.7 ms/ops ±0.4 | 165.8 KB
+exome-v2.0.2 ........... 18.9 ms/ops ±0.4 | 167.2 KB
+superstate-v0.1.0 ...... 19.6 ms/ops ±0.5 | 169.5 KB
+use-context ............ 19.9 ms/ops ±0.3 | 165.9 KB
+simpler-state-v1.2.1 ... 20.0 ms/ops ±0.4 | 169.0 KB
+zustand-v4.3.8 ......... 20.1 ms/ops ±0.5 | 169.0 KB
+nanostores-v0.8.1 ...... 20.1 ms/ops ±1.3 | 167.7 KB
+constate-v3.3.2 ........ 20.2 ms/ops ±0.7 | 166.9 KB
+storeon-v3.1.5 ......... 20.6 ms/ops ±0.5 | 166.7 KB
+use-change-v1.1.4 ...... 20.7 ms/ops ±0.4 | 170.5 KB
+teaful-v0.11.1 ......... 20.8 ms/ops ±0.5 | 167.9 KB
+preact-signals-v1.3.2 .. 21.4 ms/ops ±0.6 | 174.6 KB
+remini-v1.3.0 .......... 21.4 ms/ops ±0.6 | 171.6 KB
+signia-v0.1.4 .......... 21.7 ms/ops ±1.6 | 172.9 KB
+redux-v4.2.1 ........... 22.1 ms/ops ±0.4 | 179.5 KB
+mobx-v6.9.0 ............ 23.0 ms/ops ±0.6 | 235.9 KB
+react-easy-state-v6.3.0  23.0 ms/ops ±0.7 | 176.5 KB
+trashly-v0.1.6 ......... 23.0 ms/ops ±0.6 | 193.3 KB
+effector-v22.8.6 ....... 23.4 ms/ops ±1.1 | 182.4 KB
+pullstate-v1.25.0 ...... 24.1 ms/ops ±0.4 | 187.1 KB
+jotai-v1.13.1 .......... 25.2 ms/ops ±0.7 | 174.7 KB
+redux-toolkit-v1.9.5 ... 27.1 ms/ops ±0.9 | 207.0 KB
+valtio-v1.10.5 ......... 27.8 ms/ops ±0.9 | 174.0 KB
+resso-v0.14.0 .......... 30.6 ms/ops ±0.7 | 167.9 KB
+recoil-v0.7.7 .......... 34.3 ms/ops ±1.2 | 255.6 KB
+xstate-v4.37.2 ......... 37.9 ms/ops ±1.6 | 238.0 KB
 ```
 
 2. Triggered increment action and updated component view
 ```sh
-exome ......... 17.43 ms/ops ±0.35 | 167.96 KB
-jotai ......... 18.66 ms/ops ±0.22 | 174.87 KB
-nanostores .... 18.72 ms/ops ±0.18 | 168.40 KB
-simpler-state . 18.93 ms/ops ±0.81 | 169.62 KB
-signia ........ 19.11 ms/ops ±0.27 | 173.55 KB
-preact-signals  19.26 ms/ops ±0.91 | 174.73 KB
-recoil ........ 22.47 ms/ops ±0.79 | 254.72 KB
-redux ......... 219.14 ms/ops ±5.02 | 180.23 KB
-mobx .......... 224.82 ms/ops ±5.11 | 236.31 KB
-redux-toolkit . 231.02 ms/ops ±4.33 | 200.71 KB
-trashly ....... 256.00 ms/ops ±1.60 | 194.02 KB
-valtio ........ 1177.78 ms/ops ±19.97 | 173.50 KB
+exome-v2.0.2 ......... 18.4 ms/ops ±1.5 | 168.0 KB
+nanostores-v0.8.1 .... 18.9 ms/ops ±0.4 | 168.4 KB
+jotai-v1.13.1 ........ 19.0 ms/ops ±0.7 | 175.4 KB
+simpler-state-v1.2.1 . 19.0 ms/ops ±1.2 | 169.7 KB
+signia-v0.1.4 ........ 19.2 ms/ops ±0.3 | 173.6 KB
+preact-signals-v1.3.2  20.6 ms/ops ±4.8 | 175.3 KB
+recoil-v0.7.7 ........ 22.0 ms/ops ±0.1 | 256.3 KB
+mobx-v6.9.0 .......... 225.8 ms/ops ±4.0 | 236.6 KB
+redux-v4.2.1 ......... 232.8 ms/ops ±20.5 | 180.3 KB
+redux-toolkit-v1.9.5 . 235.8 ms/ops ±2.9 | 207.8 KB
+trashly-v0.1.6 ....... 261.2 ms/ops ±11.2 | 194.1 KB
+valtio-v1.10.5 ....... 1020.3 ms/ops ±19.7 | 174.7 KB
 ```
 
 <!-- _Note: **Less is better**_ -->

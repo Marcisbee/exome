@@ -1,7 +1,8 @@
+import { createStoreon } from "storeon";
+export { version } from "../../../node_modules/storeon/package.json";
+import { StoreContext, useStoreon } from "storeon/react";
 import * as React from "react";
 import * as ReactDom from "react-dom/client";
-import { createStoreon } from "storeon";
-import { StoreContext, useStoreon } from "storeon/react";
 
 import { elementReady } from "./utils/wait-for-element";
 import { clickAction } from "./utils/click-action";

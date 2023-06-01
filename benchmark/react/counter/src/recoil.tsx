@@ -1,4 +1,5 @@
 import { atom, RecoilRoot, useRecoilState } from "recoil";
+export { version } from "../../../node_modules/recoil/package.json";
 import * as React from "react";
 import * as ReactDom from "react-dom/client";
 

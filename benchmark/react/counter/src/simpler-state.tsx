@@ -1,6 +1,7 @@
+import { entity } from "simpler-state";
+export { version } from "../../../node_modules/simpler-state/package.json";
 import * as React from "react";
 import * as ReactDom from "react-dom/client";
-import { entity } from "simpler-state";
 
 import { elementReady } from "./utils/wait-for-element";
 import { clickAction } from "./utils/click-action";

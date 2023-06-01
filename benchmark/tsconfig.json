@@ -6,6 +6,7 @@
       "DOM",
       "es2015"
     ],
+    "resolveJsonModule": true,
     "moduleResolution": "node",
     "outDir": "ts-dist",
     "strict": true,

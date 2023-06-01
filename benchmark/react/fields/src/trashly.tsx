@@ -1,6 +1,7 @@
+import { Trashly } from "trashly-react";
+export { version } from "../../../node_modules/trashly-react/package.json";
 import * as React from "react";
 import * as ReactDom from "react-dom/client";
-import { Trashly } from "trashly-react";
 
 import { elementReady } from "./utils/wait-for-element";
 

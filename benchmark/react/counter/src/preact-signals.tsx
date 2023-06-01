@@ -1,4 +1,5 @@
 import { signal } from "@preact/signals-react";
+export { version } from "../../../node_modules/@preact/signals-react/package.json";
 import * as React from "react";
 import * as ReactDom from "react-dom/client";
 
