@@ -32,6 +32,7 @@ await run({
 		"./react/counter/src/simpler-state.tsx",
 		"./react/counter/src/teaful.tsx",
 		"./react/counter/src/resso.tsx",
+		"./react/counter/src/ripple.tsx",
 	],
 	outdir: "./react/counter/dist",
 	runPath: "react/counter/index.mjs",

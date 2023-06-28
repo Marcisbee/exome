@@ -2,6 +2,7 @@
   "name": "exome-benchmark",
   "version": "0.0.0",
   "devDependencies": {
+    "@m-c2/ripple": "^1.0.7",
     "@nanostores/react": "^0.5.0",
     "@preact/signals-react": "^1.2.2",
     "@reduxjs/toolkit": "^1.8.3",
