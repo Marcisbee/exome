@@ -28,7 +28,7 @@ State manager for deeply nested states. Includes integration for [React](#react)
 - 💨 **Zero dependencies**
 
 > **Note**
-> If you're upgrading from v1 to v2, please read the [migration guide](MIGRATION-1-to-2.md) to ease the upgrade process.
+> If you're upgrading from v1 to v2, please read the [migration guide](./MIGRATION-1-to-2.md) to ease the upgrade process.
 
 ```ts
 // store/counter.ts
