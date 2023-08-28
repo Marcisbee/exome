@@ -3,9 +3,6 @@
 <a href="https://github.com/Marcisbee/exome/actions">
   <img alt="CI" src="https://img.shields.io/github/actions/workflow/status/Marcisbee/exome/main.yml?branch=main&style=flat-square" />
 </a>
-<a href="https://snyk.io/test/github/Marcisbee/exome">
-  <img alt="snyk" src="https://img.shields.io/snyk/vulnerabilities/github/Marcisbee/exome?style=flat-square" />
-</a>
 <a href="https://www.npmjs.com/package/exome">
   <img alt="npm" src="https://img.shields.io/npm/v/exome.svg?style=flat-square" />
 </a>
