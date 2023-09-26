@@ -5,9 +5,26 @@ export function test(val: any): boolean {
 	return val instanceof Exome || val instanceof GhostExome;
 }
 
-export function print(val: typeof Exome): string {
+export function print(
+	val: typeof Exome,
+	printDepth: (value: any) => string,
+): string {
 	const proto: Exome | GhostExome = Object.getPrototypeOf(val);
-	const name: string = proto.constructor.name || "";
+	const name = proto.constructor.name || "Exome";
 
-	return `${name} ${JSON.stringify(val, null, "  ")}`;
+	return (
+		`${name} ` +
+		printDepth(
+			Object.entries(val)
+				.filter(([, value]) => typeof value !== "function")
+				.sort(([a], [b]) => (a < b ? -1 : 1))
+				.reduce<Record<string, any>>(
+					(acc, [key, value]) => ({
+						...acc,
+						[key]: value,
+					}),
+					{},
+				),
+		)
+	);
 }

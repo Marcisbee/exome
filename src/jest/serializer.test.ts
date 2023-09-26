@@ -16,6 +16,10 @@ const { print, test: testSerializer } = proxyquire("./serializer.ts", {
 	},
 });
 
+function mockPrettyPrint(value: any) {
+	return JSON.stringify(value, null, 2);
+}
+
 test("exports `print`", () => {
 	assert.ok(print);
 });
@@ -119,14 +123,14 @@ test("`test` returns `false` when encountering `[]`", () => {
 });
 
 test("`print` outputs empty Exome instance", () => {
-	const output = print(new Exome());
+	const output = print(new Exome(), mockPrettyPrint);
 
 	assert.snapshot(output, "Exome {}");
 });
 
 test("`print` outputs empty extended Exome instance", () => {
 	class Extended extends Exome {}
-	const output = print(new Extended());
+	const output = print(new Extended(), mockPrettyPrint);
 
 	assert.snapshot(output, "Extended {}");
 });
@@ -143,7 +147,7 @@ test("`print` outputs filled extended Exome instance", () => {
 		public methodFoo() {}
 		private methodBar() {}
 	}
-	const output = print(new Extended());
+	const output = print(new Extended(), mockPrettyPrint);
 
 	assert.snapshot(
 		output,
@@ -162,7 +166,7 @@ test("`print` outputs nested extended Exome instance", () => {
 	class Owner extends Exome {
 		public dogs = [new Dog("Andy")];
 	}
-	const output = print(new Owner());
+	const output = print(new Owner(), mockPrettyPrint);
 
 	assert.snapshot(
 		output,
@@ -177,14 +181,14 @@ test("`print` outputs nested extended Exome instance", () => {
 });
 
 test("`print` outputs empty GhostExome instance", () => {
-	const output = print(new GhostExome());
+	const output = print(new GhostExome(), mockPrettyPrint);
 
 	assert.snapshot(output, "GhostExome {}");
 });
 
 test("`print` outputs empty extended GhostExome instance", () => {
 	class Extended extends GhostExome {}
-	const output = print(new Extended());
+	const output = print(new Extended(), mockPrettyPrint);
 
 	assert.snapshot(output, "Extended {}");
 });
@@ -201,7 +205,7 @@ test("`print` outputs filled extended GhostExome instance", () => {
 		public methodFoo() {}
 		private methodBar() {}
 	}
-	const output = print(new Extended());
+	const output = print(new Extended(), mockPrettyPrint);
 
 	assert.snapshot(
 		output,
@@ -220,7 +224,7 @@ test("`print` outputs nested extended GhostExome instance", () => {
 	class Owner extends GhostExome {
 		public dogs = [new Dog("Andy")];
 	}
-	const output = print(new Owner());
+	const output = print(new Owner(), mockPrettyPrint);
 
 	assert.snapshot(
 		output,
@@ -235,9 +239,9 @@ test("`print` outputs nested extended GhostExome instance", () => {
 });
 
 test("`print` outputs untitled class", () => {
-	const output = print(new (class {})());
+	const output = print(new (class {})(), mockPrettyPrint);
 
-	assert.snapshot(output, "{}");
+	assert.snapshot(output, "Exome {}");
 });
 
 test.run();

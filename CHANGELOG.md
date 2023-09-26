@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.0.3
+
+### Bugfix
+* Fixes jest snapshot serializer depth.
+
 ## 2.0.2
 
 ### Bugfix
