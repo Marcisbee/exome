@@ -1,7 +1,7 @@
 import { test } from "uvu";
 import assert from "uvu/assert";
 
-import { Exome, update, updateAll, getExomeId, addMiddleware } from "./exome";
+import { Exome, addMiddleware, getExomeId, update, updateAll } from "./exome";
 
 test("exports `Exome`", () => {
 	assert.ok(Exome);

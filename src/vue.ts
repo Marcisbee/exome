@@ -1,5 +1,5 @@
 import { Exome, subscribe } from "exome";
-import { type Ref, watchEffect, ref } from "vue";
+import { type Ref, ref, watchEffect } from "vue";
 
 export function useStore<T extends Exome>(store: T): Readonly<T> {
 	const refs: Record<string, Ref<any>> = {};

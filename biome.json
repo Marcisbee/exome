@@ -1,19 +1,22 @@
 {
-	"$schema": "./node_modules/rome/configuration_schema.json",
+	"$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
 	"linter": {
 		"enabled": true,
 		"rules": {
 			"recommended": true,
 			"suspicious": {
 				"noExplicitAny": "off",
-				"useValidTypeof": "off"
+				"useValidTypeof": "off",
+				"noAssignInExpressions": "off",
+				"noPrototypeBuiltins": "off"
 			},
 			"performance": {
 				"noDelete": "off"
 			},
 			"style": {
 				"noNonNullAssertion": "off",
-				"useTemplate": "off"
+				"useTemplate": "off",
+				"noCommaOperator": "off"
 			},
 			"correctness": {
 				"noConstructorReturn": "off"

@@ -1,5 +1,5 @@
-import type { Exome } from "../constructor.ts";
 import { exomeId } from "../constants.ts";
+import type { Exome } from "../constructor.ts";
 
 export const getExomeId = (store: Exome): string => {
 	return store[exomeId];

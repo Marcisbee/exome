@@ -1,5 +1,5 @@
 import { type Exome, subscribe } from "exome";
-import { useLayoutEffect, useEffect, useState } from "preact/hooks";
+import { useEffect, useLayoutEffect, useState } from "preact/hooks";
 
 const useIsomorphicLayoutEffect =
 	typeof window !== "undefined" ? useLayoutEffect : useEffect;

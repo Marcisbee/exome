@@ -31,7 +31,7 @@ const replacer = (): any => {
 	};
 };
 
-export const saveState = (store: Exome, readable: boolean = false): string => {
+export const saveState = (store: Exome, readable = false): string => {
 	const output = JSON.stringify(store, replacer(), readable ? 2 : undefined);
 
 	if (output === undefined) {

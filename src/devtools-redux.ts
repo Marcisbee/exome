@@ -1,4 +1,4 @@
-import { Exome, getExomeId, updateAll, Middleware } from "exome";
+import { Exome, Middleware, getExomeId, updateAll } from "exome";
 
 interface ReduxMessage {
 	type: string;

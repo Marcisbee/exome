@@ -1,6 +1,6 @@
-import { update } from "./subscribe.ts";
-import type { Exome } from "./constructor.ts";
 import { FUNCTION } from "./constants.ts";
+import type { Exome } from "./constructor.ts";
+import { update } from "./subscribe.ts";
 
 export type Middleware = (
 	instance: Exome,
@@ -31,7 +31,7 @@ export const runMiddleware = (
 		let x = 0;
 		const l = after.length;
 		while (x < l) {
-			typeof after[x] === FUNCTION && (after[x] as Function)();
+			typeof after[x] === FUNCTION && (after[x] as () => void)();
 			++x;
 		}
 	};

@@ -1,8 +1,8 @@
 import { test } from "uvu";
 import assert from "uvu/assert";
 
-import { Exome } from "./constructor";
 import { exomeId } from "./constants";
+import { Exome } from "./constructor";
 
 test("exports `Exome`", () => {
 	assert.instance(Exome, Function);

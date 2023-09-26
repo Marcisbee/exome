@@ -1,7 +1,7 @@
 import { exomeId } from "./constants.ts";
 import type { Exome } from "./constructor.ts";
 
-export const subscriptions: Record<string, Set<Function>> = {};
+export const subscriptions: Record<string, Set<() => any>> = {};
 
 export const subscribe = <T extends Exome>(
 	store: T,

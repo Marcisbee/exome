@@ -1,4 +1,4 @@
-import { Exome, exomeId, exomeName, updateAll, runMiddleware } from "exome";
+import { Exome, exomeId, exomeName, runMiddleware, updateAll } from "exome";
 
 const loadableExomes: Record<string, typeof Exome> = {};
 
