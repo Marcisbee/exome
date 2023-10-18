@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.0.4
+
+### Bugfix
+* Print circular store references in jest snapshots.
+
 ## 2.0.3
 
 ### Bugfix

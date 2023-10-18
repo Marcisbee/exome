@@ -17,7 +17,45 @@ const { print, test: testSerializer } = proxyquire("./serializer.ts", {
 });
 
 function mockPrettyPrint(value: any) {
-	return JSON.stringify(value, null, 2);
+	if (testSerializer(value)) {
+		return print(value, mockPrettyPrint);
+	}
+
+	if (Array.isArray(value)) {
+		return [
+			"[",
+			"  " +
+				value
+					.reduce((acc, value) => {
+						return acc.concat(`${mockPrettyPrint(value)},`);
+					}, [] as string[])
+					.join("\n")
+					.replace(/\n/g, "\n  "),
+			"]",
+		]
+			.join("\n")
+			.replace("\n  \n", "");
+	}
+
+	if (value && typeof value === "object") {
+		return [
+			"{",
+			"  " +
+				Object.entries(value)
+					.reduce((acc, [key, value]) => {
+						return acc.concat(
+							`${JSON.stringify(key)}: ${mockPrettyPrint(value)},`,
+						);
+					}, [] as string[])
+					.join("\n")
+					.replace(/\n/g, "\n  "),
+			"}",
+		]
+			.join("\n")
+			.replace("\n  \n", "");
+	}
+
+	return JSON.stringify(value);
 }
 
 test("exports `print`", () => {
@@ -152,7 +190,7 @@ test("`print` outputs filled extended Exome instance", () => {
 	assert.snapshot(
 		output,
 		`Extended {
-  "foo": "bar"
+  "foo": "bar",
 }`,
 	);
 });
@@ -172,10 +210,10 @@ test("`print` outputs nested extended Exome instance", () => {
 		output,
 		`Owner {
   "dogs": [
-    {
-      "name": "Andy"
-    }
-  ]
+    Dog {
+      "name": "Andy",
+    },
+  ],
 }`,
 	);
 });
@@ -210,7 +248,7 @@ test("`print` outputs filled extended GhostExome instance", () => {
 	assert.snapshot(
 		output,
 		`Extended {
-  "foo": "bar"
+  "foo": "bar",
 }`,
 	);
 });
@@ -230,10 +268,10 @@ test("`print` outputs nested extended GhostExome instance", () => {
 		output,
 		`Owner {
   "dogs": [
-    {
-      "name": "Andy"
-    }
-  ]
+    Dog {
+      "name": "Andy",
+    },
+  ],
 }`,
 	);
 });
@@ -242,6 +280,47 @@ test("`print` outputs untitled class", () => {
 	const output = print(new (class {})(), mockPrettyPrint);
 
 	assert.snapshot(output, "Exome {}");
+});
+
+test("`print` handles circular reference", () => {
+	class Data extends Exome {
+		constructor(public extra: Data[] = []) {
+			super();
+		}
+	}
+
+	const circular = new Data();
+	circular.extra.push(circular);
+
+	const input = new Data([circular, new Data([circular]), circular]);
+	const output = print(input, mockPrettyPrint);
+
+	assert.snapshot(
+		output,
+		`Data {
+  "extra": [
+    Data {
+      "extra": [
+        Data [circular],
+      ],
+    },
+    Data {
+      "extra": [
+        Data {
+          "extra": [
+            Data [circular],
+          ],
+        },
+      ],
+    },
+    Data {
+      "extra": [
+        Data [circular],
+      ],
+    },
+  ],
+}`,
+	);
 });
 
 test.run();
