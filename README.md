@@ -18,7 +18,7 @@ State manager for deeply nested states. Includes integration for [React](#react)
 # Features
 
 - 📦 **Small**: Just **1 KB** minizipped
-- 🚀 **Fast**: Uses **no diffing** of state changes see [**benchmarks**](./benchmark/README.md)
+- 🚀 **Fast**: Uses **no diffing** of state changes see [**benchmarks**](https://marcisbee.com/js-store-benchmark?focus=exome)
 - 😍 **Simple**: Uses classes as state, methods as actions
 - 🛡 **Typed**: Written in strict TypeScript
 - 🔭 **Devtools**: Redux devtools integration
@@ -71,7 +71,7 @@ export default function App() {
 - [Redux devtools](#redux-devtools)
 - [API](#api)
 - [FAQ](#faq)
-- [**Benchmarks**](benchmark/README.md)
+- [**Benchmarks**](https://marcisbee.com/js-store-benchmark?focus=exome)
 - [Motivation](#motivation)
 
 # Installation
