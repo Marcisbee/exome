@@ -18,14 +18,14 @@ State manager for deeply nested states. Includes integration for [React](#react)
 # Features
 
 - 📦 **Small**: Just **1 KB** minizipped
-- 🚀 **Fast**: Uses **no diffing** of state changes see [**benchmarks**](benchmark/README.md)
+- 🚀 **Fast**: Uses **no diffing** of state changes see [**benchmarks**](./benchmark/README.md)
 - 😍 **Simple**: Uses classes as state, methods as actions
 - 🛡 **Typed**: Written in strict TypeScript
 - 🔭 **Devtools**: Redux devtools integration
 - 💨 **Zero dependencies**
 
 > **Note**
-> If you're upgrading from v1 to v2, please read the [migration guide](MIGRATION-1-to-2.md) to ease the upgrade process.
+> If you're upgrading from v1 to v2, please read the [migration guide](./MIGRATION-1-to-2.md) to ease the upgrade process.
 
 ```ts
 // store/counter.ts
