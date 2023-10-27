@@ -64,6 +64,7 @@ export default function App() {
   - [Preact](#preact)
   - [Vue](#vue)
   - [Svelte](#svelte)
+  - [Solid](#solid)
   - [Lit](#lit)
   - [Rxjs](#rxjs)
   - [Angular](#angular)
@@ -187,6 +188,19 @@ Use `useStore()` from `exome/svelte` to get store value and re-render component 
 <main>
   <button on:click={increment}>{$count}</button>
 </main>
+```
+
+## Solid
+Use `useStore()` from `exome/solid` to get store value and update signal selector on store change.
+
+```tsx
+import { useStore } from "exome/solid"
+import { counter } from "../stores/counter.ts"
+
+export function Example() {
+  const count = useStore(counter, s => s.count)
+  return <button onClick={counter.increment}>{count}</button>
+}
 ```
 
 ## Lit

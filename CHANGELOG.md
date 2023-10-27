@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.1.0
+
+### Feature
+* Adds support for Solid.js.
+
 ## 2.0.4
 
 ### Bugfix
