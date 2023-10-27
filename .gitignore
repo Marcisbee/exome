@@ -105,10 +105,6 @@ typings/
 
 /e2e/setup/www/app.js
 /e2e/setup/www/app.js.map
-/benchmark/dist
-/benchmark/**/dist/
-/benchmark/meta.json
-/benchmark/meta.*.json
 /playground/www/*.js
 /playground/dist/*.js
 /playground/dist/*.js.map
