@@ -4,6 +4,7 @@
 
 ### Feature
 * Adds support for Solid.js.
+* Adds support for Angular signals.
 
 ## 2.0.4
 

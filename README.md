@@ -244,6 +244,30 @@ setInterval(counter.increment, 1000);
 ```
 
 ## Angular
+### signals (>=16)
+Use `useStore` from `exome/angular` to get store value and update signal selector on store change.
+
+```ts
+import { useStore } from "exome/angular"
+import { counter } from "./store/counter.ts"
+
+@Component({
+  selector: 'my-app',
+  template: `
+    <h1 *ngIf="(counter$ | async) as counter" (click)="increment()">
+      {{count}}
+    </h1>
+  `,
+})
+export class App {
+  public count = useStore(store, (s) => s.count);
+  public increment() {
+    store.increment();
+  }
+}
+```
+
+### observables (<=15)
 Angular support is handled via rxjs async pipes!
 
 Use `observableFromExome` from `exome/rxjs` to get store value as Observable and trigger it when it changes.
