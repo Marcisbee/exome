@@ -254,7 +254,7 @@ import { counter } from "./store/counter.ts"
 @Component({
   selector: 'my-app',
   template: `
-    <h1 *ngIf="(counter$ | async) as counter" (click)="increment()">
+    <h1 (click)="increment()">
       {{count}}
     </h1>
   `,
