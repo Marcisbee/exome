@@ -13,7 +13,7 @@
   <img alt="discord" src="https://dcbadge.vercel.app/api/server/a62gfaDW2e?style=flat-square" />
 </a>
 
-State manager for deeply nested states. Includes integration for [React](#react), [Preact](#preact), [Vue](#vue), [Svelte](#svelte), [Lit](#lit), [Rxjs](#rxjs), [Angular](#angular) & [No framework](#no-framework). Can be easily used in microfrontends architecture.
+State manager for deeply nested states. Includes integration for [React](#react), [Preact](#preact), [Vue](#vue), [Svelte](#svelte), [Solid](#solid), [Lit](#lit), [Rxjs](#rxjs), [Angular](#angular) & [No framework](#no-framework). Can be easily used in microfrontends architecture.
 
 # Features
 
