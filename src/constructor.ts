@@ -14,9 +14,15 @@ export class Exome {
 
 		subscriptions[id] = new Set();
 
-		// Run this code after constructor to get all the parameters right.
-		Promise.resolve().then(() => runMiddleware(this, "NEW", []));
-
-		return wrapper(this);
+		try {
+			return wrapper(this);
+		} catch (error) {
+			// Need only the "finally" branch, so just rethrow whatever we get here.
+			// biome-ignore lint/complexity/noUselessCatch:
+			throw error;
+		} finally {
+			// Run this code after constructor to get all the parameters right.
+			runMiddleware(this, "NEW", []);
+		}
 	}
 }
