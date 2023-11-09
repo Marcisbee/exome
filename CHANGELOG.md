@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.2.0
+
+### Feature
+* Increase exome id length by 2 characters to lessen the birthday paradox.
+* Use "try finally" for running "NEW" actions instead of "Promise.resolve()".
+
 ## 2.1.0
 
 ### Feature
