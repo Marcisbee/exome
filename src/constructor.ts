@@ -11,18 +11,13 @@ export class Exome {
 	constructor() {
 		const name = this[exomeName] || this[CONSTRUCTOR].name;
 		const id = (this[exomeId] = name + "-" + createID());
+		const after = runMiddleware(this, "NEW", []);
 
 		subscriptions[id] = new Set();
 
-		try {
-			return wrapper(this);
-		} catch (error) {
-			// Need only the "finally" branch, so just rethrow whatever we get here.
-			// biome-ignore lint/complexity/noUselessCatch:
-			throw error;
-		} finally {
-			// Run this code after constructor to get all the parameters right.
-			runMiddleware(this, "NEW", []);
-		}
+		// Run this code after child constructor to get all the parameters right.
+		Promise.resolve().then(after);
+
+		return wrapper(this);
 	}
 }

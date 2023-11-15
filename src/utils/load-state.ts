@@ -78,7 +78,11 @@ export const loadState = (store: Exome, state: string) => {
 
 	const { $$exome_id: rootId, ...data } = output;
 
+	const after = runMiddleware(store, "LOAD_STATE", []);
+
 	Object.assign(store, data);
+
+	after();
 
 	// Run view update after state has been loaded
 	updateAll();

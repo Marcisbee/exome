@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.3.0
+
+### Feature
+* Add `LOAD_STATE` middleware action after state was prefilled via loadState.
+
 ## 2.2.0
 
 ### Feature

@@ -5,8 +5,12 @@ type Unsubscribe = () => void;
 
 export const onAction = <T extends Exome>(
 	Parent: new (...args: any[]) => T,
-	action: null | "NEW" | keyof T,
-	callback: (instance: T, action: "NEW" | keyof T, payload: any[]) => void,
+	action: null | "NEW" | "LOAD_STATE" | keyof T,
+	callback: (
+		instance: T,
+		action: "NEW" | "LOAD_STATE" | keyof T,
+		payload: any[],
+	) => void,
 	type: "before" | "after" = "after",
 ): Unsubscribe => {
 	return addMiddleware((instance, targetAction, payload) => {
@@ -19,7 +23,7 @@ export const onAction = <T extends Exome>(
 			return;
 		}
 
-		if (targetAction === "NEW" || type === "before") {
+		if (type === "before") {
 			callback(instance, targetAction as any, payload);
 			return;
 		}

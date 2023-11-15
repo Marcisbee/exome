@@ -89,11 +89,66 @@ test("calls NEW action correctly", async () => {
 
 	new Person("John");
 
-	await new Promise((resolve) => setTimeout(resolve, 10));
+	await new Promise((resolve) => setTimeout(resolve, 0));
 
 	assert.equal(handler.callCount, 1);
 	assert.instance(handler.args[0][0], Person);
 	assert.equal(handler.args[0][1], "NEW");
+	assert.equal(handler.args[0][2].length, 0);
+});
+
+test("calls LOAD_STATE action correctly before", async () => {
+	class Person extends Exome {
+		constructor(public name?: string) {
+			super();
+		}
+
+		public rename(name: string) {
+			this.name = name;
+		}
+	}
+
+	const handler = fake();
+	onAction(Person, "LOAD_STATE", handler, "before");
+
+	assert.equal(handler.callCount, 0);
+
+	const instance = new Person("John");
+
+	runMiddleware(instance, "LOAD_STATE", []);
+
+	assert.equal(handler.callCount, 1);
+	assert.instance(handler.args[0][0], Person);
+	assert.equal(handler.args[0][1], "LOAD_STATE");
+	assert.equal(handler.args[0][2].length, 0);
+});
+
+test("calls LOAD_STATE action correctly after", async () => {
+	class Person extends Exome {
+		constructor(public name?: string) {
+			super();
+		}
+
+		public rename(name: string) {
+			this.name = name;
+		}
+	}
+
+	const handler = fake();
+	onAction(Person, "LOAD_STATE", handler, "after");
+
+	assert.equal(handler.callCount, 0);
+
+	const instance = new Person("John");
+
+	await new Promise((resolve) => setTimeout(resolve, 0));
+
+	const after = runMiddleware(instance, "LOAD_STATE", []);
+	after();
+
+	assert.equal(handler.callCount, 1);
+	assert.instance(handler.args[0][0], Person);
+	assert.equal(handler.args[0][1], "LOAD_STATE");
 	assert.equal(handler.args[0][2].length, 0);
 });
 
@@ -115,7 +170,7 @@ test("calls any action correctly", async () => {
 
 	const person = new Person("John");
 
-	await new Promise((resolve) => setTimeout(resolve, 10));
+	await new Promise((resolve) => setTimeout(resolve, 0));
 
 	assert.equal(handler.callCount, 1);
 	assert.instance(handler.args[0][0], Person);
