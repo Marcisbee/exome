@@ -3,7 +3,7 @@ import { suite } from 'uvu'
 import assert from 'uvu/assert'
 
 import * as ENV from '../setup/playwright'
-import { BrowserContext } from '../setup/playwright'
+import type { BrowserContext } from '../setup/playwright'
 
 const entry = join(__dirname, './counter.tsx')
 const test = suite<BrowserContext>('Counter', { entry } as any)

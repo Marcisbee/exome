@@ -26,7 +26,7 @@ export const runMiddleware = (
 	const after = middleware.map((middleware) => middleware(parent, key, args));
 
 	return () => {
-		update(parent);
+		if (key !== "NEW") update(parent);
 
 		let x = 0;
 		const l = after.length;
