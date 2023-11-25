@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.3.1
+
+### Other
+* Adds `unstableExomeDevtools` method to `exome/devtools` package.
+
 ## 2.3.0
 
 ### Feature
