@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.3.2
+
+### Bugfix
+* Adds version export to `unstableExomeDevtools`.
+
 ## 2.3.1
 
 ### Other
