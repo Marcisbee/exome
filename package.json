@@ -1,6 +1,6 @@
 {
   "name": "exome",
-  "version": "2.3.1",
+  "version": "2.3.2",
   "description": "Proxy based store manager for deeply nested states",
   "main": "./dist/exome.js",
   "module": "./dist/exome.mjs",
@@ -48,7 +48,7 @@
     "@types/react-dom": "^18.0.6",
     "@types/sinon": "^10.0.13",
     "c8": "^7.12.0",
-    "esbuild": "^0.17.10",
+    "esbuild": "^0.19.8",
     "esbuild-register": "^3.4.2",
     "lit": "^2.2.8",
     "playwright": "^1.24.1",
@@ -59,7 +59,7 @@
     "rxjs": "^7.0.0",
     "sinon": "^14.0.0",
     "solid-js": "^1.8.4",
-    "typescript": "^5.0.4",
+    "typescript": "^5.3.2",
     "uvu": "^0.5.6",
     "vue": "^3.2.37"
   },

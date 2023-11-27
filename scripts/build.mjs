@@ -1,6 +1,12 @@
+// @ts-check
 import * as esbuild from "esbuild";
 
-for (const format of ["cjs", "esm"]) {
+import { packagePlugin } from "./common.mjs";
+
+/** @type {['cjs', 'esm']} */
+const formats = ["cjs", "esm"];
+
+for (const format of formats) {
 	await esbuild
 		.build({
 			entryPoints: [
@@ -46,6 +52,7 @@ for (const format of ["cjs", "esm"]) {
 			],
 			platform: "browser",
 			logLevel: "info",
+			plugins: [packagePlugin],
 		})
 		.catch(() => process.exit(1));
 }
