@@ -7,7 +7,7 @@ import { Dog, dogAndy, dogStore, Person } from "./dogStore";
 import { counterStore, jokeStore } from "./store";
 
 function Joke() {
-	const { joke, getJoke, isLoading } = useStore(jokeStore);
+	const { joke, loading, getJoke } = useStore(jokeStore);
 
 	return (
 		<div>
@@ -18,7 +18,7 @@ function Joke() {
 				</ul>
 			)}
 
-			<button onClick={getJoke} disabled={isLoading}>
+			<button onClick={getJoke} disabled={loading}>
 				Fetch new joke
 			</button>
 		</div>
