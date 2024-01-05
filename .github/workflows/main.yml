@@ -13,7 +13,7 @@ jobs:
       with:
         node-version: 20
     - name: install
-      run: npm ci && npm install react preact vue@next
+      run: npm ci && npm install react preact vue
     - name: build
       run: npm run build
       env:

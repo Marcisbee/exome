@@ -13,7 +13,7 @@ jobs:
         with:
           node-version: 20
       - run: npm ci
-      - run: npm install react preact vue@next
+      - run: npm install react preact vue
       - run: npm run build
       - run: npm run lint
       - run: npm test
@@ -32,7 +32,7 @@ jobs:
           node-version: 20
           registry-url: https://registry.npmjs.org/
       - run: npm ci
-      - run: npm install react preact vue@next
+      - run: npm install react preact vue
       - run: npm run build
       - run: npm publish --provenance --access public ./dist
         env:
