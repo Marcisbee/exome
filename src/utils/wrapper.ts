@@ -21,14 +21,20 @@ export const wrapper = <T extends Exome>(parent: T): T => {
 			) {
 				(parent as any)[key] = (...args: any) => {
 					const middleware = runMiddleware(parent, key, args);
+					try {
+						const output = value.apply(parent, args);
 
-					const output = value.apply(parent, args);
+						if (output instanceof Promise) {
+							return output
+								.then((result) => (middleware(), result))
+								.catch(middleware);
+						}
 
-					if (output instanceof Promise) {
-						return output.then((result) => (middleware(), result));
+						return middleware(), output;
+					} catch (error) {
+						middleware(error as Error);
+						throw error;
 					}
-
-					return middleware(), output;
 				};
 			}
 		}

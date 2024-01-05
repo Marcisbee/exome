@@ -67,7 +67,7 @@ test("runs middleware unsubscribe method", () => {
 	after();
 
 	assert.equal(unsubscribe.callCount, 1);
-	assert.equal(unsubscribe.args[0], []);
+	assert.equal(unsubscribe.args[0], [undefined]);
 });
 
 test("removes middleware correctly", () => {

@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.3.3
+
+### Bugfix
+* Properly handle errors in actions.
+* Middleware now also returns error from actions.
+
 ## 2.3.2
 
 ### Bugfix

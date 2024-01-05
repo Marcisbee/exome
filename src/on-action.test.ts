@@ -68,7 +68,7 @@ test("adds after middleware without errors", () => {
 	after();
 
 	assert.equal(handler.callCount, 1);
-	assert.equal(handler.args[0], [person, "rename", [1]]);
+	assert.equal(handler.args[0], [person, "rename", [1], undefined]);
 });
 
 test("calls NEW action correctly", async () => {
@@ -180,7 +180,7 @@ test("calls any action correctly", async () => {
 	person.rename("Jane");
 
 	assert.equal(handler.callCount, 2);
-	assert.equal(handler.args[1], [person, "rename", ["Jane"]]);
+	assert.equal(handler.args[1], [person, "rename", ["Jane"], undefined]);
 });
 
 test("calls custom action correctly", () => {
@@ -206,7 +206,7 @@ test("calls custom action correctly", () => {
 	person.rename("Jane");
 
 	assert.equal(handler.callCount, 1);
-	assert.equal(handler.args[0], [person, "rename", ["Jane"]]);
+	assert.equal(handler.args[0], [person, "rename", ["Jane"], undefined]);
 });
 
 test("unsubscribes correctly", () => {

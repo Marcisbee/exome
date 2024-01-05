@@ -6,7 +6,7 @@ export type Middleware = (
 	instance: Exome,
 	action: string,
 	payload: any[],
-) => void | (() => void);
+) => void | ((error?: Error) => void);
 
 export const middleware: Middleware[] = [];
 
@@ -25,13 +25,14 @@ export const runMiddleware = (
 ) => {
 	const after = middleware.map((middleware) => middleware(parent, key, args));
 
-	return () => {
+	return (error?: Error) => {
 		if (key !== "NEW") update(parent);
 
 		let x = 0;
 		const l = after.length;
 		while (x < l) {
-			typeof after[x] === FUNCTION && (after[x] as () => void)();
+			typeof after[x] === FUNCTION &&
+				(after[x] as (error?: Error) => void)(error);
 			++x;
 		}
 	};

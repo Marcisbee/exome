@@ -10,6 +10,7 @@ export const onAction = <T extends Exome>(
 		instance: T,
 		action: "NEW" | "LOAD_STATE" | keyof T,
 		payload: any[],
+		error?: Error,
 	) => void,
 	type: "before" | "after" = "after",
 ): Unsubscribe => {
@@ -28,6 +29,6 @@ export const onAction = <T extends Exome>(
 			return;
 		}
 
-		return () => callback(instance, targetAction as any, payload);
+		return (error) => callback(instance, targetAction as any, payload, error);
 	});
 };

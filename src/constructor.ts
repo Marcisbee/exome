@@ -16,7 +16,7 @@ export class Exome {
 		subscriptions[id] = new Set();
 
 		// Run this code after child constructor to get all the parameters right.
-		Promise.resolve().then(after);
+		Promise.resolve().then(after as any);
 
 		return wrapper(this);
 	}
