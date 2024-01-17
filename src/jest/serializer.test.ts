@@ -5,16 +5,16 @@ import assert from "uvu/assert";
 import { Exome } from "../constructor";
 import { GhostExome } from "../ghost";
 
-const { print, test: testSerializer } = proxyquire("./serializer.ts", {
-	exome: {
-		Exome,
-		"@noCallThru": true,
-	},
-	"exome/ghost": {
-		GhostExome,
-		"@noCallThru": true,
-	},
-});
+const { print, test: testSerializer } = proxyquire
+	.noCallThru()
+	.load<typeof import("./serializer.ts")>("./serializer.ts", {
+		exome: {
+			Exome,
+		},
+		"exome/ghost": {
+			GhostExome,
+		},
+	});
 
 function mockPrettyPrint(value: any) {
 	if (testSerializer(value)) {

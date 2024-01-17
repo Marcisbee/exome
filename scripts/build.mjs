@@ -17,6 +17,7 @@ for (const format of formats) {
 				"./src/ghost.ts",
 				"./src/state.ts",
 				"./src/subscribe.ts",
+				"./src/utils.ts",
 				"./src/react.ts",
 				"./src/preact.ts",
 				"./src/vue.ts",
