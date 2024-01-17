@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.4.0
+
+### Feature
+* Adds `getActionStatus` to `exome/utils`.
+
 ## 2.3.3
 
 ### Bugfix
