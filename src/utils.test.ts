@@ -124,7 +124,9 @@ const { getActionStatus } = proxyquire
 			`{"loading":true,"error":false}`,
 		);
 
-		await promise;
+		try {
+			await promise;
+		} catch (_) {}
 
 		assert.snapshot(
 			JSON.stringify(test1.status),

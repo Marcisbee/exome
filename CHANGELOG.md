@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.4.1
+
+### Bugfix
+* Properly re-throw errors from async actions.
+
 ## 2.4.0
 
 ### Feature

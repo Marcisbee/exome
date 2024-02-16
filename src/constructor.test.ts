@@ -41,4 +41,21 @@ test('extended exome instance has "Person" in id', () => {
 	assert.match(instance[exomeId], /^Person-[A-Z0-9]+$/);
 });
 
+test("throws error for async action", async () => {
+	class TestStore extends Exome {
+		public async run() {
+			throw new Error("Poop");
+		}
+	}
+	const test1 = new TestStore();
+
+	try {
+		await test1.run();
+		assert.unreachable();
+	} catch (err) {
+		assert.instance(err, Error);
+		assert.equal(err.message, "Poop");
+	}
+});
+
 test.run();

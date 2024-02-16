@@ -25,9 +25,11 @@ export const wrapper = <T extends Exome>(parent: T): T => {
 						const output = value.apply(parent, args);
 
 						if (output instanceof Promise) {
-							return output
-								.then((result) => (middleware(), result))
-								.catch(middleware);
+							return new Promise<any>((resolve, reject) => {
+								output
+									.then((result) => (middleware(), resolve(result)))
+									.catch((error) => (reject(error), middleware(error)));
+							});
 						}
 
 						return middleware(), output;
