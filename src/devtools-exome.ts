@@ -175,7 +175,9 @@ export const exomeDevtools = ({
 		});
 
 		return (error) => {
-			action.error = error as any;
+			if (error !== undefined) {
+				action.error = String(error);
+			}
 			action.time = performance.now() - start;
 			action.after = exomeToJson(instance);
 
