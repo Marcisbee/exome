@@ -174,7 +174,8 @@ export const exomeDevtools = ({
 			payload: action,
 		});
 
-		return () => {
+		return (error) => {
+			action.error = error as any;
 			action.time = performance.now() - start;
 			action.after = exomeToJson(instance);
 
@@ -286,6 +287,7 @@ interface Action {
 	now: number;
 	time?: number;
 	trace: string;
+	error?: string;
 	before: Record<string, any>;
 	after?: Record<string, any>;
 }

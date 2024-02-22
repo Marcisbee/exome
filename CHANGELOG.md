@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.4.2
+
+### Other
+* Pass action error to devtools.
+
 ## 2.4.1
 
 ### Bugfix
