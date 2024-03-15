@@ -1,7 +1,7 @@
 import { Exome, type Middleware, getExomeId, subscribe } from "exome";
 
 // @ts-ignore
-import { version } from "../package.json" assert { type: "json" };
+import packageJson from "../package.json" assert { type: "json" };
 
 export interface DevtoolsExtensionInterface {
 	connect(config: {
@@ -71,7 +71,7 @@ export const exomeDevtools = ({
 
 	let depth = 0;
 	const details = {
-		version,
+		version: packageJson.version,
 	};
 
 	const connection = extension.connect({ name, maxAge, details });
