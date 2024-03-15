@@ -6,6 +6,9 @@
 <a href="https://www.npmjs.com/package/exome">
   <img alt="npm" src="https://img.shields.io/npm/v/exome.svg?style=flat-square" />
 </a>
+<a href="https://jsr.io/@exome/exome">
+  <img alt="jsr" src="https://jsr.io/badges/@exome/exome?style=flat-square" />
+</a>
 <a href="https://bundlephobia.com/result?p=exome">
   <img alt="package size" src="https://deno.bundlejs.com/?q=exome&badge=&badge-style=flat-square" />
 </a>
