@@ -1,7 +1,7 @@
-import { Exome, Middleware, getExomeId, subscribe } from "exome";
+import { Exome, type Middleware, getExomeId, subscribe } from "exome";
 
 // @ts-ignore
-import { version } from "../package.json";
+import { version } from "../package.json" assert { type: "json" };
 
 export interface DevtoolsExtensionInterface {
 	connect(config: {
@@ -43,11 +43,15 @@ export interface ExomeDevtoolsConfig {
 	ignoreListStores?: string[];
 }
 
-const fullStore = new Map<string, Map<string, Exome>>();
+const fullStore: Map<string, Map<string, Exome>> = new Map();
 const fullActions: Action[] = [];
 
 const descriptor = Object.getOwnPropertyDescriptor;
 
+/**
+ * Subscribes to Exome Developer Tools.
+ * https://chromewebstore.google.com/detail/exome-developer-tools/pcanmpamoedhpfpbjajlkpicbikbnhdg
+ */
 export const exomeDevtools = ({
 	name = "Exome",
 	maxAge = 20,
@@ -62,12 +66,6 @@ export const exomeDevtools = ({
 	} catch (_e) {}
 
 	if (!extension) {
-		if (process.env.NODE_ENV !== "production") {
-			console.warn(
-				"Please install Exome devtools extension\n" +
-					"https://github.com/Marcisbee/exome-devtools",
-			);
-		}
 		return () => {};
 	}
 
@@ -200,7 +198,7 @@ export const exomeDevtools = ({
 	}
 };
 
-function exomeToJson(instance: Exome) {
+function exomeToJson(instance: Exome): Record<string, any> {
 	const proto = Object.getPrototypeOf(instance);
 	const methodNames = Object.getOwnPropertyNames(proto);
 	const propertyNames = Object.getOwnPropertyNames(instance).filter(

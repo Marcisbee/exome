@@ -2,6 +2,16 @@ import { Exome, exomeId, exomeName, runMiddleware, updateAll } from "exome";
 
 const loadableExomes: Record<string, typeof Exome> = {};
 
+/**
+ * For `loadState`` to know what stores to build instances from, we must make sure we register them.
+ *
+ * @example:
+ * ```ts
+ * registerLoadable({
+ *   CounterStore,
+ * })
+ * ```
+ */
 export const registerLoadable = (config: Record<string, any>): void => {
 	Object.keys(config).forEach((key) => {
 		config[key].prototype[exomeName] = key;
@@ -10,7 +20,18 @@ export const registerLoadable = (config: Record<string, any>): void => {
 	});
 };
 
-export const loadState = (store: Exome, state: string) => {
+/**
+ * Loads saved store into existing store instance. It will rebuild all children stores too.
+ *
+ * @example:
+ * ```ts
+ * const counterStore = new CounterStore()
+ * const savedStore = `{"$$exome_id":"CounterStore-LS5WUJPF17SF","count":200}`
+ *
+ * loadState(counterStore, savedStore)
+ * ```
+ */
+export const loadState = (store: Exome, state: string): any => {
 	if (!state || typeof state !== "string") {
 		throw new Error(
 			`State was not loaded. Passed state must be string, instead received "${typeof state}".`,

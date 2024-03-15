@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.4.3
+
+### Other
+* Makes types more explicit.
+
 ## 2.4.2
 
 ### Other

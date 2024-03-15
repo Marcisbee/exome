@@ -1,2 +1,2 @@
-export { exomeReduxDevtools } from "./devtools-redux";
-export { exomeDevtools as unstableExomeDevtools } from "./devtools-exome";
+export { exomeReduxDevtools } from "./devtools-redux.ts";
+export { exomeDevtools as unstableExomeDevtools } from "./devtools-exome.ts";

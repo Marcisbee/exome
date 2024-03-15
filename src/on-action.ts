@@ -3,6 +3,9 @@ import { addMiddleware } from "./middleware.ts";
 
 type Unsubscribe = () => void;
 
+/**
+ * Listens to specific actions for all instances of particular store.
+ */
 export const onAction = <T extends Exome>(
 	Parent: new (...args: any[]) => T,
 	action: null | "NEW" | "LOAD_STATE" | keyof T,

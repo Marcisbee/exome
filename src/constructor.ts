@@ -4,6 +4,9 @@ import { runMiddleware } from "./middleware.ts";
 import { subscriptions } from "./subscribe.ts";
 import { wrapper } from "./utils/wrapper.ts";
 
+/**
+ * Class that every store extends from.
+ */
 export class Exome {
 	private [exomeId]: string;
 	private [exomeName]!: string;

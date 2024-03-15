@@ -31,6 +31,22 @@ const replacer = (): any => {
 	};
 };
 
+/**
+ * Saves given store instance and its children (even recursive) to string that can be later restored.
+ *
+ * @example:
+ * ```ts
+ * class CounterStore extends Exome {
+ *   public count = 5
+ *
+ *   public increment() {
+ *     this.count += 1
+ *   }
+ * }
+ *
+ * saveState(new CounterStore())
+ * ```
+ */
 export const saveState = (store: Exome, readable = false): string => {
 	const output = JSON.stringify(store, replacer(), readable ? 2 : undefined);
 

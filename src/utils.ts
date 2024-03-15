@@ -8,6 +8,9 @@ interface ActionStatus<E = any> {
 
 const actionStatusCache: Record<string, ActionStatus> = {};
 
+/**
+ * Subscribes to specific action in specific instance and returns satus about that action.
+ */
 export function getActionStatus<E = Error, T extends Exome = any>(
 	store: T,
 	action: keyof T,

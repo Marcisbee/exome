@@ -1,6 +1,23 @@
 import { Exome, subscribe } from "exome";
 import { type Ref, ref, watchEffect } from "vue";
 
+/**
+ * Subscribes to store instance update events and trigger updates to component accordingly.
+ *
+ * @example:
+ * ```ts
+ * <script lang="ts" setup>
+ *   import { useStore } from "exome/vue"
+ *   import { counterStore } from "./counter.store.ts"
+ *
+ *   const { count, increment } = useStore(counterStore)
+ * </script>
+ *
+ * <template>
+ *   <button @click="increment()">{{ count }}</button>
+ * </template>
+ * ```
+ */
 export function useStore<T extends Exome>(store: T): Readonly<T> {
 	const refs: Record<string, Ref<any>> = {};
 

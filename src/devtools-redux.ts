@@ -26,7 +26,7 @@ interface ReduxConfig {
 	};
 }
 
-const fullStore = new Map<string, Map<string, Exome>>();
+const fullStore: Map<string, Map<string, Exome>> = new Map();
 
 function deepCloneStore(value: any, depth: string[] = []): any {
 	if (value == null || typeof value !== "object") {
@@ -70,7 +70,7 @@ function deepCloneStore(value: any, depth: string[] = []): any {
 	return output;
 }
 
-const getFullStore = () => {
+const getFullStore = (): any => {
 	const output: Record<string, Exome[]> = {};
 
 	for (const [key, map] of fullStore.entries()) {
@@ -81,6 +81,10 @@ const getFullStore = () => {
 	return deepCloneStore(output);
 };
 
+/**
+ * Subscribes to Redux DevTools.
+ * https://chromewebstore.google.com/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd
+ */
 export const exomeReduxDevtools = ({
 	name,
 	maxAge,
@@ -98,12 +102,6 @@ export const exomeReduxDevtools = ({
 	} catch (e) {}
 
 	if (!extension) {
-		if (process.env.NODE_ENV !== "production") {
-			console.warn(
-				"Please install Redux devtools extension\n" +
-					"https://github.com/reduxjs/redux-devtools",
-			);
-		}
 		return () => {};
 	}
 

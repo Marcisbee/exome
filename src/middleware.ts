@@ -10,7 +10,10 @@ export type Middleware = (
 
 export const middleware: Middleware[] = [];
 
-export const addMiddleware = (fn: Middleware) => {
+/**
+ * Listens to middleware calls for any store instance.
+ */
+export const addMiddleware = (fn: Middleware): (() => void) => {
 	middleware.push(fn);
 
 	return () => {
@@ -18,11 +21,16 @@ export const addMiddleware = (fn: Middleware) => {
 	};
 };
 
+/**
+ * Triggers middleware for particular store instance to be called.
+ * When return function gets called, it maks that the middleware action
+ * was completed with or without errors.
+ */
 export const runMiddleware = (
 	parent: Parameters<Middleware>[0],
 	key: Parameters<Middleware>[1],
 	args: Parameters<Middleware>[2],
-) => {
+): ((error?: Error) => void) => {
 	const after = middleware.map((middleware) => middleware(parent, key, args));
 
 	return (error?: Error) => {
