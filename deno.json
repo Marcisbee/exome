@@ -1,0 +1,34 @@
+{
+  "$schema": "https://jsr.io/schema/config-file.v1.json",
+  "name": "@exome/exome",
+  "version": "2.4.3",
+  "publish": {
+    "include": ["LICENSE", "README.md", "deno.json", "package.json", "src", "logo"],
+    "exclude": ["src/**/*.test.ts"]
+  },
+  "exports": {
+    ".": "./src/exome.ts",
+    "./devtools": "./src/devtools.ts",
+    "./ghost": "./src/ghost.ts",
+    "./state": "./src/state.ts",
+    "./utils": "./src/utils.ts",
+    "./react": "./src/react.ts",
+    "./preact": "./src/preact.ts",
+    "./vue": "./src/vue.ts",
+    "./lit": "./src/lit.ts",
+    "./rxjs": "./src/rxjs.ts",
+    "./svelte": "./src/svelte.ts",
+    "./solid": "./src/solid.ts",
+    "./angular": "./src/angular.ts"
+  },
+  "imports": {
+    "exome": "./src/exome.ts",
+    "react": "npm:react@^18.2.0",
+    "preact/hooks": "npm:preact@^10.19.6/hooks",
+    "vue": "npm:vue@^3.4.21",
+    "lit": "npm:lit@^3.1.2",
+    "rxjs": "npm:rxjs@^7.8.1",
+    "solid-js": "npm:solid-js@^1.8.15",
+    "@angular/core": "npm:@angular/core@^17.3.0"
+  }
+}

@@ -4,6 +4,7 @@
 
 ### Other
 * Makes types more explicit.
+* Publish to jsr.
 
 ## 2.4.2
 
