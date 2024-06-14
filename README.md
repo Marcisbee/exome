@@ -56,7 +56,7 @@ export default function App() {
 }
 ```
 
-[__Simple Demo__](https://codesandbox.io/s/exome-counter-96qfq)
+[__Simple Demo__](https://dune.land/dune/468e79c1-e31b-4035-bc19-b03dfa363060)
 
 # Table of contents
 
@@ -121,7 +121,7 @@ class CounterStore extends Exome {
   }
 }
 ```
-[__Open in codesandbox__](https://codesandbox.io/s/exome-counter-96qfq)
+[__Open in codesandbox__](https://dune.land/dune/468e79c1-e31b-4035-bc19-b03dfa363060)
 
 That is the basic structure of simple store. It can have as many properties as you'd like. There are no restrictions.
 
@@ -363,7 +363,7 @@ function App() {
   return <button onClick={increment}>{count}</button>
 }
 ```
-[__Open in Codesandbox__](https://codesandbox.io/s/exome-counter-96qfq)
+[__Open in Codesandbox__](https://dune.land/dune/468e79c1-e31b-4035-bc19-b03dfa363060)
 
 ### `onAction`
 Function that calls callback whenever specific action on Exome is called.
@@ -613,7 +613,7 @@ function App() {
   );
 }
 ```
-[__Open in Codesandbox__](https://codesandbox.io/s/exome-todo-sz1j4?file=/src/App.tsx)
+[__Open in Codesandbox__](https://dune.land/dune/e557f934-e0b6-4ef7-96c0-cd9ff12c7c0b)
 
 ### Q: Can deep state structure be saved to string and then loaded back as an instance?
 YES! This was also one of key requirements for this. We can save full state from any Exome with [`saveState`](#saveState), save it to file or database and the load that string up onto Exome instance with [`loadState`](#loadState).
