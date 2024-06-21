@@ -5,7 +5,7 @@ import {
 	inject,
 	signal,
 } from "@angular/core";
-import { Exome, subscribe } from "exome";
+import { type Exome, subscribe } from "exome";
 
 /**
  * Creates Angular signal and subscribes to store instance update events and trigger updates to component accordingly.

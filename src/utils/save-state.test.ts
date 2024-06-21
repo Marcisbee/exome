@@ -77,7 +77,10 @@ test("returns correct snapshot with nested `Exome` instance", () => {
 	interestHockey[exomeId] = "hockey-123";
 
 	class Person extends Exome {
-		constructor(public name: string, public interests: Interest[] = []) {
+		constructor(
+			public name: string,
+			public interests: Interest[] = [],
+		) {
 			super();
 		}
 	}
@@ -135,7 +138,10 @@ test("returns correct snapshot with nested `Exome` instance", () => {
 
 test("returns correct snapshot for circular `Exome` instance", () => {
 	class Person extends Exome {
-		constructor(public name: string, public friends: Person[]) {
+		constructor(
+			public name: string,
+			public friends: Person[],
+		) {
 			super();
 		}
 	}

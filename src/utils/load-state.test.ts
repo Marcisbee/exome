@@ -265,7 +265,10 @@ test("creates proper instances with minified class names", () => {
 
 test("creates proper instances with circular state", () => {
 	class Person extends Exome {
-		constructor(public name: string, public friends: Person[]) {
+		constructor(
+			public name: string,
+			public friends: Person[],
+		) {
 			super();
 		}
 	}

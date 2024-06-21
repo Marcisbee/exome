@@ -28,13 +28,10 @@ export function print(
 				Object.entries(val)
 					.filter(([, value]) => typeof value !== "function")
 					.sort(([a], [b]) => (a < b ? -1 : 1))
-					.reduce<Record<string, any>>(
-						(acc, [key, value]) => ({
-							...acc,
-							[key]: value,
-						}),
-						{},
-					),
+					.reduce<Record<string, any>>((acc, [key, value]) => {
+						acc[key] = value;
+						return acc;
+					}, {}),
 			)
 		);
 	} catch (e) {

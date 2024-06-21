@@ -1,4 +1,4 @@
-import { Exome, Middleware, getExomeId, updateAll } from "exome";
+import { Exome, type Middleware, getExomeId, updateAll } from "exome";
 
 interface ReduxMessage {
 	type: string;
@@ -95,7 +95,7 @@ export const exomeReduxDevtools = ({
 	actionsBlacklist?: string;
 }): Middleware => {
 	const devtoolName: string = "__REDUX_DEVTOOLS_EXTENSION__";
-	let extension;
+	let extension: any;
 	try {
 		extension =
 			(window as any)[devtoolName] || (window.top as any)[devtoolName];

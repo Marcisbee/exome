@@ -1,4 +1,4 @@
-import { Exome, addMiddleware, getExomeId, update } from "exome";
+import { type Exome, addMiddleware, getExomeId, update } from "exome";
 
 interface ActionStatus<E = any> {
 	loading: boolean;

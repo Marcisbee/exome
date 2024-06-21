@@ -8,7 +8,11 @@
 				"noExplicitAny": "off",
 				"useValidTypeof": "off",
 				"noAssignInExpressions": "off",
-				"noPrototypeBuiltins": "off"
+				"noPrototypeBuiltins": "off",
+				"noConfusingVoidType": "off"
+			},
+			"complexity": {
+				"noForEach": "off"
 			},
 			"performance": {
 				"noDelete": "off"
