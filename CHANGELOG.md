@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.4.4
+
+### Other
+* Upgrades esbuild.
+* Upgrades biome.
+
 ## 2.4.3
 
 ### Other
