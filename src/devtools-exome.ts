@@ -1,7 +1,7 @@
 import { Exome, type Middleware, getExomeId, subscribe } from "exome";
 
 // @ts-ignore
-import packageJson from "../package.json" assert { type: "json" };
+import packageJson from "../package.json" with { type: "json" };
 
 export interface DevtoolsExtensionInterface {
 	connect(config: {
