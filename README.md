@@ -263,9 +263,9 @@ import { counter } from "./store/counter.ts"
   `,
 })
 export class App {
-  public count = useStore(store, (s) => s.count);
+  public count = useStore(counter, (s) => s.count);
   public increment() {
-    store.increment();
+    counter.increment();
   }
 }
 ```
