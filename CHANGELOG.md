@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.5.0
+
+### Feature
+* Allows deep inheritence.
+
 ## 2.4.4
 
 ### Other
