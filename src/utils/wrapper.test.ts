@@ -1,7 +1,7 @@
 import { suite } from "uvu";
 import assert from "uvu/assert";
 
-import { wrapper, getAllPropertyNames } from "./wrapper.ts";
+import { getAllPropertyNames, wrapper } from "./wrapper.ts";
 
 {
 	const test = suite("wrapper");

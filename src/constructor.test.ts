@@ -41,7 +41,7 @@ test('extended exome instance has "Person" in id', () => {
 	assert.match(instance[exomeId], /^Person-[A-Z0-9]+$/);
 });
 
-test('extended another class has same id', () => {
+test("extended another class has same id", () => {
 	class PersonParent extends Exome {}
 	class Person extends PersonParent {}
 	const instance = new Person();

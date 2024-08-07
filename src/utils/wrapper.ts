@@ -1,10 +1,11 @@
 import { CONSTRUCTOR, FUNCTION } from "../constants.ts";
-import { Exome } from "../constructor.ts";
+import type { Exome } from "../constructor.ts";
 import { runMiddleware } from "../middleware.ts";
 
 export function getAllPropertyNames(obj: any) {
 	const props = [];
 
+	// biome-ignore lint/style/noParameterAssign:
 	while ((obj = Object.getPrototypeOf(obj)) && obj !== Object.prototype) {
 		props.push(
 			...Object.getOwnPropertyNames(obj).filter(
