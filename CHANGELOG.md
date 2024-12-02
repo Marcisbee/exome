@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.6.0
+
+### Feature
+* Adds action response data to `addMiddleware`, `runMiddleware` and `onAction`.
+
 ## 2.5.0
 
 ### Feature
