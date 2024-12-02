@@ -172,9 +172,12 @@ export const exomeDevtools = ({
 			payload: action,
 		});
 
-		return (error) => {
+		return (error, response) => {
 			if (error !== undefined) {
 				action.error = String(error);
+			}
+			if (response !== undefined) {
+				action.response = exomeToJsonDepth(response);
 			}
 			action.time = performance.now() - start;
 			action.after = exomeToJson(instance);
@@ -288,6 +291,7 @@ interface Action {
 	time?: number;
 	trace: string;
 	error?: string;
+	response?: string;
 	before: Record<string, any>;
 	after?: Record<string, any>;
 }

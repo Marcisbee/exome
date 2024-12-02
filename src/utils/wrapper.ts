@@ -35,12 +35,14 @@ export const wrapper = <T extends Exome>(parent: T): T => {
 					if (output instanceof Promise) {
 						return new Promise<any>((resolve, reject) => {
 							output
-								.then((result) => (middleware(), resolve(result)))
+								.then(
+									(result) => (middleware(undefined, result), resolve(result)),
+								)
 								.catch((error) => (reject(error), middleware(error)));
 						});
 					}
 
-					return middleware(), output;
+					return middleware(undefined, output), output;
 				} catch (error) {
 					middleware(error as Error);
 					throw error;
