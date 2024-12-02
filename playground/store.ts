@@ -1,8 +1,8 @@
 import { Exome, addMiddleware, getExomeId, update } from "../src/exome";
-import { exomeReduxDevtools } from "../src/devtools";
+import { unstableExomeDevtools } from "exome/devtools";
 
 addMiddleware(
-	exomeReduxDevtools({
+	unstableExomeDevtools({
 		name: "Exome Playground",
 	}),
 );
