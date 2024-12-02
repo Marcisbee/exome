@@ -67,7 +67,51 @@ test("runs middleware unsubscribe method", () => {
 	after();
 
 	assert.equal(unsubscribe.callCount, 1);
-	assert.equal(unsubscribe.args[0], [undefined]);
+	assert.equal(unsubscribe.args[0], [undefined, undefined]);
+});
+
+test("runs middleware unsubscribe method with error", () => {
+	const instance = new Exome();
+	const unsubscribe = fake();
+	const middleware: any = fake.returns(unsubscribe);
+
+	addMiddleware(middleware);
+
+	const after = runMiddleware(instance, "actionName", []);
+
+	assert.equal(middleware.callCount, 1);
+	assert.equal(middleware.args[0][0], instance);
+	assert.equal(middleware.args[0][1], "actionName");
+	assert.equal(middleware.args[0][2], []);
+
+	assert.equal(unsubscribe.callCount, 0);
+
+	after(new Error("test"));
+
+	assert.equal(unsubscribe.callCount, 1);
+	assert.equal(unsubscribe.args[0], [new Error("test"), undefined]);
+});
+
+test("runs middleware unsubscribe method with response", () => {
+	const instance = new Exome();
+	const unsubscribe = fake();
+	const middleware: any = fake.returns(unsubscribe);
+
+	addMiddleware(middleware);
+
+	const after = runMiddleware(instance, "actionName", []);
+
+	assert.equal(middleware.callCount, 1);
+	assert.equal(middleware.args[0][0], instance);
+	assert.equal(middleware.args[0][1], "actionName");
+	assert.equal(middleware.args[0][2], []);
+
+	assert.equal(unsubscribe.callCount, 0);
+
+	after(undefined, "response");
+
+	assert.equal(unsubscribe.callCount, 1);
+	assert.equal(unsubscribe.args[0], [undefined, "response"]);
 });
 
 test("removes middleware correctly", () => {
