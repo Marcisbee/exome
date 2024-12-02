@@ -191,7 +191,6 @@ test("`print` outputs filled extended Exome instance", () => {
 		output,
 		`Extended {
   "foo": "bar",
-  "name": undefined,
 }`,
 	);
 });
@@ -250,7 +249,6 @@ test("`print` outputs filled extended GhostExome instance", () => {
 		output,
 		`Extended {
   "foo": "bar",
-  "name": undefined,
 }`,
 	);
 });
