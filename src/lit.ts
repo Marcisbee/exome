@@ -1,3 +1,6 @@
+/**
+ * @module exome/lit
+ */
 import { type Exome, subscribe } from "exome";
 import type { ReactiveController, ReactiveControllerHost } from "lit";
 

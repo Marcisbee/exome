@@ -1,3 +1,6 @@
+/**
+ * @module exome/angular
+ */
 import {
 	DestroyRef,
 	type Signal,

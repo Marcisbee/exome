@@ -1,6 +1,6 @@
 {
   "name": "exome",
-  "version": "2.6.0",
+  "version": "2.6.1",
   "description": "State manager for deeply nested states",
   "main": "./dist/exome.js",
   "module": "./dist/exome.mjs",

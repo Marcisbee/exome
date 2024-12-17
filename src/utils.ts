@@ -1,3 +1,6 @@
+/**
+ * @module exome/utils
+ */
 import { type Exome, addMiddleware, getExomeId, update } from "exome";
 
 interface ActionStatus<E = any> {

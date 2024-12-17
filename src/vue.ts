@@ -1,3 +1,6 @@
+/**
+ * @module exome/vue
+ */
 import { Exome, subscribe } from "exome";
 import { type Ref, ref, watchEffect } from "vue";
 
@@ -5,7 +8,7 @@ import { type Ref, ref, watchEffect } from "vue";
  * Subscribes to store instance update events and trigger updates to component accordingly.
  *
  * @example:
- * ```ts
+ * ```html
  * <script lang="ts" setup>
  *   import { useStore } from "exome/vue"
  *   import { counterStore } from "./counter.store.ts"

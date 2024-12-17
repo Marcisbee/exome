@@ -1,3 +1,6 @@
+/**
+ * @module exome/ghost
+ */
 import { exomeId } from "exome";
 
 import { createID } from "./create-id.ts";

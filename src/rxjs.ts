@@ -1,3 +1,6 @@
+/**
+ * @module exome/rxjs
+ */
 import { type Exome, subscribe } from "exome";
 import { Observable } from "rxjs";
 

@@ -1,3 +1,6 @@
+/**
+ * @module exome/solid
+ */
 import { type Exome, subscribe } from "exome";
 import { type Accessor, createSignal, onCleanup } from "solid-js";
 

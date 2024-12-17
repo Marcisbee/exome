@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.6.1
+
+### Other
+* Updates typedoc.
+
 ## 2.6.0
 
 ### Feature

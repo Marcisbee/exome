@@ -1,3 +1,6 @@
+/**
+ * @module exome/react
+ */
 import { type Exome, subscribe } from "exome";
 import { useEffect, useLayoutEffect, useState } from "react";
 

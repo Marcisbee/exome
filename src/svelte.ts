@@ -1,10 +1,13 @@
+/**
+ * @module exome/svelte
+ */
 import { type Exome, subscribe } from "exome";
 
 /**
  * Subscribes to store instance update events and trigger updates to component accordingly.
  *
  * @example:
- * ```ts
+ * ```html
  * <script lang="ts">
  *   import { useStore } from "exome/svelte"
  *   import { counterStore } from "./counter.store.ts"
