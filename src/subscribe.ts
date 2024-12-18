@@ -7,9 +7,13 @@ export const subscriptions: Record<string, Set<() => any>> = {};
  * Subscribe to store instance update events.
  */
 export const subscribe = <T extends Exome>(
-	store: T,
+	store: T | null | undefined,
 	fn: (store: T) => void,
 ): (() => void) => {
+	if (store == null) {
+		return () => {};
+	}
+
 	const set = (subscriptions[store[exomeId]] ??= new Set());
 	const update = () => fn(store);
 

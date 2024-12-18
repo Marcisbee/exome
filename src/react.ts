@@ -28,7 +28,7 @@ function increment(number: number): number {
  * }
  * ```
  */
-export const useStore = <T extends Exome>(store: T): Readonly<T> => {
+export const useStore = <T extends (Exome | null | undefined)>(store: T): Readonly<T> => {
 	const [, render] = useState(0);
 
 	useIsomorphicLayoutEffect(

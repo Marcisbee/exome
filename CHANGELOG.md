@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.6.2
+
+### Other
+* Allow `null` and `undefined` in `useStore` function.
+
 ## 2.6.1
 
 ### Other
