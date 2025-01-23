@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.7.0
+
+### Feature
+* Improve types for `onAction` function.
+
 ## 2.6.2
 
 ### Other
