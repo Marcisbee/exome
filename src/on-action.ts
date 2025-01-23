@@ -6,13 +6,22 @@ type Unsubscribe = () => void;
 /**
  * Listens to specific actions for all instances of particular store.
  */
-export const onAction = <T extends Exome>(
+export const onAction = <
+	T extends Exome,
+	A extends null | "NEW" | "LOAD_STATE" | keyof T,
+>(
 	Parent: new (...args: any[]) => T,
-	action: null | "NEW" | "LOAD_STATE" | keyof T,
-	callback: (
+	action: A,
+	callback: <
+		P extends A extends keyof T
+			? T[A] extends (...args: infer P) => any
+				? P
+				: any[]
+			: any[],
+	>(
 		instance: T,
-		action: "NEW" | "LOAD_STATE" | keyof T,
-		payload: any[],
+		action: Exclude<A, null>,
+		payload: P,
 		error?: Error,
 		response?: any,
 	) => void,
@@ -29,11 +38,11 @@ export const onAction = <T extends Exome>(
 		}
 
 		if (type === "before") {
-			callback(instance, targetAction as any, payload);
+			callback(instance, targetAction as any, payload as any);
 			return;
 		}
 
 		return (error, response) =>
-			callback(instance, targetAction as any, payload, error, response);
+			callback(instance, targetAction as any, payload as any, error, response);
 	});
 };
