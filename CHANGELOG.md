@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.8.0
+
+### Feature
+* Allow to read action response/return value from `getActionStatus` function.
+
 ## 2.7.0
 
 ### Feature
@@ -23,7 +28,7 @@
 ## 2.5.0
 
 ### Feature
-* Allows deep inheritence.
+* Allows deep inheritance.
 
 ## 2.4.4
 

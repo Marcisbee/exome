@@ -136,5 +136,41 @@ const { getActionStatus } = proxyquire
 		assert.equal(String(test1.status.error), "Error: Poop");
 	});
 
+	test("returns response", async () => {
+		class TestStore extends Exome {
+			public get status() {
+				return getActionStatus(this, "run");
+			}
+			public async run() {
+				return "Poop";
+			}
+		}
+		const test1 = new TestStore();
+
+		// biome-ignore lint/suspicious/noSelfCompare: it's a getter, not pointless!
+		assert.ok(test1.status === test1.status);
+
+		assert.snapshot(
+			JSON.stringify(test1.status),
+			`{"loading":false,"error":false}`,
+		);
+
+		const promise = test1.run();
+
+		assert.snapshot(
+			JSON.stringify(test1.status),
+			`{"loading":true,"error":false}`,
+		);
+
+		try {
+			await promise;
+		} catch (_) {}
+
+		assert.snapshot(
+			JSON.stringify(test1.status),
+			`{"loading":false,"error":false,"response":"Poop"}`,
+		);
+	});
+
 	test.run();
 }
