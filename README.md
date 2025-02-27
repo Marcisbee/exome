@@ -94,7 +94,7 @@ Store can be a single class or multiple ones. I'd suggest keeping stores small, 
 
 `State values`
 
-Remember that this is quite a regular class (with some behind the scenes work with Proxies). So you can write you data inside properties however you'd like. Properties can be public, private, object, arrays, getters, setters, static etc.
+Remember that this is quite a regular class (with some behind the scenes logic). So you can write you data inside properties however you'd like. Properties can be public, private, object, arrays, getters, setters, static etc.
 
 `Actions`
 
