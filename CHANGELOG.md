@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.8.1
+
+### Bugfix
+* Detect thenable (not necessarily a Promise instance) in actions.
+
 ## 2.8.0
 
 ### Feature
