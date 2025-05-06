@@ -32,9 +32,9 @@ export const wrapper = <T extends Exome>(parent: T): T => {
 				try {
 					const output = value.apply(parent, args);
 
-					if (output instanceof Promise) {
+					if (output && typeof output.then === FUNCTION) {
 						return new Promise<any>((resolve, reject) => {
-							output
+							(output as Promise<any>)
 								.then(
 									(result) => (middleware(undefined, result), resolve(result)),
 								)
