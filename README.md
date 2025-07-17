@@ -12,9 +12,6 @@
 <a href="https://bundlephobia.com/result?p=exome">
   <img alt="package size" src="https://deno.bundlejs.com/?q=exome&badge=&badge-style=flat-square" />
 </a>
-<a href="https://discord.gg/a62gfaDW2e">
-  <img alt="discord" src="https://dcbadge.vercel.app/api/server/a62gfaDW2e?style=flat-square" />
-</a>
 
 State manager for deeply nested states. Includes integration for [React](#react), [Preact](#preact), [Vue](#vue), [Svelte](#svelte), [Solid](#solid), [Lit](#lit), [Rxjs](#rxjs), [Angular](#angular) & [No framework](#no-framework). Can be easily used in microfrontends architecture.
 
