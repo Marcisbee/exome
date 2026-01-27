@@ -5,6 +5,11 @@ import { subscriptions } from "./subscribe.ts";
 import { wrapper } from "./utils/wrapper.ts";
 
 /**
+ * WeakMap to track all Exome instances by their constructor
+ */
+export const exomeInstances = new WeakMap<typeof Exome, Set<Exome>>();
+
+/**
  * Class that every store extends from.
  */
 export class Exome {
@@ -17,6 +22,13 @@ export class Exome {
 		const after = runMiddleware(this, "NEW", []);
 
 		subscriptions[id] = new Set();
+
+		// Track this instance
+		const constructor = this[CONSTRUCTOR] as typeof Exome;
+		if (!exomeInstances.has(constructor)) {
+			exomeInstances.set(constructor, new Set());
+		}
+		exomeInstances.get(constructor)!.add(this);
 
 		// Run this code after child constructor to get all the parameters right.
 		Promise.resolve().then(after as any);

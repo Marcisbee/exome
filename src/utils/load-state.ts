@@ -4,7 +4,9 @@ import {
 	exomeName,
 	runMiddleware,
 	updateAll,
+	exomeInstances,
 } from "exome";
+import { subscriptions } from "../subscribe.ts";
 
 const loadableExomes: Record<string, typeof Exome> = {};
 
@@ -20,9 +22,30 @@ const loadableExomes: Record<string, typeof Exome> = {};
  */
 export const registerLoadable = (config: Record<string, any>): void => {
 	Object.keys(config).forEach((key) => {
-		config[key].prototype[exomeName] = key;
+		const ExomeClass = config[key];
+		ExomeClass.prototype[exomeName] = key;
 
-		loadableExomes[key] = config[key];
+		loadableExomes[key] = ExomeClass;
+
+		// Update existing instances of this class
+		const instances = exomeInstances.get(ExomeClass);
+		if (instances) {
+			for (const instance of instances) {
+				const oldId = instance[exomeId];
+				const firstHyphenIndex = oldId.indexOf("-");
+				const suffix = firstHyphenIndex !== -1 ? oldId.substring(firstHyphenIndex + 1) : oldId;
+				const newId = `${key}-${suffix}`;
+				
+				// Update the instance's ID
+				instance[exomeId] = newId;
+				
+				// Update subscriptions mapping
+				if (subscriptions[oldId]) {
+					subscriptions[newId] = subscriptions[oldId];
+					delete subscriptions[oldId];
+				}
+			}
+		}
 	});
 };
 
