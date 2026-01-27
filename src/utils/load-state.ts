@@ -5,13 +5,13 @@ import {
 	runMiddleware,
 	updateAll,
 	exomeInstances,
+	subscriptions,
 } from "exome";
-import { subscriptions } from "../subscribe.ts";
 
 const loadableExomes: Record<string, typeof Exome> = {};
 
 /**
- * For `loadState`` to know what stores to build instances from, we must make sure we register them.
+ * For `loadState` to know what stores to build instances from, we must make sure we register them.
  *
  * @example:
  * ```ts
@@ -35,10 +35,10 @@ export const registerLoadable = (config: Record<string, any>): void => {
 				const firstHyphenIndex = oldId.indexOf("-");
 				const suffix = firstHyphenIndex !== -1 ? oldId.substring(firstHyphenIndex + 1) : oldId;
 				const newId = `${key}-${suffix}`;
-				
+
 				// Update the instance's ID
 				instance[exomeId] = newId;
-				
+
 				// Update subscriptions mapping
 				if (subscriptions[oldId]) {
 					subscriptions[newId] = subscriptions[oldId];

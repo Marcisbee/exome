@@ -3,6 +3,7 @@ import assert from "uvu/assert";
 
 import { Exome, exomeId, getExomeId } from "exome";
 import { registerLoadable, saveState, loadState } from "exome/state";
+import { subscriptions } from "../subscribe.ts";
 
 test("updates instance IDs when registerLoadable is called after instance creation", () => {
 	class Store extends Exome {
@@ -76,26 +77,29 @@ test("updates IDs of multiple instances when registerLoadable is called", () => 
 });
 
 test("allows saving and loading state with stable IDs", () => {
-	class AppStore extends Exome {
+	// Simulate minified class name
+	class S extends Exome {
 		constructor(public value: string) {
 			super();
 		}
 	}
 
-	// Create instance, save state, THEN call registerLoadable
-	const store1 = new AppStore("test");
+	// Create instance with minified name, save state
+	const store1 = new S("test");
 	const savedState = saveState(store1);
 
-	// Register after saving
+	// Register with stable name after saving
 	registerLoadable({
-		AppStore,
+		AppStore: S,
 	});
 
 	// Create new instance and load state
-	const store2 = new AppStore("");
+	const store2 = new S("");
 	loadState(store2, savedState);
 
 	assert.equal(store2.value, "test");
+	// Verify the ID uses the stable name
+	assert.ok(getExomeId(store2).startsWith("AppStore-"));
 });
 
 test("stable IDs across builds (simulated with minified class names)", () => {
@@ -142,6 +146,35 @@ test("registerLoadable works correctly when called before instance creation", ()
 
 	// ID should use the registered name from the start
 	assert.ok(id.startsWith("MyStore-"));
+});
+
+test("subscriptions mapping is updated when ID changes", () => {
+	class Counter extends Exome {
+		constructor(public count: number) {
+			super();
+		}
+	}
+
+	// Create instance BEFORE calling registerLoadable
+	const counter = new Counter(0);
+	const idBefore = getExomeId(counter);
+
+	// Verify subscriptions exist for the old ID
+	assert.ok(subscriptions[idBefore], `subscriptions should exist for ${idBefore}`);
+
+	// Call registerLoadable AFTER instance creation
+	registerLoadable({
+		MyCounter: Counter,
+	});
+
+	const idAfter = getExomeId(counter);
+
+	// Verify ID changed
+	assert.ok(idAfter.startsWith("MyCounter-"), `ID should start with MyCounter-, got: ${idAfter}`);
+
+	// Verify subscriptions were moved to the new ID
+	assert.ok(subscriptions[idAfter], `subscriptions should exist for new ID ${idAfter}, but got: ${JSON.stringify(Object.keys(subscriptions))}`);
+	assert.not.ok(subscriptions[idBefore], `subscriptions should not exist for old ID ${idBefore}`);
 });
 
 test.run();
