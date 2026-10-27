@@ -4,15 +4,24 @@ on:
   push:
     tags:
       - 'v*'
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: Existing release tag to retry publishing to npm
+        required: true
+        type: string
 
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - uses: actions/checkout@v4
         with:
-          node-version: 20
+          ref: ${{ inputs.release_tag && format('refs/tags/{0}', inputs.release_tag) || github.ref }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: npm install --global npm@11
       - run: npm ci
       - run: npm install react preact vue
       - run: npm run build
@@ -27,17 +36,21 @@ jobs:
       contents: read
       id-token: write
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - uses: actions/checkout@v4
         with:
-          node-version: 20
+          ref: ${{ inputs.release_tag && format('refs/tags/{0}', inputs.release_tag) || github.ref }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
           registry-url: https://registry.npmjs.org/
+      - run: npm install --global npm@11
       - run: npm ci
       - run: npm install react preact vue
       - run: npm run build
       - run: npm publish --provenance --access public ./dist
 
   publish-jsr:
+    if: github.event_name == 'push'
     needs: test
     runs-on: ubuntu-latest
     permissions:
