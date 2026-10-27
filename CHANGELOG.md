@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.9.0
+
+### Feature
+* Add Radi support through `useStore` from `exome/radi`, including reactive children and attributes, selectors, and subscription cleanup.
+
 ## 2.8.1
 
 ### Bugfix
