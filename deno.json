@@ -19,7 +19,8 @@
     "./rxjs": "./src/rxjs.ts",
     "./svelte": "./src/svelte.ts",
     "./solid": "./src/solid.ts",
-    "./angular": "./src/angular.ts"
+    "./angular": "./src/angular.ts",
+    "./radi": "./src/radi.ts"
   },
   "imports": {
     "exome": "./src/exome.ts",

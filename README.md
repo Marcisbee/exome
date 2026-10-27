@@ -13,7 +13,7 @@
   <img alt="package size" src="https://deno.bundlejs.com/?q=exome&badge=&badge-style=flat-square" />
 </a>
 
-State manager for deeply nested states. Includes integration for [React](#react), [Preact](#preact), [Vue](#vue), [Svelte](#svelte), [Solid](#solid), [Lit](#lit), [Rxjs](#rxjs), [Angular](#angular) & [No framework](#no-framework). Can be easily used in microfrontends architecture.
+State manager for deeply nested states. Includes integration for [React](#react), [Preact](#preact), [Vue](#vue), [Svelte](#svelte), [Solid](#solid), [Lit](#lit), [Rxjs](#rxjs), [Angular](#angular), [Radi](#radi) & [No framework](#no-framework). Can be easily used in microfrontends architecture.
 
 # Features
 
@@ -65,6 +65,7 @@ export default function App() {
   - [Vue](#vue)
   - [Svelte](#svelte)
   - [Solid](#solid)
+  - [Radi](#radi)
   - [Lit](#lit)
   - [Rxjs](#rxjs)
   - [Angular](#angular)
@@ -189,6 +190,36 @@ Use `useStore()` from `exome/svelte` to get store value and re-render component 
   <button on:click={increment}>{$count}</button>
 </main>
 ```
+
+## Radi
+Use `useStore()` from `exome/radi` to create a subscribable value for Radi
+children or attributes. Select the value to display; Radi subscribes when it
+renders the value and unsubscribes when the consuming element is removed.
+
+```tsx
+import { createRoot } from "radi"
+import { useStore } from "exome/radi"
+import { counterStore } from "./counter.store.ts"
+
+function App() {
+  const count = useStore(counterStore, store => store.count)
+
+  return <button onclick={counterStore.increment}>{count}</button>
+}
+
+createRoot(document.getElementById("app")!).render(<App />)
+```
+
+Configure JSX with `"jsx": "react-jsx"`, `"jsxImportSource": "radi"`, and
+include `node_modules/radi/jsx.d.ts` in your TypeScript `types`. The adapter uses Radi's
+subscribable contract (verified with Radi 0.7.1) and adds no runtime dependency.
+Each consumer receives the current selected value immediately and updates after
+store actions. Without a selector, subscribers receive the store itself.
+Subscribe separately to nested Exome stores whose actions you want to observe.
+Manual subscriptions return a cleanup function that you must call when finished.
+
+To try the local example, run `npm run build && node scripts/dev-radi.mjs`
+and open `http://127.0.0.1:19473`.
 
 ## Solid
 Use `useStore()` from `exome/solid` to get store value and update signal selector on store change.

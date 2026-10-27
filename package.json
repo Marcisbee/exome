@@ -31,7 +31,8 @@
     "vue",
     "lit",
     "rxjs",
-    "svelte"
+    "svelte",
+    "radi"
   ],
   "author": "Marcis <marcisbergmanis@gmail.com>",
   "license": "MIT",
@@ -54,6 +55,7 @@
     "playwright": "^1.24.1",
     "preact": "^10.10.0",
     "proxyquire": "^2.1.3",
+    "radi": "0.7.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "rxjs": "^7.0.0",
@@ -129,6 +131,11 @@
       "types": "./dist/angular.d.ts",
       "require": "./dist/angular.js",
       "import": "./dist/angular.mjs"
+    },
+    "./radi": {
+      "types": "./dist/radi.d.ts",
+      "require": "./dist/radi.js",
+      "import": "./dist/radi.mjs"
     }
   }
 }
