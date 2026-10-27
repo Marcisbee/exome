@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "target": "es2020",
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "jsx": "react-jsx",
+    "jsxImportSource": "radi",
+    "types": ["node", "../../node_modules/radi/jsx.d.ts"],
+    "strict": true,
+    "skipLibCheck": true
+  }
+}

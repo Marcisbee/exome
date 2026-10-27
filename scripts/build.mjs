@@ -24,6 +24,7 @@ for (const format of formats) {
 				"./src/lit.ts",
 				"./src/svelte.ts",
 				"./src/solid.ts",
+				"./src/radi.ts",
 				"./src/angular.ts",
 				"./src/rxjs.ts",
 				"./src/devtools.ts",

@@ -5,6 +5,7 @@ import { Context } from 'uvu'
 
 export interface BrowserContext extends Context {
   entry: string
+  tsconfig?: string
   server: esbuild.ServeResult
   ctx: esbuild.BuildContext
   browser: playwright.ChromiumBrowser
@@ -13,6 +14,7 @@ export interface BrowserContext extends Context {
 
 export async function setup(context: BrowserContext) {
   const ctx = await esbuild.context({
+    tsconfig: context.tsconfig,
     entryPoints: [
       context.entry
     ],
