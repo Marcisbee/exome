@@ -15,9 +15,14 @@ export const middleware: Middleware[] = [];
  */
 export const addMiddleware = (fn: Middleware): (() => void) => {
 	middleware.push(fn);
+	let disposed = false;
 
 	return () => {
-		middleware.splice(middleware.indexOf(fn), 1);
+		if (disposed) return;
+		disposed = true;
+
+		const index = middleware.indexOf(fn);
+		if (index !== -1) middleware.splice(index, 1);
 	};
 };
 
