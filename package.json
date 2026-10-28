@@ -10,11 +10,12 @@
     "dev": "node ./scripts/dev.mjs",
     "lint": "biome ci src scripts",
     "lint:apply": "biome check src scripts --write --unsafe",
-    "test": "uvu -r esbuild-register -i e2e",
-    "e2e": "uvu -r esbuild-register -i src",
+    "test": "uvu -r esbuild-register -i \"e2e|tests/types\" && npm run test:vue",
+    "e2e": "uvu -r esbuild-register -i \"src|tests/types\"",
     "coverage": "c8 --check-coverage npm test",
     "declarations": "tsc --declarationDir dist --emitDeclarationOnly --declaration",
-    "postbuild": "cat package.json | sed '/\\\"devDependencies\\\"/,/}/ d; /^$/d' | sed 's/\\.\\/dist\\//\\.\\//g' > ./dist/package.json && cp README.md dist && cp LICENSE dist"
+    "postbuild": "cat package.json | sed '/\\\"devDependencies\\\"/,/}/ d; /^$/d' | sed 's/\\.\\/dist\\//\\.\\//g' > ./dist/package.json && cp README.md dist && cp LICENSE dist",
+    "test:vue": "npm run build && tsc -p tests/types/tsconfig.json && node scripts/test-vue.mjs"
   },
   "repository": {
     "type": "git",
