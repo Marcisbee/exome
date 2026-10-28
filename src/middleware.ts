@@ -10,6 +10,9 @@ export type Middleware = (
 
 export const middleware: Middleware[] = [];
 
+// No completion callbacks can be added to an action after it starts.
+const empty: ReturnType<Middleware>[] = [];
+
 /**
  * Listens to middleware calls for any store instance.
  */
@@ -31,7 +34,9 @@ export const runMiddleware = (
 	key: Parameters<Middleware>[1],
 	args: Parameters<Middleware>[2],
 ): ((error?: Error, response?: any) => void) => {
-	const after = middleware.map((middleware) => middleware(parent, key, args));
+	const after = middleware.length
+		? middleware.map((middleware) => middleware(parent, key, args))
+		: empty;
 
 	return (error?: Error, response?: any) => {
 		if (key !== "NEW") update(parent);

@@ -2,7 +2,7 @@
  * @module exome/react
  */
 import { type Exome, subscribe } from "exome";
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useReducer } from "react";
 
 const useIsomorphicLayoutEffect =
 	typeof window !== "undefined" ? useLayoutEffect : useEffect;
@@ -31,12 +31,9 @@ function increment(number: number): number {
 export const useStore = <T extends Exome | null | undefined>(
 	store: T,
 ): Readonly<T> => {
-	const [, render] = useState(0);
+	const [, render] = useReducer(increment, 0);
 
-	useIsomorphicLayoutEffect(
-		() => subscribe(store, () => render(increment)),
-		[store],
-	);
+	useIsomorphicLayoutEffect(() => subscribe(store, render), [store]);
 
 	return store;
 };

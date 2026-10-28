@@ -1,7 +1,6 @@
 import { CONSTRUCTOR, FUNCTION } from "../constants.ts";
 import type { Exome } from "../constructor.ts";
-import { middleware as middlewares, runMiddleware } from "../middleware.ts";
-import { update } from "../subscribe.ts";
+import { runMiddleware } from "../middleware.ts";
 
 export function getAllPropertyNames(obj: any) {
 	const props = [];
@@ -23,19 +22,13 @@ export function getAllPropertyNames(obj: any) {
 
 export const wrapper = <T extends Exome>(parent: T): T => {
 	const properties = getAllPropertyNames(parent);
-	// Reuse the completion callback while there are no middleware listeners.
-	// Check listeners at invocation time so existing stores see registrations.
-	const notify = () => update(parent);
 
 	for (const key of properties) {
 		const value = (parent as any)[key];
 
 		if (typeof value === FUNCTION) {
 			(parent as any)[key] = (...args: any) => {
-				const middleware =
-					middlewares.length || key === "NEW"
-						? runMiddleware(parent, key, args)
-						: notify;
+				const middleware = runMiddleware(parent, key, args);
 				try {
 					const output = value.apply(parent, args);
 
