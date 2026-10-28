@@ -23,12 +23,18 @@ import { type Accessor, createSignal, onCleanup } from "solid-js";
  */
 export function useStore<T extends Exome, R = T>(
 	store: T,
-	selector: (state: T) => R = (v) => v as any,
+	selector?: (state: T) => R,
 ): Accessor<R> {
-	const [value, setValue] = createSignal(selector(store));
+	const select = selector ?? ((v: T) => v as unknown as R);
+	// Exome mutates the store in place, so the default accessor must notify
+	// computations even though the store reference stays the same.
+	const [value, setValue] = createSignal(
+		select(store),
+		selector ? undefined : { equals: false },
+	);
 
 	function render() {
-		setValue(() => selector(store));
+		setValue(() => select(store));
 	}
 
 	const unsubscribe = subscribe(store, render);
