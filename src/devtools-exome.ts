@@ -28,6 +28,8 @@ export interface DevtoolsExtensionConnectionInterface {
 		payload: [string, any] | [string, any, string];
 	}): void;
 
+	send(data: { event: "remove"; type: "state"; payload: string }): void;
+
 	send(data: { event: "send"; type: "actions"; payload: Action[] }): void;
 	send(data: { event: "send"; type: "action"; payload: Action }): void;
 	send(data: { event: "send"; type: "states"; payload: [string, any][] }): void;
@@ -62,11 +64,11 @@ export const exomeDevtools = ({
 			(window as any)[devtoolName] || (window.top as any)[devtoolName];
 	} catch (_e) {}
 
-	if (!extension) {
+	if (!extension || typeof WeakRef !== "function") {
 		return () => {};
 	}
 
-	const fullStore: Map<string, Map<string, Exome>> = new Map();
+	const fullStore = new Map<string, WeakRef<Exome>>();
 	const fullActions: Action[] = [];
 	let depth = 0;
 	const details = {
@@ -74,6 +76,25 @@ export const exomeDevtools = ({
 	};
 
 	const connection = extension.connect({ name, maxAge, details });
+	const collected =
+		typeof FinalizationRegistry === "function"
+			? new FinalizationRegistry<string>(removeStore)
+			: undefined;
+
+	function removeStore(id: string) {
+		if (!fullStore.delete(id)) return;
+		connection.send({ event: "remove", type: "state", payload: id });
+	}
+
+	function liveStates(): [string, any][] {
+		const states: [string, any][] = [];
+		for (const [id, ref] of fullStore) {
+			const instance = ref.deref();
+			if (instance) states.push([id, exomeToJson(instance)]);
+			else removeStore(id);
+		}
+		return states;
+	}
 
 	window.addEventListener("beforeunload", connection.disconnect, {
 		once: true,
@@ -87,9 +108,7 @@ export const exomeDevtools = ({
 				type: "all",
 				payload: {
 					actions: fullActions,
-					states: [...fullStore].flatMap(([_name, map]) =>
-						[...map].map(([id, instance]) => [id, exomeToJson(instance)]),
-					) as any,
+					states: liveStates(),
 				},
 			});
 		}
@@ -103,12 +122,9 @@ export const exomeDevtools = ({
 			return;
 		}
 
-		if (!fullStore.has(storeName)) {
-			fullStore.set(storeName, new Map());
-		}
-
 		if (name === "NEW") {
-			fullStore.get(storeName)?.set(storeId, instance);
+			fullStore.set(storeId, new WeakRef(instance));
+			collected?.register(instance, storeId);
 			connection.send({
 				event: "send",
 				type: "state",

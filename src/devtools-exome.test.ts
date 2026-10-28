@@ -1,3 +1,4 @@
+import { spawnSync } from "node:child_process";
 import proxyquire from "proxyquire";
 import { test } from "uvu";
 import assert from "uvu/assert";
@@ -83,5 +84,68 @@ test("state, action payload and response preserve unusual plain data", () => {
 	assert.equal(snapshot.states[0][1].data, expected);
 	assert.equal(snapshot.actions[0].payload[0], expected);
 	assert.equal(snapshot.actions[0].response, expected);
+});
+test("unused stores are collected while live updates and history remain usable", () => {
+	const result = spawnSync(
+		process.execPath,
+		[
+			"--expose-gc",
+			"-r",
+			"esbuild-register",
+			"-e",
+			`
+		const assert = require("node:assert/strict");
+		const exome = require("./src/exome.ts");
+		const { exomeDevtools } = require("proxyquire").noCallThru()
+			.load("./src/devtools-exome.ts", { exome });
+		let sync;
+		const messages = [];
+		global.window = {
+			addEventListener() {},
+			__EXOME_DEVTOOLS_EXTENSION__: { connect: () => ({
+				disconnect() {},
+				subscribe(callback) { sync = callback; },
+				send(message) { messages.push(JSON.parse(JSON.stringify(message))); }
+			}) }
+		};
+		exome.addMiddleware(exomeDevtools({ name: "Lifecycle" }));
+		class Store extends exome.Exome {
+			count = 0;
+			increment() { this.count++; }
+			echo(value) { return value; }
+		}
+		(async () => {
+			const live = new Store();
+			let retired = new Store();
+			const retiredId = exome.getExomeId(retired);
+			const ref = new WeakRef(retired);
+			retired.increment();
+			retired.echo({ nested: retired });
+			await Promise.resolve();
+			retired = null;
+			for (let i = 0; i < 100; i++) {
+				await new Promise(resolve => setTimeout(resolve, 10));
+				global.gc();
+				if (!ref.deref()) break;
+			}
+			assert.equal(ref.deref(), undefined, "middleware retained the unused store");
+			live.increment();
+			exome.updateAll();
+			assert(messages.some(m => m.type === "state" && m.payload[0] === exome.getExomeId(live) && m.payload[1].count === 1));
+			sync({ type: "sync" });
+			const snapshot = messages.at(-1).payload;
+			assert.deepEqual(snapshot.states.map(s => s[0]), [exome.getExomeId(live)]);
+			const history = snapshot.actions.filter(a => a.instance === retiredId);
+			assert.equal(history[0].before.count, 0);
+			assert.equal(history[0].after.count, 1);
+			assert.deepEqual(history[1].payload, [{ nested: { $$exome_id: retiredId } }]);
+			assert.deepEqual(history[1].response, { nested: { $$exome_id: retiredId } });
+			assert(messages.some(m => m.event === "remove" && m.type === "state" && m.payload === retiredId));
+		})().catch(error => { console.error(error); process.exitCode = 1; });
+	`,
+		],
+		{ encoding: "utf8", timeout: 15000 },
+	);
+	assert.is(result.status, 0, result.stderr || String(result.error));
 });
 test.run();
