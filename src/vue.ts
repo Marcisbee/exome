@@ -2,7 +2,16 @@
  * @module exome/vue
  */
 import { Exome, subscribe } from "exome";
-import { type Ref, ref, watchEffect } from "vue";
+import { type Ref, type UnwrapRef, ref, watchEffect } from "vue";
+
+type StoreValue<T> = T extends Exome | ((...args: any[]) => any) | Ref
+	? T
+	: Ref<UnwrapRef<T>>;
+
+/** State is exposed as Vue refs; methods and nested stores pass through. */
+export type StoreRefs<T extends Exome> = {
+	readonly [K in keyof T]-?: StoreValue<T[K]>;
+};
 
 /**
  * Subscribes to store instance update events and trigger updates to component accordingly.
@@ -21,7 +30,7 @@ import { type Ref, ref, watchEffect } from "vue";
  * </template>
  * ```
  */
-export function useStore<T extends Exome>(store: T): Readonly<T> {
+export function useStore<T extends Exome>(store: T): StoreRefs<T> {
 	const refs: Record<string, Ref<any>> = {};
 
 	function render() {
@@ -46,5 +55,5 @@ export function useStore<T extends Exome>(store: T): Readonly<T> {
 
 			return refs[key] || (refs[key] = ref(target[key]));
 		},
-	});
+	}) as StoreRefs<T>;
 }
