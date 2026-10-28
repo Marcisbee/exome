@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.9.1
+
+### Bugfix
+* Retain the latest configured number of Devtools actions and isolate connection snapshots.
+* Preserve BigInt values and null-prototype dictionaries in Devtools messages; mark circular references without discarding surrounding data.
+
 ## 2.9.0
 
 ### Feature

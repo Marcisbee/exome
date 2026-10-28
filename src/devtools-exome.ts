@@ -43,9 +43,6 @@ export interface ExomeDevtoolsConfig {
 	ignoreListStores?: string[];
 }
 
-const fullStore: Map<string, Map<string, Exome>> = new Map();
-const fullActions: Action[] = [];
-
 const descriptor = Object.getOwnPropertyDescriptor;
 
 /**
@@ -69,6 +66,8 @@ export const exomeDevtools = ({
 		return () => {};
 	}
 
+	const fullStore: Map<string, Map<string, Exome>> = new Map();
+	const fullActions: Action[] = [];
 	let depth = 0;
 	const details = {
 		version: packageJson.version,
@@ -196,7 +195,7 @@ export const exomeDevtools = ({
 		fullActions.push(action);
 
 		if (fullActions.length > maxAge) {
-			fullActions.splice(0, maxAge);
+			fullActions.splice(0, fullActions.length - maxAge);
 		}
 	}
 };
@@ -246,11 +245,14 @@ function exomeToJsonDepth(instance: any) {
 		return instance;
 	}
 
+	const ancestors: object[] = [];
 	try {
 		return JSON.parse(
 			JSON.stringify(
 				instance,
-				(key, value) => {
+				function (_key, value) {
+					if (typeof value === "bigint")
+						return { $$exome_bigint: String(value) };
 					if (value == null || typeof value !== "object") {
 						return value;
 					}
@@ -261,15 +263,20 @@ function exomeToJsonDepth(instance: any) {
 						};
 					}
 
+					const proto = Object.getPrototypeOf(value);
 					if (
-						value.constructor.name !== "Array" &&
-						value.constructor.name !== "Object" &&
-						value.constructor.name !== "Date"
+						!Array.isArray(value) &&
+						proto !== null &&
+						proto !== Object.prototype &&
+						!(value instanceof Date)
 					) {
-						return {
-							$$exome_class: value.constructor.name,
-						};
+						return { $$exome_class: proto.constructor?.name || "Object" };
 					}
+					// Only ancestors are circular; repeated sibling references are valid.
+					while (ancestors.length && ancestors[ancestors.length - 1] !== this)
+						ancestors.pop();
+					if (ancestors.includes(value)) return { $$exome_circular: true };
+					ancestors.push(value);
 
 					return value;
 				},
