@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.9.3
+
+### Bugfix
+* Match Vue `useStore` types to returned refs while preserving methods and nested stores.
+* Release Angular, RxJS, Solid, and Vue subscriptions when consumers are disposed.
+* Propagate store mutations through Solid reactive computations.
+* Make middleware disposal safe to repeat without removing unrelated middleware.
+
 ## 2.9.2
 
 ### Bugfix
