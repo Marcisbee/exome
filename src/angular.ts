@@ -22,7 +22,7 @@ import { type Exome, subscribe } from "exome";
  *   selector: 'my-app',
  *   template: `
  *     <button (click)="increment()">
- *       {{count}}
+ *       {{count()}}
  *     </button>
  *   `,
  * })
