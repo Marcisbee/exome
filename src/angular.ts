@@ -39,6 +39,9 @@ export function useStore<T extends Exome, R = T>(
 	store: T,
 	selector: (state: T) => R = (v) => v as any,
 ): Signal<R> {
+	assertInInjectionContext(useStore);
+	const cleanupRef = inject(DestroyRef);
+
 	const writableSignal = signal(selector(store));
 
 	function render() {
@@ -47,10 +50,7 @@ export function useStore<T extends Exome, R = T>(
 
 	const unsubscribe = subscribe(store, render);
 
-	const requiresCleanup: any = assertInInjectionContext(useStore);
-	const cleanupRef = requiresCleanup ? inject(DestroyRef) : null;
-
-	cleanupRef?.onDestroy(unsubscribe);
+	cleanupRef.onDestroy(unsubscribe);
 
 	return writableSignal.asReadonly();
 }
