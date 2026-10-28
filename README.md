@@ -286,7 +286,7 @@ import { counter } from "./store/counter.ts"
   selector: 'my-app',
   template: `
     <h1 (click)="increment()">
-      {{count}}
+      {{count()}}
     </h1>
   `,
 })
