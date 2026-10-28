@@ -2,7 +2,7 @@ import { fake } from "sinon";
 import { test } from "uvu";
 import assert from "uvu/assert";
 
-import { Exome } from "./exome";
+import { Exome, onAction } from "./exome";
 import { addMiddleware, runMiddleware } from "./middleware";
 
 test("exports `addMiddleware`", () => {
@@ -164,6 +164,67 @@ test("removes multiple middleware correctly", () => {
 
 	assert.equal(middleware1.callCount, 2);
 	assert.equal(middleware2.callCount, 2);
+});
+
+for (const type of ["middleware", "before", "after"] as const) {
+	test(`repeated ${type} disposal preserves other registrations`, () => {
+		class Counter extends Exome {
+			value = 0;
+			increment() {
+				this.value++;
+			}
+		}
+
+		const counter = new Counter();
+		const removed = fake();
+		const remaining = fake();
+		const register = (handler: typeof removed) =>
+			type === "middleware"
+				? addMiddleware(handler)
+				: onAction(Counter, "increment", handler, type);
+		const dispose = register(removed);
+		const disposeRemaining = register(remaining);
+
+		try {
+			dispose();
+			dispose();
+			counter.increment();
+			assert.equal(removed.callCount, 0);
+			assert.equal(remaining.callCount, 1);
+
+			disposeRemaining();
+			counter.increment();
+			assert.equal(remaining.callCount, 1);
+		} finally {
+			dispose();
+			disposeRemaining();
+		}
+	});
+}
+
+test("disposed middleware does not remove another registration of the same callback", () => {
+	const instance = new Exome();
+	const handler = fake();
+	const dispose = addMiddleware(handler);
+	const disposeDuplicate = addMiddleware(handler);
+
+	try {
+		dispose();
+		dispose();
+		runMiddleware(instance, "actionName", []);
+		assert.equal(handler.callCount, 1);
+	} finally {
+		disposeDuplicate();
+	}
+
+	const disposeNew = addMiddleware(handler);
+	try {
+		dispose();
+		runMiddleware(instance, "actionName", []);
+		assert.equal(handler.callCount, 2);
+	} finally {
+		disposeNew();
+	}
 });
 
 test.run();
