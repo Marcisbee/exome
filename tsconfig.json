@@ -3,7 +3,7 @@
 		"rootDir": "src",
 		"target": "es6",
 		"module": "commonjs",
-		"lib": ["DOM", "es2015"],
+		"lib": ["DOM", "es2015", "ES2021.WeakRef"],
 		"strict": true,
 		"esModuleInterop": true,
 		"skipLibCheck": true,

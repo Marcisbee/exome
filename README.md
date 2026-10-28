@@ -335,6 +335,12 @@ setInterval(counter.increment, 1000)
 setTimeout(unsubscribe, 5000)
 ```
 
+# Exome Devtools
+
+Use `unstableExomeDevtools` from `exome/devtools` with the Exome Developer Tools extension. This middleware requires `WeakRef`; on runtimes without it, the middleware is a no-op.
+
+Unused stores can be garbage collected without discarding retained action snapshots. Collection timing is controlled by the JavaScript runtime. Live sync snapshots omit collected stores, and the middleware sends `{ event: "remove", type: "state", payload: storeId }` when it detects collection. Removing stale entries from the panel requires a Devtools version that handles this message. References still held by application code or the debugger keep stores alive.
+
 # Redux devtools
 
 You can use redux devtools extension to explore Exome store chunk by chunk.

@@ -1,5 +1,12 @@
 # Changelog
 
+## 2.9.2
+
+### Bugfix
+* Allow unused stores and their subscription callbacks to be garbage collected while preserving live updates and serialized Devtools action history.
+* Emit `remove/state` messages for collected Devtools stores and omit them from live sync snapshots. Collection timing is controlled by the runtime; panel removal requires a compatible Devtools version.
+* Exome Devtools middleware now requires `WeakRef`; it is a no-op on older runtimes. Core subscriptions retain their existing fallback behavior there.
+
 ## 2.9.1
 
 ### Bugfix

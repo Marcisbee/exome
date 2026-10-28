@@ -1,7 +1,24 @@
-import { exomeId } from "./constants.ts";
 import type { Exome } from "./constructor.ts";
 
-export const subscriptions: Record<string, Set<() => any>> = {};
+// Store-owned subscriptions allow callback/store cycles to be collected together.
+const subscriptions = new WeakMap<Exome, Set<() => any>>();
+const allSubscriptions = new Set<{ deref(): Set<() => any> | undefined }>();
+const collected =
+	typeof FinalizationRegistry === "function"
+		? new FinalizationRegistry<{ deref(): Set<() => any> | undefined }>(
+				(ref) => {
+					allSubscriptions.delete(ref);
+				},
+			)
+		: undefined;
+
+function track(set: Set<() => any>) {
+	// Preserve updateAll on older runtimes that do not support weak references.
+	const ref =
+		typeof WeakRef === "function" ? new WeakRef(set) : { deref: () => set };
+	allSubscriptions.add(ref);
+	collected?.register(set, ref);
+}
 
 /**
  * Subscribe to store instance update events.
@@ -14,7 +31,12 @@ export const subscribe = <T extends Exome>(
 		return () => {};
 	}
 
-	const set = (subscriptions[store[exomeId]] ??= new Set());
+	let set = subscriptions.get(store);
+	if (!set) {
+		set = new Set();
+		subscriptions.set(store, set);
+		track(set);
+	}
 	const update = () => fn(store);
 
 	set.add(update);
@@ -28,7 +50,7 @@ export const subscribe = <T extends Exome>(
  * Sends update event to specific store instance.
  */
 export const update = (store: Exome): void => {
-	for (const fn of subscriptions[store[exomeId]]?.values?.() || []) {
+	for (const fn of subscriptions.get(store)?.values() || []) {
 		fn();
 	}
 };
@@ -37,9 +59,12 @@ export const update = (store: Exome): void => {
  * Sends update event to all existing store instances.
  */
 export const updateAll = (): void => {
-	Object.values(subscriptions).map((set) => {
-		for (const fn of set.values()) {
-			fn();
+	for (const ref of [...allSubscriptions]) {
+		const set = ref.deref();
+		if (!set) {
+			allSubscriptions.delete(ref);
+			continue;
 		}
-	});
+		for (const fn of set) fn();
+	}
 };
