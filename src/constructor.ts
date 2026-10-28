@@ -1,6 +1,6 @@
 import { CONSTRUCTOR, exomeId, exomeName } from "./constants.ts";
 import { createID } from "./create-id.ts";
-import { runMiddleware } from "./middleware.ts";
+import { middleware, runMiddleware } from "./middleware.ts";
 import { subscriptions } from "./subscribe.ts";
 import { wrapper } from "./utils/wrapper.ts";
 
@@ -14,12 +14,12 @@ export class Exome {
 	constructor() {
 		const name = this[exomeName] || this[CONSTRUCTOR].name;
 		const id = (this[exomeId] = name + "-" + createID());
-		const after = runMiddleware(this, "NEW", []);
+		const after = middleware.length && runMiddleware(this, "NEW", []);
 
 		subscriptions[id] = new Set();
 
 		// Run this code after child constructor to get all the parameters right.
-		Promise.resolve().then(after as any);
+		if (after) Promise.resolve().then(after as () => void);
 
 		return wrapper(this);
 	}

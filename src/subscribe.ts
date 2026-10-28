@@ -28,7 +28,9 @@ export const subscribe = <T extends Exome>(
  * Sends update event to specific store instance.
  */
 export const update = (store: Exome): void => {
-	for (const fn of subscriptions[store[exomeId]]?.values?.() || []) {
+	const set = subscriptions[store[exomeId]];
+	if (!set) return;
+	for (const fn of set) {
 		fn();
 	}
 };
