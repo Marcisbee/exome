@@ -32,7 +32,7 @@ export function useStore<T extends Exome, R = T>(
 	}
 
 	const unsubscribe = subscribe(store, render);
-	onCleanup(() => unsubscribe);
+	onCleanup(unsubscribe);
 
 	return value;
 }

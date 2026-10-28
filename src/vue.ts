@@ -30,7 +30,7 @@ export function useStore<T extends Exome>(store: T): Readonly<T> {
 		});
 	}
 
-	watchEffect(() => subscribe(store, render), {
+	watchEffect((onCleanup) => onCleanup(subscribe(store, render)), {
 		flush: "pre",
 	});
 
