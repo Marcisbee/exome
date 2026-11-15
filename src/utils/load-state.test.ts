@@ -1,8 +1,8 @@
 import { test } from "uvu";
 import assert from "uvu/assert";
 
-import { Exome, exomeId } from "exome";
-import { loadState, registerLoadable } from "exome/state";
+import { Exome, exomeId, getExomeId } from "exome";
+import { loadState, registerLoadable, saveState } from "exome/state";
 
 test("exports `loadState`", () => {
 	assert.ok(loadState);
@@ -304,6 +304,53 @@ test("creates proper instances with circular state", () => {
 	assert.equal(target.persons[0].name, "John");
 	assert.equal(target.persons[0].friends.length, 1);
 	assert.is(target.persons[0].friends[0], target.persons[0]);
+});
+
+test("preserves bulk store identities and values across save/load with repeated entropy", () => {
+	class Todo extends Exome {
+		constructor(public title = "") {
+			super();
+		}
+	}
+	class TodoList extends Exome {
+		public items: Todo[] = [];
+		public selected?: Todo;
+	}
+	registerLoadable({ Todo, TodoList });
+
+	const originalNow = Date.now;
+	const originalRandom = Math.random;
+	let now = originalNow();
+	Date.now = () => now;
+	Math.random = () => 0.5;
+	try {
+		const ids = new Set<string>();
+		for (let run = 0; run < 10; run++) {
+			// Exercise a frozen clock, clock rollback, and a later timestamp.
+			now += run % 2 === 0 ? -1 : 2;
+			const list = new TodoList();
+			const titles = Array.from({ length: 500 }, (_, i) => `item-${run}-${i}`);
+			list.items = titles.map((title) => new Todo(title));
+			list.selected = list.items[250];
+			for (const item of list.items) {
+				ids.add(getExomeId(item));
+			}
+
+			const copy = new TodoList();
+			loadState(copy, saveState(list));
+			assert.equal(
+				copy.items.map((item) => item.title),
+				titles,
+			);
+			assert.is(new Set(copy.items).size, 500);
+			assert.equal(copy.items.map(getExomeId), list.items.map(getExomeId));
+			assert.is(copy.selected, copy.items[250]);
+		}
+		assert.is(ids.size, 5000);
+	} finally {
+		Date.now = originalNow;
+		Math.random = originalRandom;
+	}
 });
 
 test.run();
