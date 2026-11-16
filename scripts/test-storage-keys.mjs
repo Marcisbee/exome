@@ -34,6 +34,14 @@ loadState(restored, saveState(new Root()));
 export const restoredValue = restored.child.value;
 export const restoredId = getExomeId(restored.child);
 export const freshIds = [getExomeId(new Preferences()), getExomeId(new Preferences())];
+// Reads above have warmed the ID cache. Public writes and registration must
+// still update it, including suffixes containing hyphens.
+setExomeId(store, 'updated-with-suffix');
+export const updatedId = getExomeId(store);
+registerLoadable({ RenamedPreferences: Preferences });
+export const renamedId = getExomeId(store);
+store[exomeId] = 'OldName-direct-write';
+export const assignedId = getExomeId(store);
 `,
 					resolveDir: process.cwd(),
 				},
@@ -53,6 +61,9 @@ export const freshIds = [getExomeId(new Preferences()), getExomeId(new Preferenc
 				`${minify}/${padding}/${timing}`,
 			);
 			assert.equal(result.rawId, result.id);
+			assert.equal(result.updatedId, "Preferences-updated-with-suffix");
+			assert.equal(result.renamedId, "RenamedPreferences-updated-with-suffix");
+			assert.equal(result.assignedId, "RenamedPreferences-direct-write");
 			assert.equal(result.restoredId, result.id);
 			assert.equal(result.restoredValue, result.previous + 1);
 			assert.notEqual(...result.freshIds);
