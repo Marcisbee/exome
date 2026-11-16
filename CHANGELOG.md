@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.9.4
+
+### Bugfix
+* Prevent generated store ID collisions and saved-state data loss during bulk creation, including when the clock moves backwards.
+* Cache timestamp text to keep bulk ID generation fast while preserving existing saved-state compatibility.
+
 ## 2.9.3
 
 ### Bugfix
