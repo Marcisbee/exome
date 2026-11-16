@@ -7,12 +7,25 @@ import { wrapper } from "./utils/wrapper.ts";
  * Class that every store extends from.
  */
 export class Exome {
-	private [exomeId]: string;
+	private [exomeId]!: string;
 	private [exomeName]!: string;
 
 	constructor() {
 		const name = this[exomeName] || this[CONSTRUCTOR].name;
-		this[exomeId] = name + "-" + createID();
+		let id = name + "-" + createID();
+		Object.defineProperty(this, exomeId, {
+			enumerable: true,
+			configurable: true,
+			// Registration can happen after construction. Resolve its stable name
+			// when reading the ID, preserving the complete instance suffix.
+			get: () => {
+				const registeredName = this[exomeName];
+				return registeredName ? registeredName + id.slice(id.indexOf("-")) : id;
+			},
+			set: (value: string) => {
+				id = value;
+			},
+		});
 		const after = runMiddleware(this, "NEW", []);
 
 		// Run this code after child constructor to get all the parameters right.
