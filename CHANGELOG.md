@@ -1,5 +1,12 @@
 # Changelog
 
+## 2.9.5
+
+### Bugfix
+* Apply registered store names to existing instances so persistent storage keys remain stable across minified builds.
+* Share ID accessors and cache resolved names to avoid per-instance closures and repeated string rebuilding.
+* Document stable persistence suffixes and registration timing; previously saved minified keys require application-specific migration.
+
 ## 2.9.4
 
 ### Bugfix
