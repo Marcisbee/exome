@@ -1,6 +1,6 @@
 {
   "name": "exome",
-  "version": "2.9.4",
+  "version": "2.9.5",
   "description": "State manager for deeply nested states",
   "main": "./dist/exome.js",
   "module": "./dist/exome.mjs",
@@ -10,7 +10,7 @@
     "dev": "node ./scripts/dev.mjs",
     "lint": "biome ci src scripts",
     "lint:apply": "biome check src scripts --write --unsafe",
-    "test": "uvu -r esbuild-register -i e2e && npm run test:adapters",
+    "test": "uvu -r esbuild-register -i e2e && npm run test:adapters && node scripts/test-storage-keys.mjs",
     "e2e": "uvu -r esbuild-register -i src",
     "coverage": "c8 --check-coverage npm test",
     "declarations": "tsc --declarationDir dist --emitDeclarationOnly --declaration",

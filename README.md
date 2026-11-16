@@ -526,6 +526,26 @@ registerLoadable({
 })
 ```
 
+Registration keys provide stable store names even when production builds minify class names.
+Registration also applies to existing instances, preserving their instance ID suffix.
+Register before using IDs as storage keys or saving state; registration cannot migrate
+keys or saved state that already used a minified name.
+
+Generated instance ID suffixes are unique, not stable across reloads. For a persistent
+key, register a stable name and assign a stable suffix:
+
+```ts
+import { getExomeId, setExomeId } from "exome"
+
+registerLoadable({ Counter })
+const counter = new Counter()
+setExomeId(counter, "store")
+const key = `exome-${getExomeId(counter)}` // exome-Counter-store
+```
+
+Use distinct suffixes when persisting multiple instances of the same registered class.
+Keep registration keys stable and exclude them from property-name mangling.
+
 ### `addMiddleware`
 Function that adds middleware to Exome. It takes in callback that will be called every time before an action is called.
 
